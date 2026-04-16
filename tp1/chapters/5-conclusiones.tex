@@ -6,35 +6,62 @@ A partir de la experiencia de laboratorio, el grupo de trabajo expone las siguie
     \item \textbf{Sentido de las pasadas:} ¿Cuál es el sentido de efectuar una pasada hacia arriba y otra hacia abajo
         durante la contrastación del voltímetro? ¿Sería mejor promediar varias series de pasadas (cuatro o cinco)?
         ¿Supondría ventaja o mejora?
-    \\ \textit{[Respuesta...]}
+    \\ \textit{Efectuar una pasada en sentido ascendente y otra en sentido descendente permite detectar el error de
+        histéresis y los efectos de rozamiento en el mecanismo móvil del instrumento analógico. La histéresis se
+        manifiesta cuando la aguja indica valores ligeramente distintos para una misma magnitud de entrada,
+        dependiendo de si se llegó a dicho valor aumentando o disminuyendo la señal. Respecto a promediar varias
+        series (cuatro o cinco), si bien estadísticamente mejora la estimación al reducir el error aleatorio, en la
+        práctica con instrumentos de aguja la mejora es marginal ya que el error sistemático y la resolución del
+        instrumento suelen ser predominantes.}
 
     \item \textbf{Taller de mantenimiento:} Averigüe si en el Taller de mantenimiento del laboratorio el instrumental es
         sometido a contrastaciones periódicas.
-    \\ \textit{[Respuesta...]}
+    \\ \textit{Los empleados del pañol del laboratorio central de Electronica de la Universidad Nacional Tecnologica
+    Facultad regional Córdoba contrastan preiodicamente todos los instrumentos.}
 
     \item \textbf{Instrumentos de referencia en el laboratorio:} Elabore una lista de al menos tres instrumentos que
         existan en el laboratorio que podrían ser usados como referencia (patrón), incluyendo su especificación de
         exactitud.
-    \\ \textit{[Respuesta...]}
+    \\ \textit{Se identifican como posibles patrones: 1) Multímetro digital de banco Keysight 34461A (6½ dígitos),
+        con exactitud básica en DCV de $\pm 0,0035\%$. 2) Calibrador multifunción Fluke 5502A, con incertidumbres
+        del orden de ppm. 3) Resistores patrón individuales (ej. Vishay), con tolerancias de hasta $0,01\%$ y alta
+        estabilidad térmica.}
 
     \item \textbf{Validez de la curva:} En el instrumento UNIVO contrastado, ¿Por cuánto tiempo estima que será válida
         la curva obtenida? ¿Cuáles serían las causas que obligarían a efectuar un nuevo procedimiento de contrastación?
-    \\ \textit{[Respuesta...]}
+    \\ \textit{Se estima una validez de un año (intervalo estándar). Las causas para una nueva contrastación incluyen:
+        golpes mecánicos que afecten el equilibrio de la aguja, sobrecargas eléctricas que degraden los componentes
+        internos, reparaciones o el cumplimiento del periodo de calibración estipulado.}
 
     \item \textbf{Métodos de 4 terminales:} ¿Qué ventajas presentan los métodos de medición con 4 terminales por sobre
         los métodos convencionales (óhmetro de 2 puntas)?
-    \\ \textit{[Respuesta...]}
+    \\ \textit{La ventaja fundamental es la eliminación del error introducido por la resistencia de los cables de
+        prueba y las resistencias de contacto. Mientras que en 2 puntas estas se suman a la medición (crítico en bajas
+        resistencias), en 4 puntas la corriente y la tensión se manejan por lazos independientes, garantizando que no
+        haya caída de tensión en los cables de medida.}
 
     \item \textbf{Caja de resistencias de precisión:} Realice una búsqueda sobre "caja de resistencias de precisión".
         Busque hojas de especificaciones e interprete las correspondientes a la incertidumbre.
-    \\ \textit{[Respuesta...]}
+    \\ \textit{Las cajas de décadas de precisión especifican su incertidumbre como una combinación de un error
+        porcentual (ej. $0,01\%$) y una resistencia residual de contacto (ej. $2 m\Omega$). Esto implica que a
+        valores bajos de resistencia predomina el error de contacto de las llaves, mientras que a valores altos domina
+        la exactitud de los resistores internos.}
 
     \item \textbf{Fuente SK150 (LM317):} La fuente de corriente propuesta es simple pero efectiva. Busque la hoja de
         datos del Circuito integrado LM317 e investigue cómo funciona y cómo mantiene la corriente constante.
-    \\ \textit{[Respuesta...]}
+    \\ \textit{El LM317 funciona como fuente de corriente aprovechando su tensión de referencia interna ($V_{ref}$) de
+        $1,25 V$ que se mantiene constante entre los terminales OUT y ADJ. Al colocar una resistencia de ajuste
+        ($R_{set}$) entre estos terminales, el integrado ajusta su conducción para forzar que dicha tensión caiga en
+        la resistencia, estableciendo una corriente $I \approx 1,25 V / R_{set}$. Debido a que la corriente del pin de
+        ajuste es despreciable ($\approx 50 \mu A$), la corriente de salida permanece constante independientemente de
+        las variaciones en la carga, siempre que se respete la tensión de dropout necesaria para el funcionamiento
+        lineal del dispositivo.}
 
     \item \textbf{Propagación de incertidumbre:} La ecuación empleada asume que los errores parciales se suman (peor
         caso). Algunos autores sugieren que se obtiene una mejor estimación efectuando la \textit{raíz cuadrada de la
         suma de los cuadrados} de los errores parciales. Compare ambos enfoques.
-    \\ \textit{[Respuesta...]}
+    \\ \textit{La suma lineal representa el "peor caso" asumiendo que todos los errores actúan con el mismo signo
+        simultáneamente (enfoque muy conservador). El método de raíz cuadrada de la suma de los cuadrados (RSS) se
+        basa en la independencia estadística de los errores y es el estándar de la norma GUM, proporcionando una
+        estimación más realista y menos pesimista de la incertidumbre expandida.}
 \end{itemize}
