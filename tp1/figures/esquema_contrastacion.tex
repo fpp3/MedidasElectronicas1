@@ -1,0 +1,19 @@
+\begin{circuitikz}[american, scale=1.1]
+    % Fuente Vcc
+    \draw (0, 0) rectangle (2, 2) node[midway] {\Large Vcc};
+    
+    % Línea superior
+    \draw (2, 1.6) -- (8.5, 1.6);
+    
+    % Línea inferior
+    \draw (2, 0.4) -- (8.5, 0.4);
+    
+    % Instrumento Patrón
+    \draw (4, 1.6) to[voltmeter, *-*] (4, 0.4);
+    \node[anchor=west, align=left, xshift=0.6cm] at (4, 1) {Instrumento\\Patrón};
+    
+    % Instrumento Contrastado
+    \draw (8.5, 1.6) to[voltmeter, *-*] (8.5, 0.4);
+    \node[anchor=west, align=left, xshift=0.6cm] at (8.5, 1) {Instrumento\\Contrastado};
+    
+\end{circuitikz}

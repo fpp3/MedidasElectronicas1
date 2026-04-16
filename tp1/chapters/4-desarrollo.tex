@@ -3,6 +3,13 @@
 \section{Experimento 1: Contrastación de Voltímetro Analógico}
 Se montó un esquema en paralelo entre la fuente, el multímetro analógico UNIVO y el patrón digital Pro'sKit MT-1210. 
 
+\begin{figure}[!ht]
+    \centering
+    \input{figures/esquema_contrastacion.tex}
+    \caption{Figura 2 - Esquema para contrastación.}
+    \label{fig:esquema_contrastacion}
+\end{figure}
+
 Se procedió a variar la tensión de la fuente, alineando la aguja del UNIVO exactamente sobre las divisiones de la escala
 ($V_L$), y tomando la lectura del patrón digital ($V_P$). Se efectuó una pasada ascendente y una descendente para
 contemplar histéresis y rozamiento mecánico del galvanómetro.
@@ -144,11 +151,46 @@ dig.})$.
 
 Para medir la resistencia de la jabalina del "Laboratorio Central de Electrónica" (caja ubicada debajo del pizarrón), se
 empleó el telurímetro UNI-T UT522 con un montaje de electrodos auxiliares sobre paños húmedos en el piso del pasillo
-exterior, emulando una malla conductora. Se seleccionó inicialmente el rango de $4000 \ohm$.
+exterior, emulando una malla conductora. Se seleccionó inicialmente el rango de $400 \Omega$ y luego se bajó al de
+$40 \Omega$ para obtener mayor resolución.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/SetupjMedicionRJabalina_1.jpeg}
+        \caption{Disposición de los electrodos auxiliares en el pasillo.}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/SetupjMedicionRJabalina_2.jpeg}
+        \caption{Conexión a la bornera de puesta a tierra (jabalina).}
+    \end{subfigure}
+    \caption{Montaje para la medición de resistencia de tierra.}
+    \label{fig:setup_jabalina}
+\end{figure}
 
 \begin{itemize}
-    \item \textbf{Valor leído $R(Jabalina)$:} $\dots \ohm$
+    \item \textbf{Valor leído $R(Jabalina)$:} $0,79 \ohm$ (en escala de $40 \ohm$).
 \end{itemize}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/MedicionRjabalibna_escala_400ohm.jpeg}
+        \caption{Lectura en escala de $400 \ohm$ ($0,8 \ohm$).}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/MedicionRjabalibna_escala_40ohm.jpeg}
+        \caption{Lectura en escala de $40 \ohm$ ($0,79 \ohm$).}
+    \end{subfigure}
+    \caption{Comparación de lecturas según la escala seleccionada.}
+    \label{fig:lecturas_jabalina}
+\end{figure}
 
 De acuerdo al manual del instrumento, las especificaciones son:
 \begin{itemize}
@@ -156,9 +198,12 @@ De acuerdo al manual del instrumento, las especificaciones son:
     \item Rangos $400 \ohm$ y $4000 \ohm$: $\pm(2.0 \percent + 3)$
 \end{itemize}
 
-Considerando la lectura obtenida, la incertidumbre presente en la medición es:
-\begin{itemize}
-    \item \textbf{$R_j$ (con incertidumbre):} $\dots \pm \dots \ohm$
+Considerando la lectura obtenida en el rango de $40 \ohm$, la incertidumbre presente en la medición es:
+\begin{equation}
+    \Delta R = 0,79 \ohm \cdot 0,02 + 20 \cdot 0,01 \ohm = 0,0158 \ohm + 0,20 \ohm = 0,2158 \ohm \approx 0,22 \ohm
+\end{equation}
 
+\begin{itemize}
+    \item \textbf{$R_j$ (con incertidumbre):} $(0,79 \pm 0,22) \ohm$
 \end{itemize}
 
