@@ -1,28 +1,34 @@
 \documentclass[]{informeutn}
 \usepackage{subcaption}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{circuitikz}
 
 % --- Configuración de la Carátula ---
-\titulo{Trabajo Práctico de Laboratorio Nro. 1}
+\titulo{Trabajo Práctico de Laboratorio N° 1}
 \subtitulo{Error e Incertidumbre en la medición de tensión, corriente y resistencia}
 \materia{Medidas Electrónicas I}
-\comision{4R1} 
+\comision{4R2} 
 \autores{
-    Apellido1, Nombre1 \\
-    Apellido2, Nombre2 \\
-    Apellido3, Nombre3 \\
-    Apellido4, Nombre4
+    Gil, Ignacio - 101891\\
+    Grasso, Gaston - 401892\\
+    Palombo, Franco - 401910\\
+    Prieto, Angelo - 401012
 }
 \fecha{\today}
 
 \begin{document}
+  \maketitle
+  
+  \tableofcontents
+  \setcounter{page}{1}
+  \thispagestyle{plain}
 
-\maketitle
-
-\input{chapters/1_integrantes_roles}
-\input{chapters/2_introduccion_objetivos}
-\input{chapters/3_materiales_instrumental}
-\input{chapters/4_desarrollo_experimental}
-\input{chapters/5_conclusiones_discusion}
-\input{chapters/6_grilla_evaluacion}
+  \input{chapters/1-integrantes.tex}
+  \input{chapters/2-introduccion.tex}
+  \input{chapters/3-materiales.tex}
+  \input{chapters/4-desarrollo.tex}
+  \input{chapters/5-conclusiones.tex}
+  \input{chapters/6-evaluacion.tex}
 
 \end{document}
