@@ -125,9 +125,65 @@ Los errores relativos parciales se suman para obtener el error relativo máximo 
 \end{equation}
 
 Las incertidumbres $\Delta V$ y $\Delta I$ se obtienen de los manuales de los instrumentos. Para el multímetro UNI-T
-UT33A+ (usado como milivoltímetro en rango $200 \mV$), asumimos una exactitud típica de $\pm(0.5 \percent + 2 \text{
-dig.})$. Para el Pro'sKit MT-1210 (usado como miliamperímetro en rango $200 \mA$), asumimos $\pm(1.2 \percent + 2 \text{
-dig.})$.
+UT33A+ (usado como milivoltímetro en rango $200.0 \mV$, con una resolución de
+0,1mV), se tiene una exactitud de $\pm(0,7 \percent + 3 \text{
+dig.})$ según el manual del fabricante. Para el Pro'sKit MT-1210 (usado como
+miliamperímetro en rango $10 \A$, con una resolución de 0,1A), se tiene una 
+exactitud de $\pm(3,0 \percent + 5 \text{ dig.})$. Se usó el rango de 10A para
+medir corriente debido a una imposibilidad de usar otros rangos inferiores 
+(fusibles correspondientes quemados).
+
+Considerando a la especificación de exactitud como:
+
+\begin{equation}
+    \pm\left(a\percent\,\text{rdg} + b\,\text{dig}\right)
+    \label{eq:exactitud}
+\end{equation}
+
+el cálculo para la incertidumbre es:
+
+\begin{equation}
+    \Delta x = \pm\left(\frac{a\percent \cdot \text{lectura}}{100} + b \cdot \text{último dígito}\right)
+    \label{eq:calculo_incertidumbre}
+\end{equation}
+
+Entonces:
+
+\begin{equation}
+    \Delta V = \pm\left(\frac{0,7\percent \cdot 56,8[\mV]}{100} + 3 \cdot 0,1[\mV]\right) = 0,6976\mV
+    \label{eq:incertidumbre_tension}
+\end{equation}
+
+\begin{equation}
+    \Delta I= \pm\left(\frac{3\percent \cdot 0,1[\A]}{100} + 5 \cdot 0,1[\A]\right) = 0,503A
+    \label{eq:incertidumbre_corriente}
+\end{equation}
+
+Para la incertidumbre relativa se tiene que:
+
+\begin{equation}
+    \frac{\Delta V}{V} = \frac{0,6976\mV}{56,8\mV} = 0,0123
+    \label{eq:incertidumbre_rel_tension}
+\end{equation}
+
+\begin{equation}
+    \frac{\Delta I}{I} = \frac{0,503A}{0,1A} = 5,03
+    \label{eq:incertidumbre_rel_corriente}
+\end{equation}
+
+Con estos valores se puede determinar la incertidumbre de la resistencia medida:
+
+\begin{equation}
+    \frac{\Delta R}{R} = \frac{\Delta V}{V} + \frac{\Delta I}{I} = 0,0123 + 5,03 = 5,0423
+    \label{eq:incertidumbre_resistencia}
+\end{equation}
+
+\begin{equation}
+    \Delta R = \frac{\Delta R}{R} \cdot R = 5,0423 \cdot 0,568 = 2,86 \Omega
+    \label{eq:incertidumbre_prop}
+\end{equation}
+
+Estos valores se resumen en el cuadro \ref{tab:incertidumbres}.
 
 \begin{table}[!ht]
     \centering
@@ -136,15 +192,15 @@ dig.})$.
         \hline
         Magnitud & Valor Medido & Incertidumbre Abs. ($\Delta x$) & Inc. Relativa $\left(\frac{\Delta x}{X}\right)$ &
         Inc. Rel. Porcentual $\left(\frac{\Delta x}{X} \cdot 100\right)$ \\ \hline
-        $V$ & $56,8 \mV$ & $0,484 \mV$ & 0,0085 & $0,85 \percent$ \\ \hline
-        $I$ & $100,0 \mA$ & $1,4 \mA$ & 0,0140 & $1,40 \percent$ \\ \hline
-        $R = V/I$ & $0,568 \ohm$ & $0,013 \ohm$ & 0,0225 & $2,25 \percent$ \\ \hline
+        $V$ & $56,8 \mV$ & $0,6976 \mV$ & 0,0123 & $1,23 \percent$ \\ \hline
+        $I$ & $100,0 \mA$ & $503 \mA$ & 5,03 & $503 \percent$ \\ \hline
+        $R = V/I$ & $0,568 \ohm$ & $2,86 \ohm$ & 5,0423 & $504,23 \percent$ \\ \hline
     \end{tabular}}
     \caption{Desglose de valores de incertidumbre.}
     \label{tab:incertidumbres}
 \end{table}
 
-\textbf{Resultado Final:} $R = (0,568 \pm 0,013) \ohm$
+\textbf{Resultado Final:} $R = (0,568 \pm 2,86) \ohm$
 
 \section{Experimento 3: Resistencia de un Sistema de Puesta a Tierra}
 \textbf{Fecha de la experiencia:} Jueves 27 de Marzo en el horario de clases.
