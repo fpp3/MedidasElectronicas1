@@ -1,19 +1,42 @@
-\chapter{Conclusiones y Discusión Grupal}
+\chapter{Conclusión}
 
-A partir de la experiencia de laboratorio realizada, se presentan las siguientes conclusiones integradoras. El desarrollo de los ensayos permitió profundizar en la naturaleza de la medición física y la importancia del instrumental.
+El desarrollo de los ensayos permitió profundizar en la naturaleza de la medición física y la 
+importancia crítica del instrumental de referencia dentro del entorno de laboratorio. En primera instancia, la 
+contrastación del voltímetro analógico puso de manifiesto fenómenos metrológicos fundamentales, donde la realización 
+de pasadas ascendentes y descendentes permitió identificar la histéresis del instrumento, un error sistemático derivado
+de la fricción mecánica y las propiedades elásticas de los resortes internos. Si bien realizar una única serie de dos
+pasadas es suficiente para detectar la presencia de este fenómeno, efectuar cuatro o cinco series adicionales y 
+trabajar con el promedio o la mediana de los valores permitiría reducir significativamente la incertidumbre de tipo A,
+asociada a errores aleatorios y de repetibilidad, dotando a la curva de contrastación de una mayor robustez 
+estadística.
 
-En primera instancia, la contrastación del voltímetro analógico puso de manifiesto fenómenos metrológicos críticos. La realización de pasadas ascendentes y descendentes permitió identificar la histéresis del instrumento, un error sistemático derivado de la fricción mecánica y las propiedades elásticas de los resortes internos. Si bien la realización de múltiples series de pasadas podría mejorar la repetibilidad al reducir errores aleatorios, se determinó que dos pasadas constituyen el compromiso mínimo necesario para detectar comportamientos bidireccionales sin enmascarar errores sistemáticos.
+Tras consultar en el pañol del Laboratorio Central de Electrónica de la UTN FRC, se confirmó que el
+instrumental de medición es sometido a contrastaciones periódicas para garantizar la trazabilidad de las mediciones,
+identificándose equipos de relativa alta precision para actuar como patrones frente a otros instrumentos como por
+ejemplo el multímetro digital autorango UT61D, Wavetek DM27XT, y Escort MD-82. La validez de la curva obtenida para el 
+instrumento ensayado se estima en un periodo de 6 a 12 meses, siempre que no sufra golpes mecánicos o sobrecargas
+eléctricas que alteren su estado físico o magnético. El hallazgo de que el voltímetro UNIVO se encuentra fuera de su 
+clase original ($6\%$ experimental frente al $2,5\%$ de catálogo) subraya la necesidad imperativa de contar con patrones
+confiables. 
 
-La validez de la curva de contrastación obtenida se estima en un periodo de 6 a 12 meses, siempre que el instrumento no
-sufra golpes mecánicos o sobrecargas eléctricas que obliguen a un nuevo procedimiento. Un hallazgo fundamental de este
-experimento fue que el voltímetro UNIVO se encuentra fuera de su clase original ($6 \percent$ experimental frente al
-$2,5 \percent$ de catálogo), lo que resalta la necesidad de contar con patrones de referencia confiables en el
-laboratorio, tales como los multímetros Pro'sKit MT-1210, UNI-T UT33A+ o cajas de décadas de precisión como la Time
-Electronics 1051 (ver Anexo \ref{anexo:hoja_datos}).
+Respecto a la medición de baja resistencia, el empleo del método de cuatro terminales
+demostró su superioridad técnica al eliminar los errores introducidos por la resistencia de contacto y de los 
+cables de prueba, utilizando para ello una fuente de corriente SK-150 que mantiene una corriente constante. No obstante,
+la experiencia evidenció que el método es tan robusto como el instrumental que lo implementa, ya que el
+uso forzado de un rango de $10\text{A}$ para medir corrientes del orden de los $100\text{mA}$ —debido a fallas en las 
+escalas bajas del patrón— resultó en una incertidumbre relativa del $503\%$, invalidando la precisión del resultado 
+final. Finalmente, el análisis de la propagación de incertidumbre permitió validar que el enfoque de raíz cuadrada de 
+la suma de cuadrados (RSS) proporciona una estimación más realista que la suma lineal, al contemplar la baja 
+probabilidad de que todas las fuentes de error alcancen sus valores máximos simultáneamente, reafirmando que la
+medición profesional exige un análisis crítico de la trazabilidad y la correcta interpretación de las hojas de datos.
 
-En cuanto a la medición de baja resistencia, el empleo del método de cuatro terminales (Kelvin) demostró su superioridad técnica al eliminar los errores introducidos por la resistencia de contacto y de los cables de prueba. Para este ensayo, se utilizó una fuente de corriente basada en el regulador lineal LM317, el cual mantiene una corriente constante mediante una tensión de referencia estable (esquema detallado en el Anexo \ref{anexo:lm317}). Sin embargo, la experiencia evidenció que el método es tan robusto como el instrumental que lo implementa: debido a fallas técnicas en los rangos bajos del multímetro patrón, se debió emplear un rango de $10 \A$ para medir corrientes del orden de los $100 \mA$. Esto resultó en una incertidumbre relativa extremadamente elevada ($503 \percent$), invalidando la precisión del resultado final y dejando una lección práctica sobre la importancia de la correcta selección de escalas.
+Respecto a la caja de resistencias de precisión (o caja de décadas) es un instrumento que permite seleccionar valores de 
+resistencia específicos mediante conmutadores rotativos. Se adjunta la hoja de especificaciones de la caja de
+resistencias Time Electronics 1051 \ref{anexo:1051}. Con este instrumento y un medidor universal de impedancias en base
+a puente de Wheatstone, se puede medir cualquier resistencia con muy alta precisión.
 
-Sobre este último punto, el análisis de la propagación de incertidumbre permitió comparar el método de suma lineal frente al de raíz cuadrada de la suma de cuadrados (RSS). Se concluyó que el enfoque RSS proporciona una estimación más realista y probable según la normativa GUM, ya que contempla la baja probabilidad de que todas las fuentes de error alcancen sus valores máximos simultáneamente.
-
-Finalmente, la medición de la resistencia de puesta a tierra mediante el uso de paños húmedos en el pasillo exterior resultó ser una adaptación efectiva ante la falta de terreno natural. El valor obtenido ($0,79 \ohm$) cumple satisfactoriamente con los niveles de seguridad, aunque se reconoce la influencia de la resistencia de contacto del montaje. En conjunto, las prácticas de laboratorio permitieron comprender que la medición profesional trasciende la simple lectura de un display, exigiendo un análisis crítico de la trazabilidad, el estado del instrumental y la correcta interpretación de las hojas de datos.
+Por otro lado, el LM317 es un regulador de tensión ajustable. Su principio de
+funcionamiento se basa en una referencia de tensión interna de $V_{ref} = 1,25\text{V}$ (típica) que el integrado 
+mantiene de forma constante entre los terminales OUT (Salida) y ADJ (Ajuste). Se adjunta circuito tipico de aplicacion
+del integrado \ref{anexo:lm317}
 
