@@ -1,67 +1,19 @@
 \chapter{Conclusiones y Discusión Grupal}
 
-A partir de la experiencia de laboratorio, el grupo de trabajo expone las siguientes resoluciones:
+A partir de la experiencia de laboratorio realizada, se presentan las siguientes conclusiones integradoras. El desarrollo de los ensayos permitió profundizar en la naturaleza de la medición física y la importancia del instrumental.
 
-\begin{itemize}
-    \item \textbf{Sentido de las pasadas:} ¿Cuál es el sentido de efectuar una pasada hacia arriba y otra hacia abajo
-        durante la contrastación del voltímetro? ¿Sería mejor promediar varias series de pasadas (cuatro o cinco)?
-        ¿Supondría ventaja o mejora?
-    \\ \textit{Efectuar una pasada en sentido ascendente y otra en sentido descendente permite detectar el error de
-        histéresis y los efectos de rozamiento en el mecanismo móvil del instrumento analógico. La histéresis se
-        manifiesta cuando la aguja indica valores ligeramente distintos para una misma magnitud de entrada,
-        dependiendo de si se llegó a dicho valor aumentando o disminuyendo la señal. Respecto a promediar varias
-        series (cuatro o cinco), si bien estadísticamente mejora la estimación al reducir el error aleatorio, en la
-        práctica con instrumentos de aguja la mejora es marginal ya que el error sistemático y la resolución del
-        instrumento suelen ser predominantes.}
+En primera instancia, la contrastación del voltímetro analógico puso de manifiesto fenómenos metrológicos críticos. La realización de pasadas ascendentes y descendentes permitió identificar la histéresis del instrumento, un error sistemático derivado de la fricción mecánica y las propiedades elásticas de los resortes internos. Si bien la realización de múltiples series de pasadas podría mejorar la repetibilidad al reducir errores aleatorios, se determinó que dos pasadas constituyen el compromiso mínimo necesario para detectar comportamientos bidireccionales sin enmascarar errores sistemáticos.
 
-    \item \textbf{Taller de mantenimiento:} Averigüe si en el Taller de mantenimiento del laboratorio el instrumental es
-        sometido a contrastaciones periódicas.
-    \\ \textit{Los empleados del pañol del laboratorio central de Electronica de la Universidad Nacional Tecnologica
-    Facultad regional Córdoba contrastan preiodicamente todos los instrumentos.}
+La validez de la curva de contrastación obtenida se estima en un periodo de 6 a 12 meses, siempre que el instrumento no
+sufra golpes mecánicos o sobrecargas eléctricas que obliguen a un nuevo procedimiento. Un hallazgo fundamental de este
+experimento fue que el voltímetro UNIVO se encuentra fuera de su clase original ($6 \percent$ experimental frente al
+$2,5 \percent$ de catálogo), lo que resalta la necesidad de contar con patrones de referencia confiables en el
+laboratorio, tales como los multímetros Pro'sKit MT-1210, UNI-T UT33A+ o cajas de décadas de precisión como la Time
+Electronics 1051 (ver Anexo \ref{anexo:hoja_datos}).
 
-    \item \textbf{Instrumentos de referencia en el laboratorio:} Elabore una lista de al menos tres instrumentos que
-        existan en el laboratorio que podrían ser usados como referencia (patrón), incluyendo su especificación de
-        exactitud.
-    \\ \textit{Se identifican como posibles patrones: 1) Multímetro digital de banco Keysight 34461A (6½ dígitos),
-        con exactitud básica en DCV de $\pm 0,0035\%$. 2) Calibrador multifunción Fluke 5502A, con incertidumbres
-        del orden de ppm. 3) Resistores patrón individuales (ej. Vishay), con tolerancias de hasta $0,01\%$ y alta
-        estabilidad térmica.}
+En cuanto a la medición de baja resistencia, el empleo del método de cuatro terminales (Kelvin) demostró su superioridad técnica al eliminar los errores introducidos por la resistencia de contacto y de los cables de prueba. Para este ensayo, se utilizó una fuente de corriente basada en el regulador lineal LM317, el cual mantiene una corriente constante mediante una tensión de referencia estable (esquema detallado en el Anexo \ref{anexo:lm317}). Sin embargo, la experiencia evidenció que el método es tan robusto como el instrumental que lo implementa: debido a fallas técnicas en los rangos bajos del multímetro patrón, se debió emplear un rango de $10 \A$ para medir corrientes del orden de los $100 \mA$. Esto resultó en una incertidumbre relativa extremadamente elevada ($503 \percent$), invalidando la precisión del resultado final y dejando una lección práctica sobre la importancia de la correcta selección de escalas.
 
-    \item \textbf{Validez de la curva:} En el instrumento UNIVO contrastado, ¿Por cuánto tiempo estima que será válida
-        la curva obtenida? ¿Cuáles serían las causas que obligarían a efectuar un nuevo procedimiento de contrastación?
-    \\ \textit{Se estima una validez de un año (intervalo estándar). Las causas para una nueva contrastación incluyen:
-        golpes mecánicos que afecten el equilibrio de la aguja, sobrecargas eléctricas que degraden los componentes
-        internos, reparaciones o el cumplimiento del periodo de calibración estipulado.}
+Sobre este último punto, el análisis de la propagación de incertidumbre permitió comparar el método de suma lineal frente al de raíz cuadrada de la suma de cuadrados (RSS). Se concluyó que el enfoque RSS proporciona una estimación más realista y probable según la normativa GUM, ya que contempla la baja probabilidad de que todas las fuentes de error alcancen sus valores máximos simultáneamente.
 
-    \item \textbf{Métodos de 4 terminales:} ¿Qué ventajas presentan los métodos de medición con 4 terminales por sobre
-        los métodos convencionales (óhmetro de 2 puntas)?
-    \\ \textit{La ventaja fundamental es la eliminación del error introducido por la resistencia de los cables de
-        prueba y las resistencias de contacto. Mientras que en 2 puntas estas se suman a la medición (crítico en bajas
-        resistencias), en 4 puntas la corriente y la tensión se manejan por lazos independientes, garantizando que no
-        haya caída de tensión en los cables de medida.}
+Finalmente, la medición de la resistencia de puesta a tierra mediante el uso de paños húmedos en el pasillo exterior resultó ser una adaptación efectiva ante la falta de terreno natural. El valor obtenido ($0,79 \ohm$) cumple satisfactoriamente con los niveles de seguridad, aunque se reconoce la influencia de la resistencia de contacto del montaje. En conjunto, las prácticas de laboratorio permitieron comprender que la medición profesional trasciende la simple lectura de un display, exigiendo un análisis crítico de la trazabilidad, el estado del instrumental y la correcta interpretación de las hojas de datos.
 
-    \item \textbf{Caja de resistencias de precisión:} Realice una búsqueda sobre "caja de resistencias de precisión".
-        Busque hojas de especificaciones e interprete las correspondientes a la incertidumbre.
-    \\ \textit{Las cajas de décadas de precisión especifican su incertidumbre como una combinación de un error
-        porcentual (ej. $0,01\%$) y una resistencia residual de contacto (ej. $2 m\Omega$). Esto implica que a
-        valores bajos de resistencia predomina el error de contacto de las llaves, mientras que a valores altos domina
-        la exactitud de los resistores internos.}
-
-    \item \textbf{Fuente SK150 (LM317):} La fuente de corriente propuesta es simple pero efectiva. Busque la hoja de
-        datos del Circuito integrado LM317 e investigue cómo funciona y cómo mantiene la corriente constante.
-    \\ \textit{El LM317 funciona como fuente de corriente aprovechando su tensión de referencia interna ($V_{ref}$) de
-        $1,25 V$ que se mantiene constante entre los terminales OUT y ADJ. Al colocar una resistencia de ajuste
-        ($R_{set}$) entre estos terminales, el integrado ajusta su conducción para forzar que dicha tensión caiga en
-        la resistencia, estableciendo una corriente $I \approx 1,25 V / R_{set}$. Debido a que la corriente del pin de
-        ajuste es despreciable ($\approx 50 \mu A$), la corriente de salida permanece constante independientemente de
-        las variaciones en la carga, siempre que se respete la tensión de dropout necesaria para el funcionamiento
-        lineal del dispositivo.}
-
-    \item \textbf{Propagación de incertidumbre:} La ecuación empleada asume que los errores parciales se suman (peor
-        caso). Algunos autores sugieren que se obtiene una mejor estimación efectuando la \textit{raíz cuadrada de la
-        suma de los cuadrados} de los errores parciales. Compare ambos enfoques.
-    \\ \textit{La suma lineal representa el "peor caso" asumiendo que todos los errores actúan con el mismo signo
-        simultáneamente (enfoque muy conservador). El método de raíz cuadrada de la suma de los cuadrados (RSS) se
-        basa en la independencia estadística de los errores y es el estándar de la norma GUM, proporcionando una
-        estimación más realista y menos pesimista de la incertidumbre expandida.}
-\end{itemize}
