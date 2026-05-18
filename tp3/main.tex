@@ -1,0 +1,47 @@
+\documentclass[chaptersright]{informeutn}
+
+% --- Paquetes Adicionales ---
+\usepackage[backend=bibtex, style=alphabetic, sorting=ynt]{biblatex}
+\addbibresource{fuentes.bib}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstdefinestyle{ltspice}{
+  backgroundcolor=\color{gray!10},
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  frame=single,
+  breaklines=true,
+  captionpos=b
+}
+
+% --- Configuración de la Carátula ---
+\titulo{Trabajo Práctico de Laboratorio N° 3}
+\subtitulo{Inserte el subtítulo aquí}
+\materia{Medidas Electrónicas I}
+\comision{4R2} 
+\autores{
+    Grasso, Gaston - 401892\\
+    Palombo, Franco - 401910\\
+    Prieto, Angelo - 401012
+}
+\fecha{\today}
+
+\begin{document}
+  \maketitle
+  
+  \tableofcontents
+  \setcounter{page}{1}
+  \thispagestyle{plain}
+
+  \input{chapters/1-introduccion.tex}
+  \input{chapters/2-desarrollo.tex}
+  \input{chapters/3-conclusiones.tex}
+
+  \nocite{*}
+  \printbibliography[heading=bibnumbered, title={Fuentes}]
+
+  \appendix
+  \input{chapters/4-anexos.tex}
+
+\end{document}
