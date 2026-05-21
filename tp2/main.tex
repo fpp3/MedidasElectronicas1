@@ -1,0 +1,54 @@
+\documentclass[chaptersright]{informeutn}
+\usepackage{subcaption}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{circuitikz}
+\usepackage{siunitx}
+\usepackage{pdfpages}
+\usepackage[backend=bibtex, style=alphabetic, sorting=ynt]{biblatex}
+\addbibresource{fuentes.bib}
+
+% --- Comandos Personalizados ---
+\newcommand{\cuadrocontroles}[5]{
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|c|c|c|}
+            \hline
+            \textbf{V/div (C. Y1)} & \textbf{V/div (C. Y2)} & \textbf{T/div} & \textbf{Aten. Y1} & \textbf{Aten. Y2} \\ \hline
+            #1 & #2 & #3 & #4 & #5 \\ \hline
+        \end{tabular}
+    \end{table}
+}
+
+% --- Configuración de la Carátula ---
+\titulo{Trabajo Práctico de Laboratorio N° 2}
+\subtitulo{Análisis y Mediciones de señales en el dominio del tiempo con Osciloscopio Analógico y con Osciloscopio de Almacenamiento Digital}
+\materia{Medidas Electrónicas I}
+\comision{4R2} 
+\autores{
+    Grasso, Gaston - 401892\\
+    Palombo, Franco - 401910\\
+    Prieto, Angelo - 401012
+}
+\fecha{\today}
+
+\begin{document}
+  \maketitle
+  
+  \tableofcontents
+  \setcounter{page}{1}
+  \thispagestyle{plain}
+
+  \input{chapters/1-integrantes.tex}
+  \input{chapters/2-introduccion.tex}
+  \input{chapters/3-materiales.tex}
+  \input{chapters/4-desarrollo.tex}
+  \input{chapters/5-conclusiones.tex}
+
+  \nocite{*}
+  \printbibliography[heading=bibnumbered, title={Fuentes}]
+
+  \appendix
+  \input{chapters/6-anexos.tex}
+
+\end{document}
