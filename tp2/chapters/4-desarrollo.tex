@@ -3,7 +3,7 @@
 \section{Experiencia 1: Calibración de la punta atenuadora}
 Se procedió a la compensación de la punta de prueba X10 utilizando la señal de calibración del osciloscopio (\qty{1}{kHz}, \qty{1}{Vpp}).
 
-\cuadrocontroles{\qty{50}{mV}}{-}{-}{X10}{-}
+\cuadrocontroles{\qty{50}{mV}}{-}{\qty{0.2}{ms}}{X10}{-}
 
 \begin{figure}[!ht]
     \centering
@@ -104,7 +104,7 @@ A continuación se muestra la respuesta en frecuencia de la punta para diferente
 \section{Experiencia 2: Acoplamiento CC/CA de la entrada vertical}
 Se observó el efecto del capacitor de bloqueo en señales de baja frecuencia (\qty{50}{Hz}). Con atenuación X10 en DC y AC, no hubo variación notable.
 
-\cuadrocontroles{\qty{5}{V}}{-}{-}{X1}{-}
+\cuadrocontroles{\qty{5}{V}}{-}{\qty{0.2}{ms}}{X1}{-}
 
 \begin{figure}[!ht]
     \centering
@@ -114,7 +114,7 @@ Se observó el efecto del capacitor de bloqueo en señales de baja frecuencia (\
         \caption{Acoplamiento DC}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.43\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pictures/osc_2_ca.jpeg}
         \caption{Acoplamiento AC}
@@ -123,7 +123,7 @@ Se observó el efecto del capacitor de bloqueo en señales de baja frecuencia (\
 \end{figure}
 
 \section{Experiencia 3: Medición de Vcc y Ripple - Disparo por Línea}
-Se midió la tensión de salida de una fuente.
+Se midió la tensión de salida de la fuente disponible en el pañol para este trabajo practico.
 \begin{itemize}
     \item $V_{CC}$ (no reg): \qty{22.5}{V}
     \item $V_{ripple}$ (pp): \qty{1.83}{V}
@@ -132,16 +132,16 @@ Se midió la tensión de salida de una fuente.
 \end{itemize}
 
 \cuadrocontroles{\qty{500}{mV}}{-}{\qty{5}{ms}}{X10}{-}
-\begin{figure}[!ht]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{pictures/osc_3_vcc.jpeg}
+    \includegraphics[width=0.45\textwidth]{pictures/osc_3_vcc.jpeg}
     \caption{Medición de componente continua ($V_{CC}$).}
 \end{figure}
 
 \cuadrocontroles{\qty{50}{mV}}{-}{\qty{2}{ms}}{X10}{-}
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.6\textwidth]{pictures/osc_3_ripple.jpeg}
+    \includegraphics[width=0.45\textwidth]{pictures/osc_3_ripple.jpeg}
     \caption{Medición de ripple superpuesto.}
 \end{figure}
 
@@ -151,44 +151,64 @@ Se analizó el funcionamiento del trigger. El nivel mínimo de señal que activa
 \cuadrocontroles{\qty{20}{mV}}{-}{\qty{0.5}{ms}}{X1}{-}
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.6\textwidth]{pictures/osc_4.jpeg}
+    \includegraphics[width=0.45\textwidth]{pictures/osc_4.jpeg}
     \caption{Sincronismo con disparo interno.}
 \end{figure}
 
 Para el disparo externo, se obtuvo una frecuencia de \qty{600}{Hz} con $V_{pp} = \qty{200}{mV}$.
-\begin{figure}[!ht]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{pictures/osc_5.jpeg}
+    \includegraphics[width=0.45\textwidth]{pictures/osc_5.jpeg}
     \caption{Sincronismo con disparo externo (SYNC).}
 \end{figure}
 
 \section{Experiencia 6: Modo X-Y y Figuras de Lissajous}
-Se determinó la frecuencia de un generador desconocido.
+Se determinó la frecuencia de un generador desconocido (incluido en la fuente de alimentación) comparándolo con el generador de funciones GFG-3015 como patrón.
+
+\subsection{Medición aproximada}
+Primero se visualizó la señal en modo base de tiempos para obtener un valor estimado de la frecuencia.
+
+\cuadrocontroles{\qty{0.2}{V}}{-}{\qty{0.5}{ms}}{X10}{-}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{pictures/osc_6_single.jpeg}
+    \caption{Medición aproximada de la señal del Generador A.}
+\end{figure}
+
+Observando que un periodo ocupa exactamente 5 divisiones:
+\[ T \approx 5 \text{ div} \times \qty{0.5}{ms/div} = \qty{2.5}{ms} \]
+\[ f \approx \frac{1}{\qty{2.5}{ms}} = \qty{400}{Hz} \]
+
+\subsection{Medición exacta (Lissajous)}
+Se conectó el generador patrón al Canal 2 y se pasó al modo X-Y. Se ajustó la frecuencia del patrón hasta obtener una circunferencia estable ($f_x = f_y$).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{pictures/osc_6_xy.jpeg}
+    \caption{Determinación de la frecuencia exacta mediante figura de Lissajous.}
+\end{figure}
+
+El valor leído directamente en el visor del generador de funciones GFG-3015 fue de \qty{397.59}{Hz}, lo cual representa la frecuencia real de la señal bajo prueba.
 \begin{itemize}
-    \item Frecuencia: \qty{400}{Hz}
+    \item Frecuencia real: \qty{397.59}{Hz}
     \item $V_{pp}$: \qty{1.1}{V}
 \end{itemize}
 
-\cuadrocontroles{\qty{0.2}{V}}{-}{\qty{0.5}{ms}}{X10}{-}
-\begin{figure}[!ht]
-    \centering
-    \includegraphics[width=0.6\textwidth]{pictures/osc_6_xy.jpeg}
-    \caption{Figura de Lissajous en modo X-Y.}
-\end{figure}
 
 \section{Experiencia 7: Uso del Hold-off}
 Se utilizó el control de hold-off para estabilizar un tren de pulsos dobles.
 
 \cuadrocontroles{\qty{0.1}{V}}{-}{\qty{0.5}{ms}}{X10}{-}
-\begin{figure}[!ht]
+\begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.43\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pictures/osc_7_noholdoff.jpeg}
         \caption{Sin Hold-off}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.40\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pictures/osc_7_holdoff.jpeg}
         \caption{Con Hold-off ajustado}
@@ -197,20 +217,50 @@ Se utilizó el control de hold-off para estabilizar un tren de pulsos dobles.
 \end{figure}
 
 \section{Experiencia 8: Modo Doble Trazo}
-Se analizó la relación temporal entre las señales MAIN (CH1) y MOD (CH2).
+Se analizó la relación temporal entre las señales MAIN (tren de pulsos en CH1) y MOD (triangular en CH2) del generador
+de funciones. Esta experiencia permite observar la señal de disparo interna que se utilizó en el punto anterior para
+estabilizar la ráfaga.
 
 \cuadrocontroles{\qty{0.1}{V}}{\qty{1}{V}}{\qty{0.5}{ms}}{X10}{X1}
-\begin{figure}[!ht]
+
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{pictures/osc_8.jpeg}
-    \caption{Comparación de señales en modo Dual.}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \input{figures/exp8_signals.tex}
+        \caption{representación de las señales observadas.}
+        \label{fig:exp8_plot}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/osc_8.jpeg}
+        \caption{oscilograma real.}
+    \end{subfigure}
+    \caption{señales en modo dual}
 \end{figure}
 
-\section{Experiencia 9: Filtros de rechazo de la sección de disparo}
+A partir del oscilograma se determinaron los siguientes parámetros:
+\begin{itemize}
+    \item \textbf{Frecuencia de repetición:} \qty{200}{Hz} (Periodo $T = 10 \text{ div} \times \qty{0.5}{ms/div} =
+        \qty{5}{ms}$).
+    \item \textbf{Canal 1 (Triangular):} $V_{pp} = \qty{4}{V}$.
+    \item \textbf{Canal 2 (MOD):} Se observa un tren de pulsos (burst) de aproximadamente \qty{2}{kHz} contenido dentro
+        de la envolvente de la señal de modulación.
+\end{itemize}
+
+Como se observa en la figura \ref{fig:exp8_plot}, el tren de pulsos en CH2 está sincronizado con la señal triangular de
+CH1, lo que explica por qué el control de Hold-off fue necesario en la experiencia anterior para lograr un disparo
+estable sobre una de las ráfagas.
+
+\begin{figure}[H]
+\end{figure}
+
+
+\section{Experiencia 9: Filtros de rechazo de disparo}
 Se utilizaron los filtros TV-V y TV-H para estabilizar ráfagas de señal de \qty{15.6}{kHz}.
 
 \cuadrocontroles{\qty{0.1}{V}}{-}{\qty{0.5}{ms}}{X10}{-}
-\begin{figure}[!ht]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{pictures/osc_9.jpeg}
     \caption{Visualización de ráfaga de señal.}
