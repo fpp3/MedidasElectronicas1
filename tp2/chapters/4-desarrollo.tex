@@ -82,17 +82,20 @@ A continuación se muestra la respuesta en frecuencia de la punta para diferente
         \hline
         \textbf{f [Hz]} & \textbf{$A_a$ [Vpp]} & \textbf{$A_b$ [Vpp]} & \textbf{$A_c$ [Vpp]} \\ \hline
         100   & \qty{200}{mV} & \qty{200}{mV} & \qty{200}{mV} \\ \hline
-        500   & \qty{210}{mV} & "             & \qty{205}{mV} \\ \hline
-        1k    & \qty{215}{mV} & \qty{190}{mV} & "             \\ \hline
-        5k    & \qty{230}{mV} & \qty{180}{mV} & "             \\ \hline
-        10k   & "             & "             & "             \\ \hline
-        50k   & "             & "             & "             \\ \hline
-        100k  & "             & "             & "             \\ \hline
-        300k  & "             & "             & "             \\ \hline
-        1M    & "             & "             & "             \\ \hline
+        500   & \qty{210}{mV} & \qty{200}{mV} & \qty{205}{mV} \\ \hline
+        1k    & \qty{215}{mV} & \qty{190}{mV} & \qty{205}{mV} \\ \hline
+        5k    & \qty{230}{mV} & \qty{180}{mV} & \qty{205}{mV} \\ \hline
+        10K-1M& \qty{230}{mV} & \qty{180}{mV} & \qty{205}{mV} \\ \hline
     \end{tabular}
     \caption{Respuesta en frecuencia para diferentes compensaciones.}
 \end{table}
+
+\begin{figure}[H]
+    \centering
+    \input{figures/plot_exp1_freq_response.tex}
+    \caption{Gráfico de respuesta en frecuencia de la punta de prueba.}
+    \label{fig.plot:freq_response}
+\end{figure}
 
 \begin{itemize}
     \item El oscilograma (b) corresponde a ``caída de respuesta en frecuencias elevadas''.
@@ -108,13 +111,13 @@ Se observó el efecto del capacitor de bloqueo en señales de baja frecuencia (\
 
 \begin{figure}[!ht]
     \centering
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[b]{0.43\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pictures/osc_2_cc.jpeg}
         \caption{Acoplamiento DC}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.43\textwidth}
+    \begin{subfigure}[b]{0.41\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pictures/osc_2_ca.jpeg}
         \caption{Acoplamiento AC}
@@ -139,7 +142,7 @@ Se midió la tensión de salida de la fuente disponible en el pañol para este t
 \end{figure}
 
 \cuadrocontroles{\qty{50}{mV}}{-}{\qty{2}{ms}}{X10}{-}
-\begin{figure}[!ht]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.45\textwidth]{pictures/osc_3_ripple.jpeg}
     \caption{Medición de ripple superpuesto.}
@@ -285,10 +288,20 @@ Se midió una señal diferencial.
 \end{figure}
 
 \section{Experiencia 11: Barrido Único y Captura Digital}
-Se capturó el tren de pulsos de un disco telefónico.
+Se capturó el tren de pulsos de un disco telefónico. Para esta experiencia se utilizó el osciloscopio digital UNI-T.
+
+\subsection{Captura del tren de pulsos (11-a)}
+\cuadrocontroles{\qty{2}{V}}{-}{\qty{100}{ms}}{X10}{-}
+
 \begin{itemize}
     \item Duración de los pulsos ($t_o$): \qty{70}{ms}
     \item Periodo de los pulsos (T): \qty{114}{ms}
+\end{itemize}
+
+\subsection{Captura simultánea (11-b)}
+\cuadrocontroles{\qty{2}{V}}{\qty{2}{V}}{\qty{200}{ms}}{X10}{X10}
+
+\begin{itemize}
     \item Demora de silenciamiento ($t_d$): \qty{12}{ms}
 \end{itemize}
 

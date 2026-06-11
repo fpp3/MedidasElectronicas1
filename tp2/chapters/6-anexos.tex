@@ -43,30 +43,35 @@
 
     \item Determinación de parámetros en oscilograma (Eje Y=\qty{2}{V/div}, T=\qty{1}{ms/div}, Sonda X10):
     \begin{enumerate}
-        \item Ciclo de trabajo.
-        \item Valor eficaz de la tensión.
+        \item \textbf{Ciclo de trabajo (D):}
+        Observando el oscilograma de la consigna, se tiene que el periodo ocupa $T = 8 \text{ div}$ y el ancho de pulso
+        es $t_o \approx 2 \text{ div}$.
+        \[ D = \frac{t_o}{T} = \frac{2 \text{ div}}{8 \text{ div}} = 0.25 \]
+        \item \textbf{Valor eficaz de la tensión ($V_{ef}$):}
+        La amplitud pico a pico es de $V_{pp} = 6 \text{ div}$. Considerando la atenuación de la sonda:
+        \[ V_{pp} = 6 \text{ div} \times \qty{2}{V/div} \times 10 = \qty{100}{V} \]
+        Como la señal no tiene componente de CC, se utiliza la fórmula para un tren de pulsos bipolar simétrico:
+        \[ V_{ef} = V_{pp} \sqrt{D - D^2} = \qty{100}{V} \times \sqrt{0.25 - 0.25^2} = \qty{100}{V} V\times 0.433 = \qty{43.3}{V} \]
     \end{enumerate}
 \end{enumerate}
 
 \section{Formas de onda a mano alzada}
 A continuación se presentan los espacios para las formas de onda solicitadas según los roles asignados:
 
-\begin{itemize}
-    \item \textbf{ECG (Gaston Grasso):} Senoidal, \qty{500}{Hz}, \qty{3}{Vpp}, offset: \qty{2}{V}.
     \begin{figure}[H]
         \centering
+        \textbf{ECG (Gaston Grasso):} Senoidal, \qty{500}{Hz}, \qty{3}{Vpp}, offset: \qty{2}{V}.
         \input{figures/graticula_vacia.tex}
     \end{figure}
 
-    \item \textbf{EO1 (Angelo Prieto):} Senoidal, \qty{2550}{Hz}, \qty{8}{Vp}, offset: \qty{0}{V}.
     \begin{figure}[H]
         \centering
+        \textbf{EO1 (Angelo Prieto):} Senoidal, \qty{2550}{Hz}, \qty{8}{Vp}, offset: \qty{0}{V}.
         \input{figures/graticula_vacia.tex}
     \end{figure}
 
-    \item \textbf{ED (Franco Palombo):} Senoidal, \qty{12500}{Hz}, \qty{12.5}{Vpp}, offset: \qty{-10}{V}.
     \begin{figure}[H]
         \centering
+        \textbf{ED (Franco Palombo):} Senoidal, \qty{12500}{Hz}, \qty{12.5}{Vpp}, offset: \qty{-10}{V}.
         \input{figures/graticula_vacia.tex}
     \end{figure}
-\end{itemize}
