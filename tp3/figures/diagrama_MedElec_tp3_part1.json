@@ -1,0 +1,446 @@
+{
+    "version": "0.1",
+    "tikzSettings": {},
+    "components": [
+        {
+            "type": "rect",
+            "position": {
+                "x": 359.055,
+                "y": -56.693
+            },
+            "size": {
+                "x": 188.976,
+                "y": 113.386
+            }
+        },
+        {
+            "type": "rect",
+            "position": {
+                "x": 392.126,
+                "y": -66.142
+            },
+            "size": {
+                "x": 85.04,
+                "y": 56.693
+            }
+        },
+        {
+            "type": "rect",
+            "position": {
+                "x": 0,
+                "y": -56.693
+            },
+            "size": {
+                "x": 151.181,
+                "y": 113.386
+            },
+            "text": {
+                "text": "Amplificador",
+                "align": 1,
+                "justify": 0
+            }
+        },
+        {
+            "type": "rect",
+            "position": {
+                "x": -340.158,
+                "y": -56.693
+            },
+            "size": {
+                "x": 151.181,
+                "y": 113.386
+            }
+        },
+        {
+            "type": "path",
+            "points": [
+                {
+                    "x": -212.032,
+                    "y": -56.693
+                },
+                {
+                    "x": -212.032,
+                    "y": -18.898
+                }
+            ],
+            "label": {
+                "value": "J_2",
+                "otherSide": true
+            },
+            "id": "bare jumper"
+        },
+        {
+            "type": "path",
+            "points": [
+                {
+                    "x": -212.032,
+                    "y": -18.898
+                },
+                {
+                    "x": -126.992,
+                    "y": -18.898
+                }
+            ],
+            "label": {
+                "value": "R_{in}",
+                "otherSide": true
+            },
+            "id": "variable american resistor"
+        },
+        {
+            "type": "path",
+            "points": [
+                {
+                    "x": -212.032,
+                    "y": -56.693
+                },
+                {
+                    "x": -212.032,
+                    "y": -94.488
+                }
+            ],
+            "label": {
+                "value": "J_1"
+            },
+            "id": "closed jumper"
+        },
+        {
+            "type": "wire",
+            "points": [
+                {
+                    "x": -278.173,
+                    "y": -56.693
+                },
+                {
+                    "x": -212.032,
+                    "y": -56.693
+                }
+            ],
+            "stroke": {
+                "width": "0.4pt"
+            },
+            "directions": [
+                "-|"
+            ]
+        },
+        {
+            "type": "wire",
+            "points": [
+                {
+                    "x": -212.032,
+                    "y": -94.488
+                },
+                {
+                    "x": -126.992,
+                    "y": -94.488
+                },
+                {
+                    "x": -126.992,
+                    "y": -56.693
+                },
+                {
+                    "x": -75.591,
+                    "y": -56.693
+                }
+            ],
+            "stroke": {
+                "width": "0.4pt"
+            },
+            "directions": [
+                "-|",
+                "-|",
+                "-|"
+            ]
+        },
+        {
+            "type": "wire",
+            "points": [
+                {
+                    "x": -126.992,
+                    "y": -18.898
+                },
+                {
+                    "x": -126.992,
+                    "y": -56.693
+                }
+            ],
+            "stroke": {
+                "width": "0.4pt"
+            },
+            "directions": [
+                "-|"
+            ]
+        },
+        {
+            "type": "path",
+            "points": [
+                {
+                    "x": 132.283,
+                    "y": -18.898
+                },
+                {
+                    "x": 132.283,
+                    "y": 75.591
+                }
+            ],
+            "label": {
+                "value": "R_{L}",
+                "otherSide": true
+            },
+            "id": "variable american resistor"
+        },
+        {
+            "type": "path",
+            "points": [
+                {
+                    "x": 132.283,
+                    "y": -56.693
+                },
+                {
+                    "x": 132.283,
+                    "y": -18.898
+                }
+            ],
+            "label": {
+                "value": "J_3",
+                "otherSide": true
+            },
+            "id": "bare jumper"
+        },
+        {
+            "type": "path",
+            "points": [
+                {
+                    "x": 207.874,
+                    "y": 75.591
+                },
+                {
+                    "x": 207.874,
+                    "y": -18.898
+                }
+            ],
+            "id": "voltmeter",
+            "scale": {
+                "x": 1,
+                "y": -1
+            }
+        },
+        {
+            "type": "wire",
+            "points": [
+                {
+                    "x": 75.591,
+                    "y": -56.693
+                },
+                {
+                    "x": 132.284,
+                    "y": -56.693
+                },
+                {
+                    "x": 188.977,
+                    "y": -56.693
+                },
+                {
+                    "x": 287.622,
+                    "y": -56.693
+                }
+            ],
+            "stroke": {
+                "width": "0.4pt"
+            },
+            "directions": [
+                "-|",
+                "-|",
+                "-|"
+            ]
+        },
+        {
+            "type": "wire",
+            "points": [
+                {
+                    "x": 207.874,
+                    "y": -18.898
+                },
+                {
+                    "x": 207.874,
+                    "y": -56.693
+                }
+            ],
+            "stroke": {
+                "width": "0.4pt"
+            },
+            "directions": [
+                "-|"
+            ]
+        },
+        {
+            "type": "node",
+            "position": {
+                "x": 0,
+                "y": 75.591
+            },
+            "id": "ground"
+        },
+        {
+            "type": "node",
+            "position": {
+                "x": -283.465,
+                "y": 75.591
+            },
+            "id": "ground"
+        },
+        {
+            "type": "node",
+            "position": {
+                "x": 132.283,
+                "y": 75.591
+            },
+            "id": "ground"
+        },
+        {
+            "type": "node",
+            "position": {
+                "x": 207.874,
+                "y": 75.591
+            },
+            "id": "ground"
+        },
+        {
+            "type": "node",
+            "position": {
+                "x": 292.913,
+                "y": 75.591
+            },
+            "id": "ground"
+        },
+        {
+            "type": "wire",
+            "points": [
+                {
+                    "x": 292.913,
+                    "y": 75.591
+                },
+                {
+                    "x": 292.913,
+                    "y": -47.244
+                }
+            ],
+            "stroke": {
+                "width": "0.4pt"
+            },
+            "directions": [
+                null
+            ]
+        },
+        {
+            "type": "wire",
+            "points": [
+                {
+                    "x": -283.465,
+                    "y": 75.591
+                },
+                {
+                    "x": -283.465,
+                    "y": -47.244
+                }
+            ],
+            "stroke": {
+                "width": "0.4pt"
+            },
+            "directions": [
+                null
+            ]
+        },
+        {
+            "type": "wire",
+            "points": [
+                {
+                    "x": 0,
+                    "y": 75.591
+                },
+                {
+                    "x": 0,
+                    "y": 0
+                }
+            ],
+            "stroke": {
+                "width": "0.4pt"
+            },
+            "directions": [
+                "|-"
+            ]
+        },
+        {
+            "type": "path",
+            "points": [
+                {
+                    "x": 292.913,
+                    "y": -66.142
+                },
+                {
+                    "x": 292.913,
+                    "y": -47.244
+                }
+            ],
+            "id": "currtap"
+        },
+        {
+            "type": "path",
+            "points": [
+                {
+                    "x": -283.465,
+                    "y": -66.142
+                },
+                {
+                    "x": -283.465,
+                    "y": -47.244
+                }
+            ],
+            "id": "currtap",
+            "scale": {
+                "x": 1,
+                "y": -1
+            }
+        },
+        {
+            "type": "rect",
+            "position": {
+                "x": -340.157,
+                "y": -127.559
+            },
+            "stroke": {
+                "opacity": 0
+            },
+            "size": {
+                "x": 170.079,
+                "y": 28.346
+            },
+            "text": {
+                "text": "Generador de funciones",
+                "align": 1,
+                "justify": 0,
+                "showPlaceholderText": true
+            }
+        },
+        {
+            "type": "rect",
+            "position": {
+                "x": 359.055,
+                "y": -127.559
+            },
+            "stroke": {
+                "opacity": 0
+            },
+            "size": {
+                "x": 170.079,
+                "y": 28.346
+            },
+            "text": {
+                "text": "Osciloscopio",
+                "align": 1,
+                "justify": 0,
+                "showPlaceholderText": true
+            }
+        }
+    ]
+}

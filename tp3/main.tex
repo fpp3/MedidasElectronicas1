@@ -1,10 +1,13 @@
 \documentclass[chaptersright]{informeutn}
 
 % --- Paquetes Adicionales ---
-\usepackage[backend=bibtex, style=alphabetic, sorting=ynt]{biblatex}
-\addbibresource{fuentes.bib}
+\usepackage{subcaption}
+\usepackage{siunitx}
+\usepackage{multirow}
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage[backend=bibtex, style=alphabetic, sorting=ynt]{biblatex}
+\addbibresource{fuentes.bib}
 
 \lstdefinestyle{ltspice}{
   backgroundcolor=\color{gray!10},
@@ -15,9 +18,20 @@
   captionpos=b
 }
 
+% --- Unidades de dB (no provistas en la clase base) ---
+\newcommand{\dBu}{\,\mathrm{dBu}}
+\newcommand{\dBm}{\,\mathrm{dBm}}
+\newcommand{\dB}{\,\mathrm{dB}}
+
+% --- Unidades de Frecuencia Adicionales ---
+\newcommand{\kHz}{\,\mathrm{kHz}}
+\newcommand{\MHz}{\,\mathrm{MHz}}
+\providecommand{\mV}{\,\mathrm{mV}}
+\providecommand{\ns}{\,\mathrm{ns}}
+
 % --- Configuración de la Carátula ---
 \titulo{Trabajo Práctico de Laboratorio N° 3}
-\subtitulo{Inserte el subtítulo aquí}
+\subtitulo{Medición de parámetros de amplificadores. Uso de escala en dB. Efecto de la realimentación negativa}
 \materia{Medidas Electrónicas I}
 \comision{4R2} 
 \autores{
@@ -34,14 +48,16 @@
   \setcounter{page}{1}
   \thispagestyle{plain}
 
-  \input{chapters/1-introduccion.tex}
-  \input{chapters/2-desarrollo.tex}
-  \input{chapters/3-conclusiones.tex}
+  \input{chapters/1-integrantes.tex}
+  \input{chapters/2-introduccion.tex}
+  \input{chapters/3-instrumentacion.tex}
+  \input{chapters/4-desarrollo.tex}
+  \input{chapters/5-conclusiones.tex}
 
   \nocite{*}
   \printbibliography[heading=bibnumbered, title={Fuentes}]
 
   \appendix
-  \input{chapters/4-anexos.tex}
+  \input{chapters/6-anexos.tex}
 
 \end{document}

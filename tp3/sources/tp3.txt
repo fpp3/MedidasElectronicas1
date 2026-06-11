@@ -1,0 +1,1103 @@
+                     UNIVERSIDAD TECNOLÓGICA NACIONAL
+                         FACULTAD REGIONAL CORDOBA
+                    DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+Medidas Electrónicas I (Año 2026)
+
+
+Trabajo Práctico de laboratorio Nro. 3
+
+Tema: Medición de parámetros de amplificadores. Uso de escala en dB. Efecto de la
+realimentación negativa
+
+
+Objetivos
+
+    Determinar ciertas características de un amplificador (Impedancia de entrada, de
+     salida y ganancia de tensión y de potencia).
+    Usar instrumentos con escala en dB.
+    Adquirir experiencia en el uso de osciloscopios para efectuar el análisis y la medición
+     de algunos parámetros en amplificadores.
+    Dar el resultado de las mediciones acompañadas del grado de incertidumbre.
+
+
+Materiales e Instrumental necesarios
+
+       Osciloscopio de usos generales.
+       Generador de Baja frecuencia con salida sinusoidal y cuadrada.
+       Multímetro digital.
+       Multímetro analógico con escala en dB (Preferentemente multímetro marca
+        "UNIVO").
+       Amplificador de baja frecuencia.
+       Amplificador transistorizado de dos etapas con realimentación (*).
+       Fuente de alimentación +12V.
+       Placa auxiliar con accesorios para las mediciones.
+       Juego de puntas (dos) con atenuador X 10
+
+(*) Las mediciones se deben efectuar sobre el amplificador que Uds. implementarán para el
+TP Amplificador Realimentado de la asignatura “Electrónica Aplicada II” o bien, si no están
+cursando dicha asignatura, sobre un amplificador que se encuentra preparado y se puede
+solicitar en el Pañol.
+
+Informe Final
+
+El informe final deberá incluir:
+   pág. 1                                            Mediciones de parámetros de amplificadores
+                                                                               Uso de escala en dB
+                                                             Efecto de la realimentación negativa
+                     UNIVERSIDAD TECNOLÓGICA NACIONAL
+                         FACULTAD REGIONAL CORDOBA
+                    DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+    La fecha de presentación estipulada en el cronograma entregado.
+    La fecha en que el equipo/grupo rendirá el coloquio grupal.
+    Tabla de asignación de roles a cada uno de los integrantes del grupo.
+    El desarrollo de las mediciones y conclusiones relativas al mismo. Información
+     técnica relativa a hojas de datos, y/o normativa relevante.
+    Conclusiones
+
+                                                 Operador      Operador
+       Apellido y Nombres        Coordinador                            Documentación
+                                                    1             2
+           Estudiante 1                X
+           Estudiante 2                              X
+           Estudiante 3                                             X
+           Estudiante 4                                                               X
+
+
+Funciones: Se debe asignar roles dentro del grupo y estos deben ir rotando entre los
+diferentes miembros del equipo en forma consecutiva en los diferentes Trabajos Prácticos
+de la Cátedra.
+
+   A. Estudiante Coordinador General (ECG). Debe verificar la disponibilidad de
+      instrumental. Debe verificar los plazos establecidos. Debe supervisar las actividades
+      del resto de integrantes del grupo. Debe verificar el informe final antes de ser
+      entregado.
+   B. Estudiante Operador (EO): Será el encargado de la operación del instrumental y
+      registro de mediciones.
+   C. Estudiante Documentación (ED): Sera el encargado de generar la documentación
+      relativa al informe de cada trabajo práctico. Deberá organizar el coloquio de
+      exposición oral frente al docente.
+
+Es recomendable que implemente una bitácora de las diferentes actividades/mediciones
+que se realizan en el laboratorio, principalmente es recomendable que se tome registro
+fotográfico de cada paso para su posterior presentación en el informe del TP.
+
+
+Unidades Temáticas relacionadas
+1 - 4 – 7 - 10
+
+
+
+
+Competencias Específicas
+  pág. 2                                             Mediciones de parámetros de amplificadores
+                                                                               Uso de escala en dB
+                                                             Efecto de la realimentación negativa
+                    UNIVERSIDAD TECNOLÓGICA NACIONAL
+                        FACULTAD REGIONAL CORDOBA
+                   DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+3.1  Validar y certificar el funcionamiento, condición de uso o estado de los sistemas
+mencionados anteriormente.
+
+4.1  Proyectar y dirigir lo referido a la higiene y seguridad en la actividad profesional de
+acuerdo con la normativa vigente.
+
+10.1Realizar estudios, tareas y asesoramientos, relacionados con la actividad profesional
+establecida por sus actividades reservadas y los alcances, aportando sus saberes,
+competencias y/o técnicas, para brindar soluciones óptimas y eficientes en el marco de las
+normas vigentes y las condiciones técnicas.
+
+
+Resultados de Aprendizajes
+
+RA1 - Emplear conceptos relacionados con errores, incertidumbre y especificaciones de
+exactitud en base a las normativas para seleccionar y realizar correctamente mediciones
+sobre sistemas eléctricos y/o electrónicos.
+
+RA3 - Utilizar fuentes analógicas de señal según los requerimientos de cada caso para excitar
+sistemas electrónicos que son ensayados, evaluados y validados en su funcionamiento.
+
+RA6 - Operar osciloscopios de uso general analógicos, digitales y de almacenamiento, de
+acuerdo a los requerimientos particulares de cada caso, para la medición en el dominio del
+tiempo señales eléctricas.
+
+RA9 - Aplicar normativa específica, según los requerimientos de cada caso para realizar
+ensayos sobre sistemas electrónicos.
+
+
+Grilla de Evaluación
+
+
+
+
+   pág. 3                                             Mediciones de parámetros de amplificadores
+                                                                                Uso de escala en dB
+                                                              Efecto de la realimentación negativa
+                        UNIVERSIDAD TECNOLÓGICA NACIONAL
+                            FACULTAD REGIONAL CORDOBA
+                       DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+                                                        %Obt.   %Obt.     %Obt.      %Obt.
+ID            Criterio de Evaluación                                                           %max
+                                                         ECG     EO1       EO2        ED
+              Identifica los datos necesarios para
+CEval 1       determinar especificaciones de los                                                 5%
+              instrumentos disponibles
+              Identifica los elementos necesarios
+CEval 8                                                                                          5%
+              para realizar el trabajo requerido
+              Adquiere los conocimientos necesarios
+CEval 10      para la correcta implementación del                                                5%
+              procedimiento de medición
+              Trabaja en forma grupal para
+              completar todas las tareas establecidas
+CEval 5                                                                                         10%
+              en el procedimiento indicado para la
+              realización del trabajo practico
+              Realiza los cálculos necesarios para
+              determinar de forma empírica los
+CEval 11      parámetros de los amplificadores en                                                5%
+              cada una de las configuraciones
+              planteadas
+              Realiza los cálculos requeridos para
+              determinar los parámetros del
+CEval 13                                                                                         5%
+              amplificador en las configuraciones
+              planteadas de forma analítica
+              Realiza las mediciones para determinar
+              los parámetros del amplificador en las
+CEval 14                                                                                        10%
+              configuraciones planteadas de forma
+              empírica
+              Hace búsqueda y selección de
+CEval 23      información relevante para validar las                                             5%
+              mediciones realizadas
+              Documenta con información precisa el
+CEval 4                                                                                         10%
+              resultado de las mediciones.
+              Evalúa los resultados de las mediciones
+CEval 12      para determinar la validez de las                                                 10%
+              mismas
+              Realiza el informe técnico con
+CEval 3       información precisa para dar a conocer                                            10%
+              los resultados de las mediciones
+              Expone        de      forma      grupal
+              inconvenientes, experiencia generada
+CEval 7                                                                                         10%
+              y conclusiones acerca del trabajo
+              realizado
+
+     pág. 4                                                 Mediciones de parámetros de amplificadores
+                                                                                      Uso de escala en dB
+                                                                    Efecto de la realimentación negativa
+                     UNIVERSIDAD TECNOLÓGICA NACIONAL
+                         FACULTAD REGIONAL CORDOBA
+                    DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+            Expone     de     forma     individual
+            inconvenientes, experiencia generada
+CEval 32                                                                                  10%
+            y conclusiones acerca del trabajo
+            realizado
+            TOTAL                                                                         100%
+
+
+
+
+Introducción
+
+En este trabajo práctico, el estudiante empleará métodos de medición e instrumentos
+sencillos para la determinación de las principales características de una red de dos puertos
+(básicamente un amplificador).
+Los métodos que aquí se ensayan abarcan ideas generales de gran interés en un amplio
+campo de las mediciones.
+Se verá, por ejemplo, la utilidad de las escalas en dB que poseen algunos instrumentos, y se
+implementará un método de substitución para medir una magnitud en forma indirecta.
+Para este trabajo se empleará un amplificador de baja frecuencia que no tiene ninguna
+aplicación específica.
+Puede ser cualquiera de los que están disponibles para este trabajo (ya armados) en el pañol
+del laboratorio. En la figura 1 se muestran el esquema de dicho amplificador.
+
+
+
+
+                     Figura 1 - Esquema del amplificador disponible
+
+También será necesario utilizar una placa auxiliar la cual contiene los elementos y
+componentes que se emplearán para efectuar las mediciones.
+
+
+
+
+   pág. 5                                             Mediciones de parámetros de amplificadores
+                                                                                Uso de escala en dB
+                                                              Efecto de la realimentación negativa
+                    UNIVERSIDAD TECNOLÓGICA NACIONAL
+                        FACULTAD REGIONAL CORDOBA
+                   DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+
+
+ Figura 2 - Vista de las placas (Amplificador y Placa auxiliar) que se emplearán
+                                 para el trabajo
+
+
+
+
+ Figura 3 - Vista de las placas (Amplificador y Placa auxiliar) que se emplearán
+                                 para el trabajo
+
+Antes de comenzar
+Es muy importante que Ud. se asegure de identificar claramente cuáles son las placas que
+usará, y tomar nota de la misma, sobre todo si no concluye con todas las mediciones y
+ensayos en una sola clase.
+Dado que durante el trabajo habrá que ajustar un par de resistores variables, procure usar
+las herramientas adecuadas para no dañar los mismos.
+
+Todo proceso de medición, requiere que quien lo ejecute, tenga una idea aproximada de
+los valores que se esperan obtener. Esto es necesario para poder elegir el o los métodos a
+utilizar y los instrumentos que se emplearán. Además, si los valores concuerdan más o
+menos, ello es un indicio claro de que se está por buen camino.
+Otra buena costumbre es trabajar con esquemas gráficos de las mediciones a efectuar y
+para ello resulta muy útil emplear un circuito equivalente a fin de simplificar los mismos.
+  pág. 6                                             Mediciones de parámetros de amplificadores
+                                                                               Uso de escala en dB
+                                                             Efecto de la realimentación negativa
+                     UNIVERSIDAD TECNOLÓGICA NACIONAL
+                         FACULTAD REGIONAL CORDOBA
+                    DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+En la figura 4, se muestra el circuito equivalente del amplificador a ensayar y los valores
+nominales de algunas de las magnitudes que se medirán.
+
+
+
+
+  Figura 4 - Circuito equivalente y valores nominales de resistencia de entrada,
+                         resistencia de salida y ganancia
+
+Para la segunda parte de esta actividad práctica, se trabajará para determinar las
+características de ganancia e impedancias de salida y entrada de un amplificador, que posee
+un sistema de realimentación negativa, ensayado en condiciones de lazo abierto y de lazo
+cerrado.
+Se pretende, por un lado, poner en evidencia las ventajas y/o desventajas del empleo de la
+realimentación negativa, y por el otro comprobar si los métodos de medición ya
+experimentados son igualmente útiles en esta situación, y en caso de haber alguna variante,
+tomar nota de la misma.
+Como Ud. ya lo ha podido experimentar, en principio, la medida de la resistencia de salida
+de un amplificador puede efectuarse mediante un método que consiste en medir primero
+la tensión de salida a circuito abierto (sin carga), y a continuación volver a medir, pero esta
+vez con una carga de valor conocido.
+La resistencia de salida (Ro) puede obtenerse deduciendo su valor mediante un simple
+cálculo y empleando la ley de Ohm.
+
+
+
+
+                              Figura 5 - Esquema medición Ro
+
+En la práctica lo que se suele hacer es utilizar una carga variable (Rl), que se ajusta hasta
+que la tensión de salida se reduzca a la mitad de la que se obtiene con la carga
+desconectada. En esta situación Ro es igual a Rl.
+
+   pág. 7                                              Mediciones de parámetros de amplificadores
+                                                                                 Uso de escala en dB
+                                                               Efecto de la realimentación negativa
+                    UNIVERSIDAD TECNOLÓGICA NACIONAL
+                        FACULTAD REGIONAL CORDOBA
+                   DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+El método es bastante simple, y no se presentan mayormente problemas, en tanto no haya
+componentes reactivas apreciables (en realidad sería más apropiado hablar de Impedancia
+de salida en lugar de resistencia de salida), y siempre y cuando el amplificador no esté
+realimentado.
+En cambio, si el amplificador tiene un sistema de realimentación negativa, puede haber
+dificultades porque uno de los efectos de la realimentación es mantener estable la amplitud
+de la salida del amplificador, aunque varíe la carga conectada, lo cual implica una reducción
+de la resistencia de salida.
+Si se intenta variar la carga hasta que la tensión de salida se reduzca a la mitad de la que
+hay sin carga, puede ocurrir que se lleve el punto de funcionamiento del amplificador a una
+zona donde la potencia disipada exceda los limites previstos y se dañe.
+
+
+
+
+Experimento 1 - Determinación de la impedancia de salida del amplificador
+
+Identifique el conjunto de placas bajo ensayo (DUT – Device Under Test), y deje registro del
+mismo
+
+                          Conjunto
+                          de Placas
+                            Nro:
+
+Para efectuar las mediciones que se requieren en este experimento, hay que conectar los
+instrumentos en la forma que se indica a continuación.
+
+
+
+
+   Figura 6 - Esquema de conexión de instrumentos para efectuar las mediciones
+
+Tenga en cuenta lo siguiente:
+
+El amplificador a ensayar se considera como una red de dos puertos (un puerto de entrada
+y uno de salida).
+Desde el punto de vista de la definición de Impedancia de salida de una red sería necesario
+cortocircuitar la entrada de la misma para su determinación. En la práctica, esta condición
+   pág. 8                                             Mediciones de parámetros de amplificadores
+                                                                                Uso de escala en dB
+                                                              Efecto de la realimentación negativa
+                     UNIVERSIDAD TECNOLÓGICA NACIONAL
+                         FACULTAD REGIONAL CORDOBA
+                    DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+se considera satisfactoriamente cumplida si la impedancia de salida del generador usado
+para excitar al amplificador es suficientemente baja respecto de la impedancia de entrada
+del mismo.
+
+        a. La tensión nominal de alimentación del amplificador es de 12V (máximo 15 V).
+        b. La señal de entrada que se usará para efectuar la medición será en este caso una
+           senoidal de 1KHz.
+        c. La señal de entrada se aplicará directamente a la entrada del amplificador; para
+           ello habrá que conectar los puntos 1 y 2 del Jumper J1.
+
+NOTA: En todas las experiencias que siguen, la amplitud de la señal del generador debe ser
+la mayor que el amplificador admita sin que entre en la zona de funcionamiento alineal.
+Esto es así para facilitar la medición. Piense, por ejemplo, que es más fácil medir una señal
+de 1V que una de 1 mV.
+
+        d. A continuación, con la resistencia de carga (Rc1) desconectada (es decir en
+           vacío), y con los niveles ajustados para que no se produzca distorsión en la forma
+           de onda observada (Véase la figura siguiente), mida con el voltímetro, o con el
+           osciloscopio si lo prefiere, la tensión de salida (Vs).
+
+
+
+
+            Figura 7 - Salida del amplificador - CARRECTA - CON DISTORSION
+
+
+
+        e. Seguidamente se procederá a conectar el resistor de carga (Rc1) mediante el
+           “Jumper” J2 cuidando de comenzar con el valor máximo del mismo para luego
+           ajustarlo hasta que la lectura de la tensión de salida se reduzca a la mitad que la
+           obtenida en vacío al principio. En esta situación el valor de la impedancia de
+           salida del amplificador es numéricamente igual a la resistencia de carga (por el
+           tipo de amplificador y la frecuencia en que se hace el ensayo, se puede
+           considerar sin mucho margen de error que la impedancia de salida no tiene parte
+
+   pág. 9                                              Mediciones de parámetros de amplificadores
+                                                                                 Uso de escala en dB
+                                                               Efecto de la realimentación negativa
+                    UNIVERSIDAD TECNOLÓGICA NACIONAL
+                        FACULTAD REGIONAL CORDOBA
+                   DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+          reactiva considerable), y su valor puede determinarse en forma indirecta
+          midiendo el valor de la resistencia de carga Rc1 con un óhmetro.
+       f. Para realizar esta medición, desconecte la fuente de alimentación, abra el
+          Jumper J2 y utilice el multímetro digital para medir resistencia).
+
+
+            f1                                Vs                                Incertidumbre
+                    “Valor nominal”                            Rc1 = Ro
+  Frecuencia del                             (Rc1                                medición de
+                      de Zsal = Ro                          (Para Vs´=Vs/2)
+    generador                            desconectada)                               Rc1
+           1KHz         50 ohms
+
+
+Experimento 2 - Determinación de la impedancia de entrada del amplificador
+
+Para la medición de la impedancia de entrada, se utiliza el montaje que se muestra a
+continuación.
+
+
+
+
+                   Figura 8 - Medición de la impedancia de entrada
+
+       a. En primer lugar, se debe repetir el primer paso de la experiencia anterior (con el
+          Jumper J1 entre 1 y 2) y tomar nota del valor de la tensión de salida.
+       b. Luego, con el Jumper J1 entre 2 y 3, se intercala, en serie entre el generador y la
+          entrada del amplificador, un resistor variable (Re1) cuidando de que el mismo se
+          encuentre ajustado a su mínimo valor.
+       c. A continuación, se va aumentando el valor de Re1 hasta que la lectura de la
+          tensión de salida se hace igual a la mitad de la que había inicialmente. En esta
+          situación el valor en ohms de Re1 es igual a la impedancia de entrada del
+          amplificador. (Son válidas las mismas consideraciones que se efectuaron en el
+          experimento anterior).
+
+
+
+
+ pág. 10                                              Mediciones de parámetros de amplificadores
+                                                                                Uso de escala en dB
+                                                              Efecto de la realimentación negativa
+                    UNIVERSIDAD TECNOLÓGICA NACIONAL
+                        FACULTAD REGIONAL CORDOBA
+                   DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+             f1              “Valor            Vs              Re1 = Ri         Incertidumbre
+       Frecuencia del     nominal” de         (Rc1               (Para           medición de
+         generador          Zent=Ri       desconectada)        Vs´=Vs/2)             Re1
+
+            1KHz             1 Kohm
+
+
+
+Experimento 3 - Medición de la potencia de salida del amplificador
+
+La potencia de salida de un amplificador se medirá para la condición de resistencia de carga
+igual a la impedancia interna del mismo y para máxima excursión simétrica de la tensión de
+salida, es decir sin recorte (Véase la figura 7). Para esto, deberá disponer los instrumentos
+de la misma forma que en la experiencia 1. Para esta parte del trabajo se puede emplear
+como carga adaptada, el resistor Rc1 ajustado al valor que se determinó en el Experimento
+Nro1.
+Una de las formas más comunes de expresar el valor de la potencia de salida de un
+amplificador es en dBm, y la forma más fácil de determinarla es mediante el empleo de
+instrumentos que posean escalas trazadas en dB; por ejemplo, un multímetro.
+
+
+
+
+                                           Figura 10 – Zoom escala graduada en dB
+
+
+
+
+ Figura 9 – Multímetro UNIVO
+
+
+
+La escala para medir en dB del multímetro marca “UNIVO” de la figura anterior, está trazada
+en el rango de 3V.
+Según la siguiente expresión:
+ pág. 11                                              Mediciones de parámetros de amplificadores
+                                                                                Uso de escala en dB
+                                                              Efecto de la realimentación negativa
+                      UNIVERSIDAD TECNOLÓGICA NACIONAL
+                          FACULTAD REGIONAL CORDOBA
+                     DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+
+                                                 600 
+                       dBm  dBu  10  log                      (ecuación 1)
+                                                  Rx
+Donde:
+
+                                          Vx
+                       dBu  20  log                            (ecuación 2)
+                                        0,775V
+
+En realidad, como se trata de un voltímetro de CA, lo que el instrumento mide es dBu. Sin
+embargo, hay que tener en cuenta que prácticamente todos los instrumentos con escalas
+en dB que se emplean en el campo de las bajas frecuencias, están calibrados para medir
+sobre cargas de 600ohms. Por lo tanto, la lectura que se obtenga equivale a dBm si se
+cumple esta condición (es decir si Rx es 600ohms).
+Para realizar la corrección, se debe sumar a lo que indica la ecuación lo que sigue:
+
+                                         600 
+                       Correccion  10  log
+                                           Rx
+Donde el valor de Rx corresponde al de la resistencia sobre el cual se efectúa la medición.,
+valor que Ud. ha determinado en la primera experiencia de este trabajo práctico.
+
+Tenga en cuenta también que:
+
+                                                                            dBm
+                                       Px
+                       dBm  10  log                     Px  1mW  10     10
+                                      1mW
+
+
+Mida el valor de la potencia de salida y exprese el resultado en dBm y en W.
+
+
+            P sal(en dBm) =                         Px sal ( en W) =
+
+
+Experimento 4 - Medición de la ganancia de tensión y ganancia de potencia del
+amplificador.
+
+Para la medición de la ganancia del amplificador, es necesario conectar una carga igual a la
+que habitualmente se va a emplear en condiciones normales de funcionamiento, por lo
+tanto, puede usar el resistor Rc1 tal como lo dejo ajustado en la experiencia anterior.
+Por lo general, el valor de la ganancia de un amplificador suele especificarse en decibeles, y
+la forma más fácil de determinarla es mediante el empleo de instrumentos que posean
+  pág. 12                                                  Mediciones de parámetros de amplificadores
+                                                                                     Uso de escala en dB
+                                                                   Efecto de la realimentación negativa
+                     UNIVERSIDAD TECNOLÓGICA NACIONAL
+                         FACULTAD REGIONAL CORDOBA
+                    DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+escalas calibradas en dB; por ejemplo, el mismo multímetro que se empleó en la experiencia
+anterior.
+Tal como Ud. habrá visto en el ejercicio sobre el tema que se resolvió en la clase teórica, si
+se toman los valores correspondientes en dBu a la salida y a la entrada, la diferencia entre
+ambos es directamente la “Ganancia de tensión del amplificador”.
+Si en cambio se quiere determinar la “Ganancia de potencia del amplificador” habrá que
+convertir los dBu en dBm, para lo cual necesita los valores de resistencia Rc1 y Re1 que Ud.
+midió en los experimentos 1 y 2. Deberá emplear la ecuación (1).
+En el problema que nos ocupa, la ganancia de potencia en dB, será la diferencia entre los
+dBm de salida y los dBm de entrada (Valores que se medirán en dBu y que luego se deben
+convertir como se acaba de explicar).
+Disponer los instrumentos como se muestra a continuación y repetir el primer paso de las
+experiencias anteriores, es decir ajustar la amplitud de salida del generador para que la
+salida proporcione máxima excursión, sin distorsión.
+
+
+
+
+                   Figura 11 - Medida de la Ganancia del amplificador
+
+
+
+Medir los valores de salida y de entrada en dBu, cuidando, en lo posible, de emplear en
+ambos casos el mismo rango y escala del instrumento. Tomar nota de los valores, calcular
+los correspondientes valores en dBm, a la salida y a la entrada. Determinar los valores de
+ganancia de tensión y de potencia del amplificador, en dB y en “veces”.
+
+        f1
+                                                Incertidumbre   Ganancia en        Ganancia en
+    Frecuencia
+                     (Salida)      (Entrada)     medición de        dB               “veces”
+        del
+                                                    los dbu     Salida - Entrada   Salida/Entrada
+    generador
+
+                 _________dBu    ________dBu
+      1KHz
+                 _________dBm    ________dBm
+
+
+
+
+  pág. 13                                              Mediciones de parámetros de amplificadores
+                                                                                 Uso de escala en dB
+                                                               Efecto de la realimentación negativa
+                     UNIVERSIDAD TECNOLÓGICA NACIONAL
+                         FACULTAD REGIONAL CORDOBA
+                    DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+Mediciones de la resistencia de salida de amplificadores con realimentación.
+
+Se estudiará a continuación, el caso de la medición de la resistencia de salida de un
+amplificador lineal que tiene un sistema de realimentación negativa de tensión en serie. Se
+definen los siguientes parámetros:
+
+        A: ganancia a lazo abierto del amplificador.
+        B: ganancia del lazo de realimentación.
+        Ro: Resistencia de salida a lazo abierto.
+        Ro´: Resistencia de salida a lazo cerrado.
+        G: Ganancia del amplificador a lazo cerrado (con realimentación).
+
+Considérese el siguiente circuito equivalente.
+
+
+
+
+  Figura 12 - Amplificador realimentado negativamente con muestra de tensión, y
+                                 mezcla en serie.
+
+La medida de la resistencia interna de un circuito, puede plantearse, al menos
+teóricamente, de la siguiente manera: Se aplica una tensión al circuito y se mide la corriente
+que circula. La resistencia interna es; por ley de Ohm; simplemente la relación entre la
+tensión y la corriente. En el circuito equivalente mostrado, Vo es una tensión hipotética que
+se aplica en tanto que Io es la corriente (también hipotética) que circula. Entonces del
+circuito puede escribirse que:
+
+            Vo  A  Vi´ Ro  Io                   Vo  AVi  (B  Vo )  Ro  Io
+Operando:
+
+     Vo  A  Vi  A  B  Vo  Ro  Io          ;          Vo  Vo  A  B  A  Vi  Ro  Io
+
+Que reordenando es:
+
+                                   A                 Ro 
+                             Vo              Vi              Io
+                                  1  A  B         1  A  B 
+  pág. 14                                                  Mediciones de parámetros de amplificadores
+                                                                                     Uso de escala en dB
+                                                                   Efecto de la realimentación negativa
+                     UNIVERSIDAD TECNOLÓGICA NACIONAL
+                         FACULTAD REGIONAL CORDOBA
+                    DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+
+En esta expresión, el primer corchete del segundo miembro es la ganancia a lazo cerrado G:
+
+                                  A 
+                               G                    (ecuación I)
+                                 1  A  B 
+
+El segundo corchete del segundo miembro es la resistencia de salida con realimentación
+Ro´:
+
+                                    Ro 
+                              Ro´                   (ecuación II)
+                                   1  A  B 
+
+De la ecuación I:
+                                                       A
+                                          1 A  B 
+                                                       G
+Que en la ecuación II es:
+                                          Ro  G
+                                  Ro'           (ecuación III)
+                                           A
+
+En otras palabras, para determinar la resistencia de salida del amplificador realimentado
+(Ro´), se deben medir por separado:
+    la resistencia de salida a lazo abierto (Ro) - que se puede hacer por el método
+        descrito inicialmente –
+    la ganancia a lazo abierto (A),
+    y la ganancia a lazo cerrado (G), -
+    o bien la ganancia del lazo (B) -.
+
+El valor definitivo se obtiene por cálculo empleando las ecuaciones I, II o III, (la que resulte
+más fácil en la práctica).
+
+Experimento 5 - Determinación de la Resistencia de salida a lazo abierto y a lazo cerrado.
+
+Las mediciones se efectuarán, ya sea sobre el amplificador que Ud. ha implementada para
+el TP Amplificador Realimentado de “Electrónica Aplicada II”, o bien sobre uno que se
+encuentra armado como DUT para la materia Medidas Electrónicas I.
+
+Esta parte del practico podrás ser realizada usando el Laboratorio Virtual Remoto de UTN
+FRC.
+
+
+  pág. 15                                                  Mediciones de parámetros de amplificadores
+                                                                                     Uso de escala en dB
+                                                                   Efecto de la realimentación negativa
+                    UNIVERSIDAD TECNOLÓGICA NACIONAL
+                        FACULTAD REGIONAL CORDOBA
+                   DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+https://dutremoto.frc.utn.edu.ar/testing/indexClienteUTN.php
+
+Pregunte a los docentes la modalidad de uso del “Laboratorio Remoto Web”.
+En el Laboratorio Remoto el circuito bajo prueba es el DUT 2. Y los RELES R4 a R9 permiten
+controlar la posición de los JUMPERS.
+
+                      Relé     Funcionalidad
+                       R4      Conecta y desconecta Realimentación
+                       R5      Conecta Cargas
+                       R6      Selección de Cargas
+                       R7      Selección de Cargas
+                       R8      Selección de Cargas
+                       R9      Selección de Cargas
+
+   a. Examine el mismo y localice los puntos de conexión y de medición.
+   b. Busque también el puente (jumper) que permiten activar o pasivar el lazo de
+      realimentación, con lo cual se podrá hacer funcionar el amplificador a lazo abierto o
+      a lazo cerrado.
+   c. También localice el Jumper que sirve para conectar o desconectar las cargas a la
+      salida del amplificador.
+
+
+
+
+                        Figura 13 - Amplificador Realimentado
+
+
+
+
+ pág. 16                                             Mediciones de parámetros de amplificadores
+                                                                               Uso de escala en dB
+                                                             Efecto de la realimentación negativa
+                    UNIVERSIDAD TECNOLÓGICA NACIONAL
+                        FACULTAD REGIONAL CORDOBA
+                   DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+
+
+                         Figura 14 - Amplificador Realimentado
+
+Coloque los instrumentos para medir, tal como se indica en el esquema de la Figura
+siguiente. No necesitará utilizar una carga variable; sobre la misma placa tiene disponibles
+cuatro resistores (1KΩ, 560 Ω, 100Ω y 33Ω) que podrá seleccionar mediante el Jumper Js.
+El Jumper J le permitirá activar o pasivar el lazo de realimentación. El amplificador está
+preparado para alimentarse con una tensión continua de +12V y tanto la salida como la
+entrada están acopladas en CA.
+
+
+
+
+                             Figura 15 –Esquema de medición
+
+Paso 1:
+Primeramente, se comenzará efectuando las mediciones con el amplificador trabajando a
+lazo abierto y sin carga conectada a la salida.
+    a. Para ello será necesario que conecte el Jumper “J” entre 2 y 3, y retire el “Js”.
+    b. En estas condiciones se dispondrá el generador a una frecuencia de 1 KHz y se
+        ajustará el nivel, de manera que la forma de onda de salida tenga la máxima
+        amplitud libre de distorsión por recorte.
+    c. Con el osciloscopio, determine las amplitudes de las señales a la entrada y a la salida
+        del amplificador (puede utilizar directamente los valores pico a pico de los
+        respectivos oscilogramas), y calcule la ganancia a lazo abierto “A”.
+
+
+
+  pág. 17                                              Mediciones de parámetros de amplificadores
+                                                                                 Uso de escala en dB
+                                                               Efecto de la realimentación negativa
+                    UNIVERSIDAD TECNOLÓGICA NACIONAL
+                        FACULTAD REGIONAL CORDOBA
+                   DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+                                                                  Vo
+                         Vi (Vpap)      Vo (Vpap)           A
+                                                                  Vi
+
+
+
+Paso 2:
+   a. Sin tocar el nivel del generador
+   b. Coloque el jumper Js sobre la carga Rl = 1KΩ ,
+   c. Proceda a medir nuevamente la tensión de salida Vs (como queda indicado en la
+        Figura 1).
+   d. Obtenga por cálculo el valor de la resistencia de salida Ro del amplificador:
+
+                                                               Vo 
+                                                       Ro  Rl    1
+                        Vo (Vpap)      Vs (Vpap)               Vs 
+
+
+
+
+Paso 3:
+   a. Desconecte la carga Rl (es decir, retire el jumper Js)
+   b. Active el lazo conectando el jumper J entre 1 y 2.
+   c. Repita las mediciones efectuadas para determinar la ganancia del amplificador,
+        ahora en condición de realimentación negativa.
+
+                                                                 Vo '
+                                                            G
+                         Vi (Vpap)      Vo’ (Vpap)               Vi
+
+
+
+
+   d. Calcúlese el valor de resistencia de salida a lazo cerrado Ro’ (es decir con
+      realimentación negativa)
+
+                        Ro  G
+                Ro'                    ;       Ro' (calculado )  _______
+                         A
+
+Paso 4:
+Intente corroborar si el valor de Ro’ que se ha conseguido por cálculo, en el paso anterior,
+concuerda con el que se obtendría experimentalmente empleando el procedimiento
+efectuado en el Paso 2.
+ pág. 18                                              Mediciones de parámetros de amplificadores
+                                                                                Uso de escala en dB
+                                                              Efecto de la realimentación negativa
+                    UNIVERSIDAD TECNOLÓGICA NACIONAL
+                        FACULTAD REGIONAL CORDOBA
+                   DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+Como la resistencia de salida Ro’ es sustancialmente menor a Ro, habrá que emplear un
+valor de Rl más pequeño.
+Para eso Ud. dispone de otros valores (100Ω y 33Ω) montados en la placa.
+Se sugiere usar 100 Ω.
+
+                                                               Vo´ 
+                                                       Ro´ Rl     1
+                     Vo´ (Vpap)        Vs’ (Vpap)              Vs´ 
+
+
+
+
+Experimento 6 - Medición de la potencia eficaz máxima de salida
+
+Disponga ahora el amplificador y los instrumentos de medición según el siguiente esquema:
+
+
+
+
+           Figura 16 – Esquema para medición de potencia máxima de salida
+
+Paso 5:
+Inicialmente se medirá la máxima potencia de salida para la condición de funcionamiento
+de lazo abierto.
+    a. Ajuste al mínimo la salida del generador (para proteger el amplificador) y conecte a
+        la salida del mismo la carga Rc1 que deberá ser de un valor lo más próximo (en lo
+        posible igual) al valor de Ro determinado en el Paso 2 del Experimento 1.
+    b. Alimente los equipos.
+    c. Regule el generador de onda senoidal para una frecuencia de 1KHz y una potencia
+        tal, que la señal sobre la carga Rc1, observada por un osciloscopio, no presente
+        recorte (si la fuente de alimentación tiene ondulación -ripple- verifique que no haya
+        recorte en el pico negativo de la ondulación). Se considerará esta situación como la
+        que provee máxima potencia de salida.
+    d. Repita las mediciones, pero ahora para la condición de funcionamiento de lazo
+        cerrado. Tenga presente que en esta ocasión deberá emplear como carga Rc1 un
+        valor igual a Ro` (que se determinó en el Paso 3 del Experimento 1).
+
+   Normalmente, si se dispone de un medidor de distorsión, se especifica una potencia
+   máxima para un valor determinado de distorsión. Por ejemplo, P=1W para una
+ pág. 19                                              Mediciones de parámetros de amplificadores
+                                                                                Uso de escala en dB
+                                                              Efecto de la realimentación negativa
+                       UNIVERSIDAD TECNOLÓGICA NACIONAL
+                           FACULTAD REGIONAL CORDOBA
+                      DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+    distorsión menor o igual que el 1%. Acá se adoptará el criterio expresado más arriba es
+    decir sin recorte apreciable en la señal.
+
+                                        Para Lazo abierto           Para Lazo Cerrado
+                                           (Rc1=Ro)                     (Rc1=Ro’)
+                       2    2
+                     V    V
+            Pmáx       
+                      rms   PP
+                      R   8R
+
+Experimento 7 - Ensayo de la respuesta en frecuencia (ancho de banda) del amplificador
+
+En su forma más elemental y simple, la respuesta en frecuencia de un amplificador
+cualquiera se determina efectuando un barrido de frecuencia, manteniendo constante el
+nivel de la señal aplicada a la entrada, que debe tener un valor suficiente para obtener la
+máxima tensión de salida sin distorsión.
+El ancho de banda viene dado por los límites de frecuencia entre los cuales el nivel de salida
+cae 3 dB respecto del valor para una frecuencia media.
+Se pretende determinar el ancho de banda del amplificador funcionando a lazo abierto, y a
+lazo cerrado, a fin de comparar los resultados. (Para simplificar, las mediciones se
+efectuarán sin carga conectada a la salida, ya que lo que se pretende es establecer una
+comparación entre los resultados que se obtengan en este experimento y el que sigue a
+continuación).
+
+Paso 6:
+De acuerdo con la definición anterior el procedimiento a seguir, que deberá hacerse
+primero con el amplificador a lazo abierto, y luego repetirse con la realimentación negativa
+conectada (es decir a lazo cerrado), es el siguiente:
+
+    a. Disponer la frecuencia del generador al valor de referencia, (que para esta
+       experiencia se fijara en 1KHz.).
+    b. Ajustar el nivel del generador, de manera que la forma de onda de salida tenga la
+       máxima amplitud libre de distorsión por recorte. Este nivel Vo(1KHz) se tomará
+       como referencia, de manera que:
+
+                                                      Vo
+                                    dB  20  log
+                                                    Vo (1KHz)
+
+    c. Disminuir el valor de la frecuencia hasta obtener el valor de corte inferior. Esta
+       condición puede verificarse por cálculo midiendo Vo a la frecuencia especifica.
+    d. Aumentar el valor de la frecuencia hasta obtener el valor de corte superior.
+    e. Tomar algunas lecturas intermedias entre los dos valores obtenidos.
+  pág. 20                                                 Mediciones de parámetros de amplificadores
+                                                                                    Uso de escala en dB
+                                                                  Efecto de la realimentación negativa
+                      UNIVERSIDAD TECNOLÓGICA NACIONAL
+                          FACULTAD REGIONAL CORDOBA
+                     DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+
+Amplificador a lazo abierto
+
+   Frec. del    fcorte-inf           1000 Hz                                fcorte-sup
+  generador
+ Salida en dB    -3 dB       -2 dB    0 dB                       -2dB        -3 dB
+
+Amplificador a lazo cerrado (*)
+
+   Frec. del    fcorte-inf           1000 Hz                                fcorte-sup
+  generador
+ Salida en dB    -3 dB       -2 dB    0 dB                       -2 dB       -3 dB
+
+(*) Nota: Es muy probable que en este caso, la curva de respuesta en frecuencia, presente
+“Caída con sobre impulso”.
+
+   f. Llevar los datos relevados a sendos gráficos de amplitud Vs. Frecuencia. Como el
+      objetivo es obtener una representación que permita establecer una comparación,
+      dibuje ambas curvas empleando la misma escala sobre el eje en dB.
+   g. Marque sobre cada una de las curvas, el ancho de banda del amplificador en cada
+      situación.
+
+
+
+
+ pág. 21                                            Mediciones de parámetros de amplificadores
+                                                                              Uso de escala en dB
+                                                            Efecto de la realimentación negativa
+                    UNIVERSIDAD TECNOLÓGICA NACIONAL
+                        FACULTAD REGIONAL CORDOBA
+                   DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+Experimento 8 - Determinación de la respuesta en frecuencia del amplificador
+funcionando a lazo abierto mediante el empleo de una onda cuadrada.
+
+El análisis del comportamiento de un amplificador cuando se le aplica una señal de entrada
+cuadrada permite determinar en forma rápida y simple las características de respuesta en
+frecuencia del mismo. La principal desventaja es que los resultados que pueden obtenerse
+no son demasiado exactos dado que el método se funda en un modelo ideal que en la
+mayoría de los casos solo es una aproximación al circuito real.
+Si la entrada de un amplificador se excita con una onda cuadrada cuya frecuencia este
+comprendida dentro de la banda pasante del mismo, puede establecerse el ancho de banda
+del mismo mediante la determinación del tiempo de crecimiento de la onda que se obtiene
+a la salida. Dicho tiempo de crecimiento puede medirse mediante un osciloscopio entre el
+10% y el 90% de la pendiente observada. El ancho de banda se calcula a partir de las
+siguientes relaciones sencillas:
+
+                                      k                     k
+                              tc                   AB =
+                                     AB                     tc
+
+
+En estas ecuaciones, que son válidas para amplificadores cuya frecuencia de corte inferior
+es cero o está muy cerca de cero, el valor de la constante "k" depende de la forma de la
+caída de la curva de respuesta en frecuencia (Rolloff) en la zona de altas frecuencias.
+
+
+
+
+                           Figura 17 - Respuesta del sistema
+
+
+
+Es posible reconocer fácilmente la forma de la respuesta en frecuencia realizando un
+barrido de frecuencias rápido con el dial del generador sin necesidad de obtener la curva
+de respuesta en frecuencias punto por punto.
+También es posible estimar el tipo de respuesta del amplificador aplicando una onda
+cuadrada cuya frecuencia este próxima a la de corte superior del mismo. Si el borde de
+subida de la forma de onda obtenida es redondeado, la caída de respuesta es exponencial;
+en cambio, si el borde presenta picos u oscilaciones, es porque la caída de respuesta es con
+sobre impulso.
+ pág. 22                                              Mediciones de parámetros de amplificadores
+                                                                                Uso de escala en dB
+                                                              Efecto de la realimentación negativa
+                    UNIVERSIDAD TECNOLÓGICA NACIONAL
+                        FACULTAD REGIONAL CORDOBA
+                   DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+De todos modos, sea cual sea el método empleado, recuerde que Ud. ya dispone de las
+curvas de respuesta en frecuencia porque las ha obtenido en la experiencia anterior, y por
+ello le será posible establecer comparaciones.
+
+Paso 7:
+El procedimiento a seguir, que se efectuará para Lazo abierto y se repetirá para Lazo
+cerrado, es el siguiente:
+
+   a. Emplear la misma disposición de instrumentos usada en la experiencia anterior.
+      Ajustar la frecuencia del generador a 1KHz con señal senoidal, y un nivel de salida
+      tal que no se produzca distorsión en la forma de onda observada con el osciloscopio.
+   b. Cambiar la forma de onda de senoidal a cuadrada, y de ser necesario retocar el nivel
+      de salida para que no haya distorsión.
+   c. Ajustar la base de tiempos y la pendiente de disparo de manera de obtener la
+      visualización de un único flanco de subida en la pantalla del osciloscopio.
+   d. Para lograr una mejor visualización del flanco de subida, utilice el magnificador del
+      eje horizontal (X10). Asegúrese que el control correspondiente esté en la posición
+      “calibrado”, y tenga en cuenta que ahora deberá dividir por 10 lo indicado en
+      Tiempo/división de la base de tiempos.
+   e. Haga coincidir el máximo y el mínimo de la señal observada con los rótulos de la
+      pantalla y mida el tiempo que hay entre el 10% y el 90% de la pendiente.
+
+
+
+
+                           Figura 18 – Respuesta al Escalón
+
+
+
+   f. Determine el valor de tiempo de crecimiento y tome nota del mismo.
+
+tc(medido, lazo abierto)=__________         ,      tc(medido, lazo cerrado)=__________
+
+Téngase en cuenta que tal vez deba corregir el valor obtenido, si el mismo es comparable
+con el tiempo de crecimiento del osciloscopio. Recuerde que el tiempo de crecimiento del
+osciloscopio depende del ancho de banda del mismo según una relación similar a la
+presentada previamente:
+ pág. 23                                             Mediciones de parámetros de amplificadores
+                                                                               Uso de escala en dB
+                                                             Efecto de la realimentación negativa
+                  UNIVERSIDAD TECNOLÓGICA NACIONAL
+                      FACULTAD REGIONAL CORDOBA
+                 DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+
+                                               0,35
+                    tc(osciloscopio ) 
+                                          AB(osciloscopio )
+
+                  tc(amplif .)    tc(medido)2  tc(osciloscopio )2
+  g. Calcúlese los valores de ancho de banda del amplificador.
+
+      AB(Lazo abierto):______________            AB(Lazo abierto):______________
+
+
+
+
+pág. 24                                               Mediciones de parámetros de amplificadores
+                                                                                Uso de escala en dB
+                                                              Efecto de la realimentación negativa
+                     UNIVERSIDAD TECNOLÓGICA NACIONAL
+                         FACULTAD REGIONAL CORDOBA
+                    DEPARTAMENTO INGENIERÍA ELECTRÓNICA
+
+
+Para terminar
+Conclusiones:
+
+Elabore conclusiones respecto de los experimentos que acaba de hacer. Puede guiarse con
+las siguientes preguntas:
+
+ Discuta con sus compañeros todos los aspectos relativos a los ensayos/mediciones
+realizadas.
+ Si en el procedimiento para medir ganancia en dB, se ve obligado a cambiar el rango del
+voltímetro para medir la entrada y la salida del amplificador. ¿Qué corrección debería
+efectuarse en las lecturas obtenidas?
+ En este trabajo práctico se ha sugerido el empleo del multímetro analógico marca
+UNIVO. Sin embargo, no es el único instrumento que se puede utilizar; hay al menos un par
+de multímetros digitales, que tienen esta posibilidad. Pida uno de estos instrumentos,
+examine sus características y determine cuales habrían sido las diferencias (si las hay) en los
+procedimientos de medición utilizados.
+ Elabore una lista de las ventajas que supone, usar un instrumento con escala en
+decibeles, cuando se deben efectuar mediciones de ganancia.
+ La realimentación negativa, con muestra de tensión, disminuye la impedancia
+(resistencia) de salida y, si la mezcla es en serie (como es este el caso), aumenta la
+impedancia (resistencia) de entrada de los amplificadores. Lo primero se habrá hecho
+evidente en el experimento 1, ¿Qué piensa de lo indicado en segundo lugar?
+ La realimentación negativa aumenta el ancho de banda de los amplificadores, pero ello
+tiene un costo, ¿cuál es ese costo?
+ Dado que la realimentación negativa disminuye sensiblemente la resistencia de salida
+del amplificador, cabría esperar que, de acuerdo al teorema de la máxima transferencia,
+haya disponible más potencia sobre la carga. ¿Es esto cierto?
+
+
+
+
+  pág. 25                                               Mediciones de parámetros de amplificadores
+                                                                                  Uso de escala en dB
+                                                                Efecto de la realimentación negativa
+
