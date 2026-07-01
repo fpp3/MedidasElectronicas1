@@ -1,0 +1,36 @@
+\chapter{Introducción y Objetivos}
+
+\section{Objetivos}
+\begin{itemize}
+    \item Diferenciar las potencias activa, reactiva y aparente en sistemas monofásicos de corriente alterna.
+    \item Determinar la diferencia de fase entre tensión y corriente utilizando el método de figuras de Lissajous
+          en el modo X-Y del osciloscopio.
+    \item Diseñar y calcular la compensación del factor de potencia mediante el agregado de capacitores en paralelo.
+    \item Medir y comparar la respuesta de multímetros de valor medio calibrados y multímetros de valor eficaz
+          verdadero (True RMS) frente a señales no sinusoidales.
+    \item Determinar los errores sistemáticos y el grado de incertidumbre asociado a las mediciones realizadas.
+\end{itemize}
+
+\section{Introducción Teórica}
+En circuitos de corriente alterna de baja frecuencia y frecuencia industrial, las cargas reactivas (inductivas o
+capacitivas) introducen un desfasaje entre las señales de tensión y corriente. Esto da origen a tres expresiones
+distintas de potencia que caracterizan el comportamiento energético del sistema: la potencia activa ($P$), que representa
+la energía útil convertida en trabajo; la potencia reactiva ($Q$), asociada al intercambio de energía para el
+sostenimiento de campos eléctricos y magnéticos; y la potencia aparente ($S$), que representa el producto directo del
+valor eficaz de tensión por la corriente.
+
+El factor de potencia, definido como $\cos\phi$ (donde $\phi$ es el ángulo de desfasaje), es un parámetro fundamental
+para evaluar la eficiencia del transporte y distribución de energía eléctrica. Un factor de potencia bajo incrementa la
+corriente necesaria para una misma potencia activa, elevando las pérdidas por efecto Joule en las líneas de transmisión.
+Por este motivo, se realiza la compensación del factor de potencia mediante el acoplamiento de bancos de capacitores.
+
+Para caracterizar el desfasaje de forma indirecta, el osciloscopio puede configurarse en modo X-Y para graficar una
+figura de Lissajous. La elipse resultante permite deducir el desfase mediante la relación de sus intersecciones con los
+ejes y su amplitud máxima.
+
+Por otra parte, la gran mayoría de los multímetros digitales comunes para corriente alterna miden el valor medio
+rectificado de la señal y aplican un factor de escala de $1,11$ para indicar el valor eficaz bajo la hipótesis de una
+forma de onda puramente sinusoidal. Al medir señales con alto contenido armónico, como ondas cuadradas, triangulares o
+con control de fase por Triac (dimmer), se introducen errores significativos debido a que la relación entre el valor
+eficaz y el valor medio de módulo (factor de forma) difiere de la del caso sinusoidal. En estas situaciones, es
+indispensable utilizar instrumentos con detección True RMS (valor eficaz verdadero).

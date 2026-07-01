@@ -1,0 +1,128 @@
+\chapter{Conclusiones y Cuestionario}
+
+\section{Respuestas al Cuestionario}
+
+\subsection{Deducción de las Ecuaciones de Lissajous (Ecuaciones I y II)}
+Para determinar el desfasaje utilizando el modo X-Y del osciloscopio, se aplican dos señales sinusoidales desfasadas
+a los canales X e Y:
+\begin{gather}
+    x(t) = X_p \sin(\omega t) \\
+    y(t) = Y_p \sin(\omega t + \phi)
+\end{gather}
+Donde $X_p$ e $Y_p$ son las amplitudes máximas de las señales.
+
+Cuando la señal en X cruza por cero ($x(t) = 0$), se debe cumplir que $\omega t = 0$ (o múltiplos de $\pi$). Sustituyendo
+este valor de tiempo en la ecuación de la señal Y, se obtiene el punto de intersección con el eje Y, definido
+como $A$:
+\begin{equation}
+    y(0) = Y_p \sin(\phi) \implies A = Y_p \sin\phi
+\end{equation}
+
+Por definición, el valor máximo que alcanza la elipse en el eje Y es su amplitud $B = Y_p$. Realizando el cociente
+entre ambas magnitudes se obtiene la primera ecuación:
+\begin{equation}
+    \frac{A}{B} = \frac{Y_p \sin\phi}{Y_p} = \sin\phi \implies \sin\phi = \frac{A}{B}
+\end{equation}
+
+A partir de la identidad trigonométrica fundamental $\sin^2\phi + \cos^2\phi = 1$, se deduce la expresión para
+el factor de potencia ($\cos\phi$):
+\begin{equation}
+    \cos\phi = \sqrt{1 - \sin^2\phi} = \sqrt{1 - \left(\frac{A}{B}\right)^2}
+\end{equation}
+Estas ecuaciones permiten determinar con precisión el desfasaje a partir de la geometría de la elipse.
+
+
+\subsection{Deducción de la Ecuación del Capacitor de Compensación (Ecuación III)}
+La potencia reactiva inductiva de una carga con potencia activa $P$ y desfasaje $\phi$ se expresa como:
+\begin{equation}
+    Q_L = P \tan\phi
+\end{equation}
+
+Para compensar completamente este efecto reactivo, se conecta un capacitor en paralelo cuya potencia reactiva
+capacitiva es:
+\begin{equation}
+    Q_C = V^2 \omega C
+\end{equation}
+Donde $V$ es la tensión eficaz de la línea y $\omega = 2\pi f$ es la pulsación de la red.
+
+Igualando ambas potencias reactivas para lograr una compensación ideal ($Q_C = Q_L$):
+\begin{equation}
+    V^2 \omega C = P \tan\phi \implies C = \frac{P \tan\phi}{V^2 \omega}
+\end{equation}
+Esta expresión corresponde a la fórmula utilizada en el Experimento 2.
+
+
+\subsection{Deformación de la Onda de Corriente}
+En el Experimento 2 se observó una notable deformación de la corriente en comparación con una senoidal pura. Esto
+se debe a que la lámpara fluorescente es una carga no lineal. El arco de descarga de gas en el interior del tubo
+presenta una resistencia dinámica no lineal (ignición y extinción en cada semiciclo), a lo que se suma el efecto de
+saturación magnética del núcleo de hierro del balasto inductivo. Estos fenómenos introducen componentes armónicos de
+corriente que deforman la onda fundamental de $50\Hz$.
+
+
+\subsection{Variación del Factor de Potencia con la Carga Mecánica en Motores}
+En el caso de realizar los ensayos sobre un motor de corriente alterna, la aplicación de una carga mecánica en su eje
+aumenta el factor de potencia. Esto se debe a que la potencia reactiva de magnetización (necesaria para sostener los
+campos magnéticos del estator y rotor) permanece prácticamente constante, mientras que la potencia activa aumenta de
+forma proporcional al trabajo mecánico realizado. Dado que el factor de potencia se define como el cociente $P/S$
+y $S = \sqrt{P^2 + Q^2}$, un aumento de $P$ con $Q$ constante desplaza el ángulo $\phi$ hacia valores menores, lo
+que eleva el $\cos\phi$ acercándolo a la unidad.
+
+
+\subsection{Cálculo Analítico de las Cotas de Corrección para Ondas Cuadrada y Triangular}
+Los voltímetros de respuesta al valor medio están calibrados para indicar el valor eficaz de una senoidal multiplicando
+la lectura del valor medio de módulo por el factor de forma sinusoidal ($k_{\text{forma, sen}} = 1,11$).
+
+Para una onda cuadrada bipolar de amplitud $V_p$:
+\begin{itemize}
+    \item Valor eficaz real: $V_{\text{RMS}} = V_p$.
+    \item Valor medio de módulo: $V_{\text{med}} = V_p$.
+    \item Indicación del voltímetro de valor medio: $V_{\text{indicado}} = 1,11 \cdot V_{\text{med}} = 1,11 \cdot V_p$.
+    \item Error teórico: $e\% = +11\%$.
+\end{itemize}
+
+Para una onda triangular bipolar de amplitud $V_p$:
+\begin{itemize}
+    \item Valor eficaz real: $V_{\text{RMS}} = \frac{V_p}{\sqrt{3}} \approx 0,577 \cdot V_p$.
+    \item Valor medio de módulo: $V_{\text{med}} = \frac{V_p}{2} = 0,5 \cdot V_p$.
+    \item Indicación del voltímetro de valor medio: $V_{\text{indicado}} = 1,11 \cdot V_{\text{med}} = 0,555 \cdot V_p$.
+    \item Error teórico: $e\% = \frac{0,555 - 0,577}{0,577} \cdot 100 \approx -3,8\%$.
+\end{itemize}
+
+En la práctica, las mediciones arrojaron diferencias mucho menores ($0,56\%$ y $0,21\%$). Esto se atribuye a que los
+multímetros digitales modernos (incluso los de respuesta promedio como el UNI-T UT33A+) emplean técnicas de muestreo
+digital y algoritmos internos que atenúan la discrepancia teórica clásica de los rectificadores analógicos pasivos,
+además de las limitaciones de ancho de banda y la atenuación de las altas frecuencias de conmutación del generador.
+
+
+\subsection{Factor de Potencia Menor a 1 en Carga Resistiva Dimmerizada}
+En el Experimento 5, al utilizar el dimmer con una lámpara incandescente (carga puramente resistiva), se registró un
+factor de potencia de $0,43$. Dado que la carga es resistiva, no existe almacenamiento de energía reactiva en forma
+de campos magnéticos o eléctricos (el desfasaje de la frecuencia fundamental es nulo, $\cos\theta_1 = 1$).
+
+Sin embargo, el factor de potencia total se define como el producto del factor de desplazamiento por el factor de
+distorsión:
+\begin{equation}
+    \text{PF} = \frac{P}{S} = \cos\theta_1 \cdot \frac{I_1}{I_{\text{RMS}}}
+\end{equation}
+Donde $I_1$ es el valor eficaz de la componente fundamental y $I_{\text{RMS}}$ es el valor eficaz total de la corriente.
+
+El dimmer recorta la forma de onda de tensión (y por ende de corriente), lo que genera un contenido armónico sumamente
+elevado. Esto incrementa significativamente el valor eficaz total de la corriente ($I_{\text{RMS}}$) respecto de la
+componente fundamental ($I_1$). Al reducirse el término de distorsión $I_1/I_{\text{RMS}}$, el factor de potencia cae
+drásticamente a $0,43$, a pesar de que la carga es no reactiva.
+
+Cabe aclarar que este bajo factor de potencia no se atribuye al capacitor de la red de retardo RC (usado para el disparo
+del Triac). Dicho capacitor suele ser de muy baja capacidad (típicamente del orden de los $100\nF$), lo que a frecuencia
+industrial ($50\Hz$) representa una reactancia capacitiva sumamente alta ($X_C \approx 31,8\kohm$). A una tensión de
+$220\V$, la corriente reactiva que demanda este circuito de disparo es despreciable (menor a $7\mA$), por lo que su aporte
+a la potencia reactiva de desplazamiento ($Q$) no influye en la medición realizada.
+
+
+\section{Conclusión General}
+El desarrollo del trabajo práctico permitió contrastar de forma directa las diferencias operativas entre voltímetros de
+respuesta al valor medio y de respuesta True RMS. Se comprobó experimentalmente que, ante la presencia de armónicos y
+señales recortadas (como en la salida del dimmer), los instrumentos de valor medio pierden exactitud y subestiman o
+sobreestiman los valores eficaces reales, validando la necesidad de emplear equipos True RMS en sistemas electrónicos
+modernos. Asimismo, se verificó la efectividad de la corrección del factor de potencia mediante capacitores en paralelo,
+reduciendo la corriente de línea en un $62,5\%$ y optimizando la transferencia energética de la red.

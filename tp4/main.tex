@@ -1,0 +1,42 @@
+\documentclass[chaptersright]{informeutn}
+
+% --- Paquetes Adicionales ---
+\usepackage{subcaption}
+\usepackage[backend=bibtex, style=alphabetic, sorting=ynt]{biblatex}
+\addbibresource{fuentes.bib}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% --- Unidades adicionales ---
+\newcommand{\VA}{\,\mathrm{VA}}
+\newcommand{\VAR}{\,\mathrm{VAR}}
+
+% --- Configuración de la Carátula ---
+\titulo{Trabajo Práctico de Laboratorio N° 4}
+\subtitulo{Medición de señales de baja frecuencia. Factor de Potencia y uso de Voltímetros TRUE RMS}
+\materia{Medidas Electrónicas I}
+\comision{4R2} 
+\autores{
+    Grasso, Gaston - 401892\\
+    Palombo, Franco - 401910\\
+    Prieto, Angelo - 401012
+}
+\fecha{25 de junio de 2026}
+
+\begin{document}
+  \maketitle
+  
+  \tableofcontents
+  \setcounter{page}{1}
+  \thispagestyle{plain}
+
+  \input{chapters/1-integrantes.tex}
+  \input{chapters/2-introduccion.tex}
+  \input{chapters/3-materiales.tex}
+  \input{chapters/4-desarrollo.tex}
+  \input{chapters/5-conclusiones.tex}
+
+  \nocite{*}
+  \printbibliography[heading=bibnumbered, title={Fuentes}]
+
+\end{document}
