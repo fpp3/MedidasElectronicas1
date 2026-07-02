@@ -7,10 +7,12 @@ consigna, utilizando una resistencia shunt $R_1 = 10\ohm$ para la medición indi
 osciloscopio) y un divisor resistivo de tensión (Canal 1 del osciloscopio) compuesto por las resistencias de
 $R_a = 86,7\kohm$ y $R_b = 9,88\kohm$.
 
-La constante del divisor de tensión $k_{\text{div}}$ se calcula como:
+La constante del divisor de tensión $k_{\text{div}}$ se define como:
 \begin{equation}
-    k_{\text{div}} = \frac{R_a + R_b}{R_b} = \frac{86,7\kohm + 9,88\kohm}{9,88\kohm} = 9,7753
+    k_{\text{div}} = \frac{R_a + R_b}{R_b}
 \end{equation}
+Reemplazando por los valores medidos:
+\[ k_{\text{div}} = \frac{86,7\kohm + 9,88\kohm}{9,88\kohm} = 9,7753 \]
 
 Los valores medidos se detallan en la Tabla \ref{tab.mediciones:tp4_exp1}.
 
@@ -50,36 +52,44 @@ grilla del osciloscopio fueron:
 
 El desfasaje $\phi$ se calcula de forma indirecta mediante la relación de amplitudes:
 \begin{equation}
-    \sin\phi = \frac{A}{B} = \frac{5,2}{5,5} = 0,9455
+    \sin\phi = \frac{A}{B}
 \end{equation}
+Sustituyendo por los valores leídos:
+\[ \sin\phi = \frac{5,2}{5,5} = 0,9455 \]
 
-A partir de esta relación se deduce el ángulo y sus parámetros asociados:
-\begin{gather}
+A partir de esta relación se deducen el ángulo y sus parámetros asociados:
+\begin{gather*}
     \phi = \arcsin(0,9455) \approx 71^\circ \\
     \cos\phi = 0,325 \\
     \tan\phi = 2,902
-\end{gather}
+\end{gather*}
 
 Con los valores calculados de tensión de línea ($227,15\V$ según la aproximación manuscrita) e intensidad de línea
 ($0,36\A$), se determinan las potencias reactiva, activa y aparente de la carga inductiva:
 \begin{itemize}
     \item \textbf{Potencia Aparente ($S$):}
           \begin{equation}
-              S = V_{\text{linea}} \cdot I_{\text{linea}} = 227,15\V \cdot 0,36\A = 81,77\text{ VA}
+              S = V_{\text{linea}} \cdot I_{\text{linea}}
           \end{equation}
+          Reemplazando por los valores correspondientes:
+          \[ S = 227,15\V \cdot 0,36\A = 81,77\text{ VA} \]
     \item \textbf{Potencia Activa ($P$):}
           \begin{equation}
-              P = S \cdot \cos\phi = 81,77\text{ VA} \cdot 0,325 = 26,57\W
+              P = S \cdot \cos\phi
           \end{equation}
+          Reemplazando por los valores correspondientes:
+          \[ P = 81,77\text{ VA} \cdot 0,325 = 26,57\W \]
     \item \textbf{Potencia Reactiva ($Q$):}
           \begin{equation}
-              Q = S \cdot \sin\phi = 81,77\text{ VA} \cdot 0,945 = 77,27\text{ VAR}
+              Q = S \cdot \sin\phi
           \end{equation}
+          Reemplazando por los valores correspondientes:
+          \[ Q = 81,77\text{ VA} \cdot 0,945 = 77,27\text{ VAR} \]
 \end{itemize}
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.6\textwidth]{pictures/osc_v_xy.jpg}
+    \includegraphics[height=\fotoheight]{pictures/osc_v_xy.jpg}
     \caption{Elipse de Lissajous en modo X-Y para la determinación del desfasaje entre tensión y corriente.}
     \label{fig.osc:v_xy}
 \end{figure}
@@ -90,8 +100,10 @@ Para corregir el bajo factor de potencia de la lámpara fluorescente ($\cos\phi 
 capacitor en paralelo con la carga. El valor de capacidad necesario para realizar la compensación ideal ($\cos\phi_f = 1$)
 se calcula como:
 \begin{equation}
-    C = \frac{P \cdot \tan\phi}{V_{\text{linea}}^2 \cdot \omega} = \frac{26,57\W \cdot 2,902}{(227,15\V)^2 \cdot 2\pi \cdot 50\Hz} \approx 4,756\uF
+    C = \frac{P \cdot \tan\phi}{V_{\text{linea}}^2 \cdot \omega}
 \end{equation}
+Sustituyendo los valores de ensayo:
+\[ C = \frac{26,57\W \cdot 2,902}{(227,15\V)^2 \cdot 2\pi \cdot 50\Hz} \approx 4,756\uF \]
 
 Utilizando el medidor LCR digital Agilent U1733C, se midió el valor real del capacitor del laboratorio, obteniendo
 una capacidad de $C_{\text{medida}} = 4,906\uF$ con un ángulo de fase de $-88,1^\circ$. La medición correspondiente se
@@ -99,22 +111,20 @@ ilustra en la figura \ref{fig.lcr:capacitor}.
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{pictures/lcr_meter_cap.jpg}
+    \includegraphics[height=\fotoheight]{pictures/lcr_meter_cap.jpg}
     \caption{Medición de la capacidad real en el LCR digital Agilent U1733C.}
     \label{fig.lcr:capacitor}
 \end{figure}
 
 Al conectar el capacitor de corrección en paralelo, se obtuvieron las siguientes lecturas del osciloscopio en el
 dominio del tiempo:
-\begin{gather}
+\begin{gather*}
     V_{C1,\text{ef}} = 23,26\V \implies V_{\text{linea}} = 227,37\V \\
-    V_{C2,\text{ef}} = 1,348\V \implies I_{\text{linea}} = \frac{1,348\V}{10\ohm} = 0,1348\A
-\end{gather}
+    I_{\text{linea}} = \frac{1,348\V}{10\ohm} = 0,1348\A
+\end{gather*}
 
 Con estas lecturas se calcula la nueva potencia aparente tomada de la línea:
-\begin{equation}
-    S_{\text{corr}} = V_{\text{linea}} \cdot I_{\text{linea}} = 227,37\V \cdot 0,1348\A = 30,65\text{ VA}
-\end{equation}
+\[ S_{\text{corr}} = V_{\text{linea}} \cdot I_{\text{linea}} = 227,37\V \cdot 0,1348\A = 30,65\text{ VA} \]
 
 Al comparar con la situación previa a la compensación, se comprueba una gran reducción de la corriente tomada de la
 red (de $0,36\A$ a $0,1348\A$) y, por ende, de la potencia aparente (de $81,77\text{ VA}$ a $30,65\text{ VA}$), lo que representa
@@ -122,7 +132,7 @@ una disminución del $62,5\%$. Las formas de onda corregidas en pantalla se pres
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.6\textwidth]{pictures/osc_v_corrected.jpg}
+    \includegraphics[height=\fotoheight]{pictures/osc_v_corrected.jpg}
     \caption{Tensión (onda senoidal definida) y corriente corregida del circuito con capacitor en paralelo.}
     \label{fig.osc:corrected}
 \end{figure}
@@ -157,16 +167,16 @@ Las fotos del instrumental durante la medición de la onda cuadrada y triangular
 
 \begin{figure}[!ht]
     \centering
-    \begin{subfigure}[t]{0.48\textwidth}
+    \begin{subfigure}[t]{0.56\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{pictures/square_wave_dmm.jpg}
+        \includegraphics[height=\fotoheight]{pictures/square_wave_dmm.jpg}
         \caption{Medición de onda cuadrada (Setup).}
         \label{fig.dmm:square}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[t]{0.48\textwidth}
+    \begin{subfigure}[t]{0.40\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{pictures/square_wave_dmm_2.jpg}
+        \includegraphics[height=\fotoheight]{pictures/square_wave_dmm_2.jpg}
         \caption{Medición de onda cuadrada (Osciloscopio).}
         \label{fig.dmm:triangular}
     \end{subfigure}
@@ -221,15 +231,15 @@ El montaje del dimmer con la lámpara y el medidor de consumo se puede ver en la
 
 \begin{figure}[!ht]
     \centering
-    \begin{subfigure}[t]{0.48\textwidth}
+    \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{pictures/dimmer_setup_close.jpg}
+        \includegraphics[height=\fotoheight]{pictures/dimmer_setup_close.jpg}
         \caption{Conexiones y circuito dimmer.}
     \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.48\textwidth}
+    \hspace{1.5cm}
+    \begin{subfigure}[t]{0.25\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{pictures/wattmeter.jpg}
+        \includegraphics[height=\fotoheight]{pictures/wattmeter.jpg}
         \caption{Lectura en vatímetro digital.}
         \label{fig.dmm:wattmeter}
     \end{subfigure}
