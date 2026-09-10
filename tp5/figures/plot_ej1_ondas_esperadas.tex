@@ -1,0 +1,32 @@
+\begin{tikzpicture}[scale=0.9, >=stealth]
+    % --- 1. Corriente i(t) ---
+    \draw[->] (-0.8, 4.5) -- (9.0, 4.5) node[right] {$t$};
+    \draw[->] (0, 3.0) -- (0, 6.2) node[above left] {$i(t)$};
+    \draw[thick, blue] (0,4.5) -- (2,5.7) -- (4,3.3) -- (6,5.7) -- (8,3.3);
+    
+    \draw[dashed, gray] (2,4.5) -- (2,5.7);
+    \draw[<->] (2.3, 4.5) -- (2.3, 5.7) node[midway, right, fill=white, inner sep=1pt] {$I$};
+
+    % --- 2. Tensión inductiva pura v_L(t) ---
+    \draw[->] (-0.8, 1.2) -- (9.0, 1.2) node[right] {$t$};
+    \draw[->] (0, -0.2) -- (0, 2.7) node[above left] {$v_L(t) = L \frac{di}{dt}$};
+    \draw[thick, red] (0,2.1) -- (2,2.1) -- (2,0.3) -- (4,0.3) -- (4,2.1) -- (6,2.1) -- (6,0.3) -- (8,0.3);
+    
+    \draw[<->] (6.5, 0.3) -- (6.5, 2.1) node[midway, right, fill=white, inner sep=1pt] {$V_{pp} = 2 e_L$};
+
+    % --- 3. Tensión total compuesta v(t) = v_L(t) + v_R(t) ---
+    \draw[->] (-0.8, -2.5) -- (9.0, -2.5) node[right] {$t$};
+    \draw[->] (0, -4.3) -- (0, -0.7) node[above left] {$v(t) = v_L(t) + v_R(t)$};
+    \draw[thick, purple] (0,-1.7) -- (2,-1.1) -- (2,-3.3) -- (4,-2.7) -- (4,-1.7) -- (6,-1.1) -- (6,-3.3) -- (8,-2.7);
+
+    % Cotas de extraccion de tensiones compuestas
+    % Rampa resistiva V_R
+    \draw[dashed, gray] (2,-1.1) -- (3.6,-1.1);
+    \draw[dashed, gray] (2,-1.7) -- (3.6,-1.7);
+    \draw[<->] (3.3, -1.7) -- (3.3, -1.1) node[midway, right, fill=white, inner sep=1pt] {$V_R = I \cdot R$};
+
+    % Escalón inductivo pico a pico V_pp
+    \draw[dashed, gray] (2,-1.7) -- (0.8,-1.7);
+    \draw[dashed, gray] (2,-3.3) -- (0.8,-3.3);
+    \draw[<->] (1.1, -3.3) -- (1.1, -1.7) node[midway, right, fill=white, inner sep=1pt] {$V_{pp} = 2 e_L$};
+\end{tikzpicture}

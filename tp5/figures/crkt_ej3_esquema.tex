@@ -1,0 +1,11 @@
+\begin{circuitikz}[scale=0.85]
+    \draw (0,0) to[sV, l={$V_{\text{gen}}$}] (0,4.2)
+          to[R, l={$r = 50\ohm$}] (3.5,4.2)
+          to[R, l={$R$}] (3.5,2.8)
+          to[L, l={$L$}] (3.5,1.4)
+          to[C, l={$C$}] (3.5,0)
+          to[short] (0,0);
+    \draw (3.5,1.4) to[short, *-o] (4.8,1.4) node[right] {\small CH1 ($e_C$)};
+    \draw (3.5,4.2) to[short, *-o] (4.8,4.2) node[right] {\small CH2 ($e_{\text{total}}$)};
+    \draw (3.5,0) to[short, *-o] (4.8,0) node[right] {\small GND};
+\end{circuitikz}

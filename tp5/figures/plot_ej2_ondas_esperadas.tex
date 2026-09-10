@@ -1,0 +1,22 @@
+\begin{tikzpicture}[scale=0.9, >=stealth]
+    % --- 1. Corriente cuadrada i(t) ---
+    \draw[->] (-0.8, 4.5) -- (9.0, 4.5) node[right] {$t$};
+    \draw[->] (0, 3.0) -- (0, 6.0) node[above left] {$i(t)$};
+    \draw[thick, blue] (0,5.4) -- (2,5.4) -- (2,3.6) -- (4,3.6) -- (4,5.4) -- (6,5.4) -- (6,3.6) -- (8,3.6);
+
+    % --- 2. Tensión compuesta v(t) = v_R(t) + v_C(t) ---
+    \draw[->] (-0.8, 0.5) -- (9.0, 0.5) node[right] {$t$};
+    \draw[->] (0, -2.0) -- (0, 2.8) node[above left] {$v(t) = v_{\text{RSE}}(t) + v_C(t)$};
+    \draw[thick, purple] (0,0.5) -- (0,1.2) -- (2,2.1) -- (2,0.2) -- (4,-1.0) -- (4,0.7) -- (6,1.6) -- (6,-0.3) -- (8,-1.5);
+
+    % Cotas de extracción de tensiones
+    % Salto resistivo e_R
+    \draw[dashed, gray] (2,2.1) -- (3.5,2.1);
+    \draw[dashed, gray] (2,0.2) -- (3.5,0.2);
+    \draw[<->] (3.1, 0.2) -- (3.1, 2.1) node[midway, right, fill=white, inner sep=1pt] {$e_R = I \cdot \text{RSE}$};
+
+    % Rampa capacitiva V_C
+    \draw[dashed, gray] (0,1.2) -- (1.5,1.2);
+    \draw[dashed, gray] (2,2.1) -- (1.5,2.1);
+    \draw[<->] (1.1, 1.2) -- (1.1, 2.1) node[midway, left, fill=white, inner sep=1pt] {$V_C$};
+\end{tikzpicture}

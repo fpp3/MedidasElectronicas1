@@ -1,0 +1,31 @@
+\chapter{Conclusiones}
+
+El desarrollo del Trabajo Práctico N° 5 permitió experimentar y validar métodos indirectos para la caracterización de
+inductores y capacitores reales mediante instrumental convencional de laboratorio. A través del análisis de las formas
+de onda en el osciloscopio ante excitación triangular, cuadrada y senoidal, se logró cuantificar tanto los parámetros
+reactivos concentrados ($L, C$) como sus pérdidas resistivas asociadas ($R$, RSE).
+
+En el método de excitación con corriente triangular sobre la bobina con núcleo de hierro, la adopción de la mediana de los
+valores obtenidos ($4.33\text{ H}$) resulta metodológicamente superior a la media aritmética. Esto se debe a que la
+presencia del núcleo magnético introduce no linealidades y un marcado crecimiento de las pérdidas magnéticas dinámicas
+con la frecuencia, por lo que la mediana actúa como un estimador de tendencia central robusto frente a variaciones
+sistemáticas en los extremos de frecuencia. En este mismo ensayo, se confirmó que al invertirse la pendiente de la corriente
+triangular ($+m \to -m$), la tensión reactiva autoinducida cambia bruscamente de $+e_L$ a $-e_L$ debido a la condición
+de corriente inicial no nula en los flancos de conmutación. En consecuencia, la variación total de tensión observada
+de pico a pico es el doble de la amplitud del escalón ($e_{pp} = 2 e_L$), lo que justifica rigurosamente el factor 4 en la
+fórmula utilizada.
+
+Asimismo, la señal en bornes del inductor exhibió un aspecto perceptiblemente ruidoso y con sobrepicos transitorios.
+Este fenómeno se explica considerando que la inductancia actúa eléctricamente como un circuito derivador
+($v_L = L \frac{di}{dt}$), lo cual amplifica cualquier distorsión armónica o ruido de alta frecuencia presente en la
+señal de salida del generador.
+
+Por otra parte, la medición de la Resistencia Serie Equivalente (RSE) en capacitores electrolíticos mediante onda
+cuadrada demostró ser una técnica directa y eficaz. La cuantificación de la RSE adquiere una relevancia crítica en
+aplicaciones prácticas de la ingeniería electrónica. Una RSE elevada degrada el filtrado incrementando el rizado de
+tensión a la salida y genera disipación de potencia indeseada por efecto Joule ($P = I_{\text{rms}}^2 \cdot
+\text{RSE}$), lo que incrementa la temperatura interna del componente y acorta su vida útil.
+
+En cuanto al método de resonancia LC serie, la determinación experimental de la frecuencia de resonancia ($f_0 = 11.79\si{\kilo\hertz}$)
+con un capacitor de referencia permitió calcular la inductancia de la bobina con núcleo de aire ($18.2\mH$) y evaluar su
+factor de mérito ($Q = 0.1813$) de forma precisa, identificando además sus frecuencias de corte a $-3\text{ dB}$.

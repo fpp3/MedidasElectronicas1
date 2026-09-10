@@ -1,0 +1,70 @@
+\chapter{Introducción y Objetivos}
+
+La determinación experimental de los parámetros concentrados de inductores y condensadores representa un aspecto
+fundamental en la práctica de la ingeniería electrónica. Si bien en laboratorios equipados se dispone de medidores
+digitales de LCR o puentes de impedancia, el empleo de métodos indirectos basados en osciloscopios y generadores de
+funciones permite comprender el comportamiento dinámico de los componentes reactivos reales frente a señales de
+diferentes formas de onda y frecuencias.
+
+\section{Objetivos}
+\begin{itemize}
+    \item Experimentar diversos métodos indirectos para la medición de inductancia ($L$) y capacidad ($C$) mediante el
+    uso de un osciloscopio y un generador de funciones.
+    \item Determinar la Resistencia Serie Equivalente (RSE) en capacitores electrolíticos de aluminio a alta frecuencia.
+    \item Determinar la inductancia y el factor de mérito ($Q$) de una bobina mediante el método de resonancia serie LC.
+    \item Presentar los resultados expresando el grado de incertidumbre y analizando los límites de validez de cada método.
+\end{itemize}
+
+\section{Fundamentación Teórica}
+
+\subsection{Modelo equivalente de componentes reales}
+Un inductor real no se comporta únicamente como una inductancia pura $L$, sino que presenta pérdidas representadas por
+una resistencia serie equivalente $R$, la cual incluye la resistencia del conductor de cobre y las pérdidas en el
+núcleo magnético (por corrientes parásitas de Foucault e histéresis). De manera análoga, un capacitor real incluye
+una Resistencia Serie Equivalente (RSE) producida por los terminales, el electrolito y las pérdidas en el dieléctrico.
+
+\subsection{Método 1: Excitación con onda de corriente triangular}
+Al aplicar una corriente triangular a un inductor en serie con su resistencia de pérdidas, la corriente puede
+considerarse como una sucesión de rampas con pendiente constante y de signo alternado:
+\begin{equation}
+    i(t) = 2 \cdot I \cdot f \cdot t
+    \label{eq.ej1:corriente_triangular}
+\end{equation}
+donde $I$ es la corriente pico y $f$ es la frecuencia. La tensión a bornes de la inductancia ideal es proporcional a la
+derivada temporal de la corriente:
+\begin{equation}
+    e_L(t) = L \frac{di(t)}{dt} = 2 \cdot L \cdot I \cdot f
+    \label{eq.ej1:tension_inductor}
+\end{equation}
+Por ende, la rampa de corriente genera un escalón de tensión rectangular de amplitud pico a pico $e_{pp} = 2 \cdot e_L$,
+lo que permite despejar la inductancia como:
+\begin{equation}
+    L = \frac{e_{pp}}{4 \cdot I \cdot f}
+    \label{eq.ej1:formula_inductancia}
+\end{equation}
+
+\subsection{Método 2: Excitación con onda de corriente cuadrada en capacitores}
+Para la medición de la RSE en capacitores electrolíticos, se aplica una corriente de forma de onda cuadrada. Debido a
+que la tensión en la capacidad ideal varía como una rampa (integrador), la presencia de la RSE introduce un salto de
+tensión instantáneo $e_R$ en los flancos de la onda cuadrada:
+\begin{equation}
+    e_R = I \cdot \text{RSE} \implies \text{RSE} = \frac{e_R}{I}
+    \label{eq.ej2:formula_rse}
+\end{equation}
+
+\subsection{Método 3: Resonancia en circuito LC serie}
+En un circuito LC serie excitado con una señal senoidal, al alcanzar la frecuencia de resonancia $f_0$, las reactancias
+se igualan ($X_L = X_C$), anulándose la impedancia reactiva del conjunto. La frecuencia de resonancia satisface la
+ecuación de Thomson:
+\begin{equation}
+    f_0 = \frac{1}{2 \pi \sqrt{L \cdot C}} \implies L = \frac{1}{(2 \pi f_0)^2 \cdot C}
+    \label{eq.ej3:formula_thomson}
+\end{equation}
+El factor de mérito ($Q$) cuantifica la relación entre la energía reactiva almacenada y la energía disipada por ciclo,
+representando la razón entre la reactancia en resonancia y la resistencia de pérdidas del circuito
+($Q = \frac{X_{L0}}{R_T}$). Experimentalmente, en un circuito LC serie, $Q$ se evalúa mediante la relación de amplitudes
+entre la tensión en el capacitor $e_C$ y la tensión total aplicada $e_{\text{total}}$ en la condición de resonancia:
+\begin{equation}
+    Q = \frac{e_C}{e_{\text{total}}}
+    \label{eq.ej3:factor_Q}
+\end{equation}

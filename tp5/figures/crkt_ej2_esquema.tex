@@ -1,0 +1,10 @@
+\begin{circuitikz}[scale=0.75]
+    \draw (0,0) to[sV, l={$V_{\text{gen}}$}] (0,3)
+          to[R, l={$r = 1\kohm$}] (3,3)
+          to[R, l={\text{RSE}}] (3,1.5)
+          to[C, l={$C$}] (3,0)
+          to[short] (0,0);
+    \draw (3,3) to[short, *-o] (4.5,3) node[right] {\small CH2(+)};
+    \draw (3,0) to[short, *-o] (4.5,0) node[right] {\small GND};
+    \draw (0,3) to[short, *-o] (-1.5,3) node[left] {\small CH1(+)};
+\end{circuitikz}
