@@ -1,0 +1,565 @@
+\chapter{Desarrollo Experimental y Resultados}
+
+\section{Experimento 1: Máquina de Tracción y Compresión}
+
+\subsection{Relevamiento de Campo del Sistema Mecánico}
+En el marco de las actividades prácticas se realizó una visita técnica al Laboratorio de Ensayos del Departamento de
+Ingeniería Mecánica de la UTN-FRC, procediéndose al relevamiento estructural y funcional de la máquina universal de
+ensayos de tracción y compresión (ver Figura~\ref{fig.ej1:maquina_universal}). Dicho equipo efectúa ensayos
+destructivos y no destructivos sobre probetas normalizadas mediante la aplicación controlada de cargas axiales
+impulsadas por un pistón electrohidráulico.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.55\textwidth]{pictures/maquina_universal_ensayos.jpeg}
+    \caption{Máquina universal de ensayos de tracción y compresión relevada en laboratorio.}
+    \label{fig.ej1:maquina_universal}
+\end{figure}
+
+Para la adquisición y caracterización completa de un ensayo mecánico se requiere registrar en tiempo real dos variables
+físicas fundamentales: la fuerza axial aplicada (o carga) y la deformación longitudinal (o desplazamiento) de la
+mordaza móvil respecto a la fija.
+
+\subsection{Identificación y Especificaciones de los Sensores}
+A partir de la inspección física in situ y el registro fotográfico se relevaron dos transductores industriales montados
+directamente sobre la máquina:
+\begin{enumerate}
+    \item \emph{Transductor de Posición Lineal (GEFRAN)}: Se encuentra vinculado mecánicamente entre el puente móvil y
+    el bastidor estático de la máquina (ver Figura~\ref{fig.ej1:gefran}(a)). Corresponde a un potenciómetro
+    lineal de precisión marca GEFRAN modelo PY-2-C-100 (código F006351, ver Figura~\ref{fig.ej1:gefran}(b) y
+    hoja de datos~\cite{gefran_py2} adjunta en el Anexo~\ref{ch:anexos}), con resistencia nominal total de
+    $\qty{5}{\kilo\ohm}\pm 20\%$, carrera eléctrica útil de $\qty{100}{\milli\meter}$ (carrera teórica de $\qty{101}{\milli\meter}$,
+    mecánica de $\qty{106}{\milli\meter}$) y conector normalizado DIN~43322 de 5 polos. La tecnología de pista plástica
+    conductora provee una resolución teórica infinita y una excelente linealidad independiente garantizada de
+    $\pm 0.07\%$. Cabe resaltar que la hoja de datos prescribe expresamente que el dispositivo opere en configuración
+    ratiométrica con una corriente de cursor $I_c \le \qty{0.1}{\milli\ampere}$ ($< \qty{0.1}{\micro\ampere}$ recomendado)
+    para no degradar la linealidad ni el ciclo de vida ($> 25 \times 10^6\unit{\meter}$ de carrera), aspecto clave que
+    fundamenta el diseño del circuito de acondicionamiento.
+    \item \emph{Transmisor de Presión Hidráulica (ADZ NAGANO)}: Instalado en la línea hidráulica principal de
+    alimentación del pistón de carga (ver Figura~\ref{fig.ej1:adz}(a)). La placa de características
+    técnicas del dispositivo (ver Figura~\ref{fig.ej1:adz}(b) y hoja de datos~\cite{adz_nagano} adjunta en el
+    Anexo~\ref{ch:anexos}) certifica su procedencia de ADZ NAGANO Sensortechnik GmbH, serie industrial SML (tipo SML-10.0),
+    con rango calibrado de $\qtyrange{0}{250}{\bar}$, sobrepresión admisible de $\qty{750}{\bar}$, presión de rotura de
+    $\qty{1000}{\bar}$, tensión de alimentación de $\qtyrange{12}{32}{\volt}$~DC y salida analógica en tensión de
+    $\qtyrange{0}{10}{\volt}$ (3 hilos, tiempo de respuesta $\le \qty{1}{\milli\second}$, clase de exactitud $\le 0.5\%$).
+    El montaje hidráulico se efectúa mediante rosca macho G1/4 Form E de acero inoxidable, mientras que el acoplamiento
+    eléctrico se realiza mediante conector angular MVS/C bajo norma DIN EN 175301-803. Sabiendo que la fuerza ejercida por el pistón es el
+    producto directo de la presión hidráulica por el área de su sección transversal ($F = P \cdot A_{\text{pistón}}$),
+    la medición unificada de presión permite determinar la carga con exactitud.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/foto_transductor_gefran.jpg}
+        \caption{Montaje de transductor GEFRAN.}
+        \label{fig.ej1:gefran_montaje}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/modelo_sensor_desplazamiento_crop.jpeg}
+        \caption{Modelo GEFRAN PY-2-C-100.}
+        \label{fig.ej1:gefran_modelo}
+    \end{subfigure}
+    \caption{Transductor potenciométrico de posición lineal GEFRAN relevado.}
+    \label{fig.ej1:gefran}
+\end{figure}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/foto_transductor_adz_1.jpg}
+        \caption{Transmisor ADZ NAGANO (marca y conector).}
+        \label{fig.ej1:adz_montaje}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/sensor_presion_specs.jpeg}
+        \caption{Placa de características técnicas del sensor ADZ.}
+        \label{fig.ej1:adz_specs}
+    \end{subfigure}
+    \caption{Transmisor de presión hidráulica industrial ADZ NAGANO relevado.}
+    \label{fig.ej1:adz}
+\end{figure}
+
+\subsection{Diseño del Circuito de Acondicionamiento Analógico}
+Los conversores analógico-digitales integrados en microcontroladores modernos trabajan típicamente en rangos de entrada
+de $\qtyrange{0}{3.3}{\volt}$ o $\qtyrange{0}{5}{\volt}$. Las salidas de los sensores relevados demandan
+circuitos de adaptación específicos:
+\begin{itemize}
+    \item \emph{Canal de Posición (GEFRAN)}: Al polarizarse el potenciómetro con una tensión de referencia estabilizada
+    de $\qty{+3.3}{\volt}$, la tensión en el cursor varía linealmente entre $\qty{0}{\volt}$ y
+    $\qty{3.3}{\volt}$. Para evitar errores de carga debidos a la impedancia finita del conversor o del
+    filtro, se conecta un amplificador operacional en configuración de seguidor de tensión (buffer con
+    ganancia unitaria $G = 1$) que ofrece impedancia de entrada de orden gigohm. A la salida del buffer se
+    implementa un filtro pasabajos RC anti-aliasing pasivo de primer orden con resistencia $R_f =
+    \qty{1}{\kilo\ohm}$ y capacitor cerámico $C_f = \qty{100}{\nano\farad}$, fijando una frecuencia de corte
+    teórica según la Ecuación~\ref{eq.ej1:filtro_fc}:
+    \begin{equation}
+        f_c = \frac{1}{2 \pi R_f C_f}
+        \label{eq.ej1:filtro_fc}
+    \end{equation}
+    Calculando con los valores adoptados, resulta:
+    \[
+        f_c = \frac{1}{2 \pi \cdot \qty{1}{\kilo\ohm} \cdot \qty{100}{\nano\farad}} \approx \qty{1.59}{\kilo\hertz}
+    \]
+    \item \emph{Canal de Presión (ADZ NAGANO)}: Dado que la salida del sensor entrega
+    $\qtyrange{0}{10}{\volt}$ y excede el rango máximo permitido por el microcontrolador ($\qty{3.3}{\volt}$),
+    se diseña un divisor resistivo de precisión con relación de atenuación $1/3$ ($G \approx 0.33$). Utilizando
+    resistores metálicos al $0.1\%$ de $R_1 = \qty{20}{\kilo\ohm}$ y $R_2 = \qty{10}{\kilo\ohm}$, la tensión
+    máxima de $\qty{10}{\volt}$ se escala a $\qty{3.33}{\volt}$. Cabe destacar que la impedancia de carga que este
+    divisor presenta al transmisor es $R_{\text{carga}} = R_1 + R_2 = \qty{30}{\kilo\ohm}$, satisfaciendo con amplio
+    margen el requerimiento de carga mínima del fabricante ($R_L \ge \qty{4.7}{\kilo\ohm}$ especificado en la hoja
+    de datos) para garantizar la exactitud metrológica y prevenir sobrecargas en la etapa de salida analógica. La
+    señal atenuada se acopla a un seguidor de tensión con filtro pasabajos idéntico antes de ingresar al canal del ADC.
+\end{itemize}
+
+El esquema eléctrico del circuito de acondicionamiento propuesto se presenta en la
+Figura~\ref{crkt.ej1:acondicionamiento}.
+
+\begin{figure}[!ht]
+    \centering
+    \input{figures/crkt_ej1_acondicionamiento.tex}
+    \caption{Esquema eléctrico de acondicionamiento analógico para la máquina de tracción.}
+    \label{crkt.ej1:acondicionamiento}
+\end{figure}
+
+\subsection{Selección del Sistema Embebido y Especificaciones del Conversor ADC}
+La cátedra establece como requisitos de diseño alcanzar una precisión de resolución mínima de
+$\Delta x \le \qty{0.1}{\milli\meter}$ en el desplazamiento y $\Delta M \le \qty{15}{\kilogram}$ en la carga.
+\begin{enumerate}
+    \item \emph{Resolución del ADC para Desplazamiento}: Para una carrera total de $L = \qty{100}{\milli\meter}$ y un
+    escalón requerido de $\qty{0.1}{\milli\meter}$, el número de divisiones mínimas es:
+    \[
+        N_x = \frac{\qty{100}{\milli\meter}}{\qty{0.1}{\milli\meter}} = 1000\text{ niveles}
+    \]
+    Un conversor de 10 bits dispone de $2^{10} = 1024$ niveles, logrando una resolución teórica de
+    $\frac{\qty{100}{\milli\meter}}{1024} \approx \qty{0.0977}{\milli\meter}$, lo que apenas satisface el umbral
+    nominal sin margen de ruido. Al seleccionar un ADC de 12 bits ($2^{12} = 4096$ niveles), la resolución del
+    sistema pasa a ser:
+    \[
+        \Delta x_{\text{cuanta}} = \frac{\qty{100}{\milli\meter}}{4096} \approx \qty{0.0244}{\milli\meter}
+    \]
+    Este margen cuádruple ($4\times$) absorbe holgadamente las fluctuaciones por ruido y garantiza el cumplimiento aun
+    cuando la cantidad efectiva de bits (ENOB) sea de $10.5\text{ bits}$.
+    \item \emph{Resolución del ADC para Carga / Fuerza}: Considerando una máquina hidráulica con capacidad máxima de
+    $\qty{20000}{\kilogram}$ ($\qty{20}{\text{t}}$), la exigencia de $\Delta M \le \qty{15}{\kilogram}$ requiere:
+    \[
+        N_F = \frac{\qty{20000}{\kilogram}}{\qty{15}{\kilogram}} \approx 1333.3\text{ niveles}
+    \]
+    Con el ADC de 12 bits se alcanzan 4096 cuentas, lo que provee una resolución de:
+    \[
+        \Delta M_{\text{cuanta}} = \frac{\qty{20000}{\kilogram}}{4096} \approx \qty{4.88}{\kilogram}
+    \]
+    satisfaciendo con amplio margen la especificación.
+    \item \emph{Frecuencia de Muestreo ($f_s$)}: Los ensayos de tracción son fenómenos mecánicos cuasi-estáticos con
+    velocidades de desplazamiento de $\qtyrange{1}{20}{\milli\meter/\minute}$, donde el espectro útil de la señal no
+    sobrepasa los $\qty{2}{\hertz}$. Fijando una frecuencia de muestreo de $f_s = \qty{100}{\text{S/s}}$
+    ($\qty{100}{\hertz}$), se cumple sobradamente el criterio de Nyquist-Shannon y se dispone de un
+    sobremuestreo de $25\times$, posibilitando la aplicación de promediado digital móvil (\emph{moving
+    average}) para suprimir el rizado de $\qty{50}{\hertz}$.
+    \item \emph{Tensión de Referencia}: Se define $V_{\text{ref}} = \qty{3.300}{\volt}$, generada mediante una
+    referencia de tensión de precisión (tipo bandgap o shunt de baja deriva como el REF3033 o TL431 con deriva
+    $< \qty{20}{\text{ppm/\degreeCelsius}}$), independiente de la línea de alimentación digital para evitar
+    diafonía.
+    \item \emph{Sistema Embebido Seleccionado}: Se adopta un microcontrolador STM32F401 (núcleo ARM Cortex-M4 a
+    $\qty{84}{\mega\hertz}$), el cual cuenta con un ADC SAR de 12 bits de alta velocidad, temporizadores de
+    precisión para disparo de muestreo equidistante mediante DMA, e interfaz USB nativa de máxima velocidad
+    (clase CDC virtual COM) para el envío de tramas hacia la computadora de ensayo.
+\end{enumerate}
+
+En la Figura~\ref{fig.ej1:diagrama_bloques} se resume el diagrama en bloques funcional del sistema completo de
+instrumentación y adquisición de datos propuesto para la máquina universal de ensayos.
+
+\begin{figure}[!ht]
+    \centering
+    \input{figures/crkt_ej1_diagrama_bloques.tex}
+    \caption{Diagrama en bloques del sistema de instrumentación y adquisición para la máquina universal de ensayos.}
+    \label{fig.ej1:diagrama_bloques}
+\end{figure}
+
+\clearpage
+
+\section{Experimento 2: Sistema de Instrumentación para Banco de Motores de Combustión}
+
+\subsection{Fundamentos del Banco de Ensayo y Principio de Medición}
+El ensayo de motores de combustión interna en banco dinamométrico permite trazar las curvas características de par motor
+y potencia efectiva en función del régimen de giro~\cite{barreiro_banco}. El equipamiento del laboratorio corresponde a
+un \emph{banco de motor de acople directo} (ver Figura~\ref{fig.ej2:banco_motor}), donde el volante de inercia se une
+directamente al freno sobre una bancada rígida. Al ensayar el motor fuera del vehículo, se evalúa su potencia neta sin
+las pérdidas parásitas por fricción en la transmisión y rodadura de neumáticos inherentes a los bancos de
+rodillos~\cite{barreiro_banco}.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.65\textwidth]{pictures/banco_prueba_motor.jpeg}
+    \caption{Banco dinamométrico para ensayo de motores de combustión interna relevado en laboratorio.}
+    \label{fig.ej2:banco_motor}
+\end{figure}
+
+A diferencia de los bancos inerciales (que sólo operan en aceleración transitoria libre), este equipo utiliza un freno
+dinamométrico de absorción (hidráulico o de corrientes parásitas) que disipa la potencia generada, permitiendo estabilizar
+al motor a RPM constantes. Para una medición confiable es indispensable ensayar en \emph{régimen estacionario}, ya que
+en aceleración parte de la potencia se destina a acelerar las masas inerciales internas (cigüeñal y volante), lo que
+subestimaría el par efectivo transferido al freno~\cite{barreiro_banco}.
+
+Por la tercera ley de Newton (acción y reacción), el estator del freno bascula sobre cojinetes libres y transmite el par
+a una celda de carga montada sobre un brazo de palanca de longitud $L$. El par motor $\tau$ y la potencia al freno $P$ se
+calculan analíticamente según:
+\begin{equation}
+    \tau = F \cdot L = m_{\text{medida}} \cdot g \cdot L
+    \label{eq.ej2:torque}
+\end{equation}
+\begin{equation}
+    P = \tau \cdot \omega = \tau \cdot \frac{2 \pi N}{60}
+    \label{eq.ej2:potencia}
+\end{equation}
+donde $N$ es la velocidad angular en RPM. Antes de los ensayos, la celda de carga se calibra estáticamente verificando el
+cero en reposo y suspendiendo masas patrón en el brazo de palanca ($\tau_{\text{patrón}} = M_{\text{patrón}} \cdot g \cdot L$).
+Asimismo, para normalizar las mediciones frente a cambios de temperatura y presión atmosférica en la sala, se aplica el factor
+de corrección ambiental $K_a = \left( \frac{760\,\text{mmHg}}{P_{\text{atm}}} \right) \left( \frac{T_{\text{amb}}}{293\,\text{K}} \right)^{0.5}$
+según norma SAE J1349~\cite{barreiro_banco}.
+
+\subsection{Sensores Relevados en el Banco}
+A partir del relevamiento in situ en el laboratorio se identificaron los dos transductores primarios de la máquina
+(ver Figura~\ref{fig.ej2:transductores}):
+\begin{enumerate}
+    \item \emph{Celda de Carga Dinamométrica}: Montada en el brazo oscilante del freno (ver Figura~\ref{fig.ej2:transductores}(a)).
+    Es un transductor de precisión tipo \emph{S-beam} con puente de Wheatstone de cuatro galgas extensométricas ($\qty{350}{\ohm}$,
+    sensibilidad de $\qty{3}{\milli\volt\per\volt}$) que genera una tensión diferencial en milivoltios proporcional a la
+    fuerza del estator.
+    \item \emph{Sensor de Efecto Hall para RPM}: Montado de forma fija frente a una rueda fónica dentada acoplada al eje
+    (ver Figura~\ref{fig.ej2:transductores}(b)). Al girar el motor, genera una señal digital de pulsos cuya frecuencia es
+    proporcional a la velocidad de giro ($f_{\text{pulsos}} = Z \cdot \frac{N}{60}$, con $Z$ dientes), eliminando el desgaste
+    mecánico y tolerando las vibraciones del banco.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/ej2_celda_carga.jpeg}
+        \caption{Celda de carga tipo S-beam montada en el brazo.}
+        \label{fig.ej2:celda_carga}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/ej2_sensor_hall.jpeg}
+        \caption{Sensor de efecto Hall enfrentado a la rueda fónica.}
+        \label{fig.ej2:sensor_hall}
+    \end{subfigure}
+    \caption{Transductores primarios implementados en el banco de ensayo de motores.}
+    \label{fig.ej2:transductores}
+\end{figure}
+
+\subsection{Acondicionamiento, Conversión y Sistema Embebido}
+Para satisfacer los requerimientos académicos del ensayo sin incurrir en una complejidad industrial desmedida, la cadena de
+adquisición e instrumentación se estructura de la siguiente manera:
+\begin{enumerate}
+    \item \emph{Canal de Par y Conversor ADC ADS1115}: La señal de milivoltios de la celda de carga se amplifica con un
+    amplificador de instrumentación INA128 provisto de un filtro pasabajos $RC$ para amortiguar fluctuaciones.
+    
+    A diferencia de la máquina de tracción del Experimento 1 (donde bastaba el ADC SAR de 12 bits interno del microcontrolador),
+    el entorno del motor presenta fuertes perturbaciones electromagnéticas por las chispas de ignición en bujías y pulsaciones
+    de par cíclicas entre encendidos. En este contexto, el ADC SAR integrado resulta vulnerable debido a su muestreo instantáneo
+    y a la pérdida de resolución efectiva a bajas cargas.
+    
+    Por ello, se adopta un conversor analógico-digital externo \textbf{ADS1115} de 16 bits de tipo \emph{Sigma-Delta}
+    ($\Delta\Sigma$). Este módulo integra un amplificador de ganancia programable (PGA), entrada diferencial y conversión por
+    integración continua en el tiempo, lo que filtra de forma natural los transitorios de radiofrecuencia y provee una
+    resolución de $2^{16} = 65536$ niveles, asegurando suficiente margen dinámico tanto a plena carga como en ralentí.
+
+    \item \emph{Canal de Velocidad y Microcontrolador STM32}: Al igual que en la máquina universal de ensayos del Experimento 1,
+    se utiliza como unidad central de cómputo un microcontrolador \textbf{STM32}. La señal de pulsos del sensor Hall se ingresa
+    a través de un optoacoplador para aislar la masa del motor, conectándose directamente a un canal de temporizador por hardware
+    en modo captura (\emph{Input Capture}) del STM32 para medir las RPM con precisión de microsegundos.
+    
+    El microcontrolador STM32 interroga al módulo ADS1115 mediante el bus serie $\text{I}^2\text{C}$, computa el torque y la potencia
+    en tiempo real, y envía los datos consolidados hacia la computadora de ensayo mediante su interfaz USB/serie nativa.
+\end{enumerate}
+
+En la Figura~\ref{fig.ej2:dinamometro} se ilustra el esquema de bloques funcional del sistema de instrumentación adoptado.
+
+\begin{figure}[!ht]
+    \centering
+    \input{figures/crkt_ej2_dinamometro.tex}
+    \caption{Diagrama de instrumentación para banco de ensayo dinamométrico de motores.}
+    \label{fig.ej2:dinamometro}
+\end{figure}
+
+
+
+
+\clearpage
+\section{Experimento 3: Perturbaciones Inducidas por la Red Eléctrica (50 Hz)}
+
+Para evidenciar experimentalmente la omnipresencia de las perturbaciones eléctricas de baja frecuencia en el entorno de
+laboratorio, se conectó un canal del osciloscopio digital Tektronix TDS 220 a un par de conductores paralelos de
+aproximadamente $\qty{15}{\centi\meter}$ en circuito abierto, sin conexión a ninguna fuente activa
+(ver Figura~\ref{fig.ej3:interferencia_50hz}(a)).
+
+El acoplamiento se origina principalmente por efecto electrostático capacitivo entre las líneas vivas de la
+instalación eléctrica de $\qty{220}{\volt}$ a $\qty{50}{\hertz}$ y los cables del instrumento. Dado que la
+impedancia de entrada de la punta y del osciloscopio es de $\qty{1}{\mega\ohm}$ en paralelo con
+aproximadamente $\qty{20}{\pico\farad}$, las pequeñísimas capacidades mutuas parásitas ($C_{\text{parásita}}
+\sim \qtyrange{1}{5}{\pico\farad}$) forman un divisor de tensión que induce una corriente alterna capaz de
+generar señales de tensión medibles.
+
+En la Figura~\ref{fig.ej3:interferencia_50hz}(b) se observa la captura en pantalla del osciloscopio. Los parámetros
+relevados de forma automática arrojaron:
+\begin{itemize}
+    \item Frecuencia fundamental medida: $f = \qty{50.20}{\hertz}$ ($T \approx \qty{19.92}{\milli\second}$).
+    \item Tensión pico a pico: $V_{pp} = \qty{3.12}{\volt}$ (con escala vertical de $\qty{2.00}{\volt/\text{div}}$).
+    \item Tensión eficaz de ciclo: $V_{\text{rms-ciclo}} = \qty{951}{\milli\volt}$.
+    \item Base de tiempo: $\qty{10}{\milli\second/\text{div}}$.
+\end{itemize}
+La forma de onda observada exhibió deformaciones respecto a una senoide pura, atribuibles a la presencia de armónicos
+impares ($\qty{150}{\hertz}$, $\qty{250}{\hertz}$) inyectados a la red por cargas no lineales comunes en
+edificios universitarios (equipos informáticos, balastros electrónicos y luminarias LED). Este ensayo
+comprueba que cualquier nodo de alta impedancia no apantallado capta directamente la señal de línea como
+tensión de interferencia en modo normal o común.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[height=5.8cm, width=\textwidth, keepaspectratio]
+        {pictures/ej3_interferencia_50hz-foto_general.jpeg}
+        \caption{Montaje experimental con conductores en circuito abierto.}
+        \label{fig.ej3:foto_general}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[height=5.8cm, width=\textwidth, keepaspectratio]
+        {pictures/ej3_interferencia_50hz-osc.jpeg}
+        \caption{Forma de onda de $\qty{50}{\hertz}$ capturada en el Tektronix TDS 220.}
+        \label{fig.ej3:osc_captura}
+    \end{subfigure}
+    \caption{Medición experimental de perturbaciones inducidas por la red eléctrica comercial ($\qty{50}{\hertz}$).}
+    \label{fig.ej3:interferencia_50hz}
+\end{figure}
+
+\clearpage
+\section{Experimento 4: Medición de Interferencias en Celda de Carga y Técnicas de Blindaje}
+
+\subsection{Medición Directa sobre Celda de Carga sin Acondicionamiento}
+Se ensayó inicialmente una celda de carga comercial de $\qty{3}{\kilogram}$ de capacidad nominal. Utilizando el conector
+auxiliar provisto en el banco de ensayos, se alimentó el puente de Wheatstone y se midió directamente la salida
+diferencial ($V_{\text{in}}^+ - V_{\text{in}}^-$) sin etapa de amplificación intermedia.
+
+Con un multímetro digital en escala de milivoltios de continua se registraron las siguientes tensiones de salida:
+\begin{itemize}
+    \item En reposo (sin carga): $V_d = \qty{-2.3}{\milli\volt}$ (tensión de desbalance residual de las galgas).
+    \item Con una batería de acumulador colocada sobre el plato: $V_d = \qty{+7.3}{\milli\volt}$ ($\Delta V_d
+        = \qty{9.6}{\milli\volt}$).
+    \item Con una caja de destornilladores: $V_d = \qty{+0.5}{\milli\volt}$ ($\Delta V_d = \qty{2.8}{\milli\volt}$).
+\end{itemize}
+
+Al conectar la salida diferencial directamente al canal 1 del osciloscopio en acoplamiento directo (ver
+Figura~\ref{fig.ej4:capturas_directa}(a)), se constató la severa dificultad de apreciar la señal útil. Con una
+sensibilidad vertical de $\qty{10.0}{\milli\volt/\text{div}}$ y base de tiempo de $\qty{5.000}{\micro\second/\text{div}}$,
+la traza del osciloscopio exhibe un piso de ruido de alta frecuencia con un valor eficaz medido de
+$V_{\text{rms}} = \qty{8.57}{\milli\volt}$.
+
+Dado que la excursión total producida por el peso de la batería ($\qty{9.6}{\milli\volt}$) resulta del mismo
+orden de magnitud que la tensión de ruido ambiente presente ($\qty{8.57}{\milli\volt}$), la relación señal a
+ruido (SNR) es prácticamente unitaria. Esto confirma de modo contundente que resulta inviable digitalizar
+directamente la salida de un puente de galgas sin una etapa previa de amplificación diferencial de alta
+ganancia, rechazo de modo común y filtrado selectivo.
+
+\subsection{Medición con Placa de Acondicionamiento y Ensayos de Mitigación}
+A continuación, se conectó la celda de carga a la placa de acondicionamiento de la cátedra, cuyo circuito esquemático
+se detalla en la Figura~\ref{crkt.ej4:banco_celda}. La placa incorpora un amplificador de instrumentación INA122/INA128,
+polarizado con una fuente externa de $\qty{+9}{\volt}$ regulada localmente a $\qty{+5}{\volt}$ mediante un
+regulador lineal para excitar el puente.
+
+\begin{figure}[!ht]
+    \centering
+    \input{figures/crkt_ej4_banco_celda.tex}
+    \caption{Circuito esquemático de la placa de acondicionamiento de celda de carga.}
+    \label{crkt.ej4:banco_celda}
+\end{figure}
+
+Para evaluar la eficacia de las técnicas de apantallamiento y conexión de masa frente a interferencias severas, se
+ensayaron tres configuraciones físicas del banco de medición:
+\begin{enumerate}
+    \item \emph{Configuración 1}: Placa electrónica instalada dentro del gabinete metálico cerrado, con la malla
+    conductora del cable blindado conectada a la referencia de potencial 0V (GND).
+    \item \emph{Configuración 2}: Placa dentro del gabinete metálico cerrado, pero con la malla conductora del cable
+    blindado desconectada (flotante).
+    \item \emph{Configuración 3}: Placa electrónica retirada del gabinete metálico (al aire libre), sin blindaje de
+    chasis y con cables sin apantallar.
+\end{enumerate}
+
+Para cada una de las tres configuraciones se realizaron mediciones en dos condiciones de operación:
+\begin{itemize}
+    \item \emph{En reposo (sin motor)}: En el ambiente estándar del laboratorio central.
+    \item \emph{Con perturbación activa (motor Dremel)}: Con un torno manual Dremel encendido y ubicado a
+    corta distancia ($\approx \qty{10}{\centi\meter}$) del banco de ensayo, actuando como fuente generadora de
+    campos electromagnéticos radiados por arcos de conmutación en su colector de delgas.
+\end{itemize}
+
+El osciloscopio se configuró en canal 1 con acoplamiento alterno (CA) y modo de persistencia infinita durante
+$\qty{5}{\second}$ para capturar la envolvente total de ruido. Mediante los cursores manuales ($\text{CurA}$ y
+$\text{CurB}$) se midió la amplitud pico a pico extrema $\Delta Y = V_{pp}$, el valor eficaz de ruido
+$V_{\text{rms}}$ reportado por el instrumento, y la tensión de continua de salida $V_{\text{DC}}$ registrada
+simultáneamente con el voltímetro.
+
+\subsection{Resultados Experimentales Obtenidos}
+En la Tabla~\ref{tab.ej4:resultados_comparativos} se consolidan de forma sistemática los valores experimentales
+obtenidos para las diferentes configuraciones y condiciones de ensayo.
+
+\begin{table}[!ht]
+    \centering
+    \resizebox{0.95\textwidth}{!}{
+    \begin{tabular}{|l|c|c|c|c|}
+        \hline
+        \textbf{Configuración de Blindaje} & \textbf{Perturbación} &
+        \textbf{$V_{\text{DC}}$ [$\unit{\volt}$]} & \textbf{$V_{\text{rms}}$ [$\unit{\milli\volt}$]} &
+        \textbf{$V_{pp}$ [$\unit{\volt}$]} \\ \hline
+        Conf. 1: En gabinete, malla a GND & Sin motor (Reposo) & 3.45 & 16.0 & 0.204 \\ \hline
+        Conf. 1: En gabinete, malla a GND & Con motor Dremel   & 3.93 & 362  & 1.740 \\ \hline
+        Conf. 2: En gabinete, malla flotante & Sin motor (Reposo) & 3.39 & 16.5 & 0.320 \\ \hline
+        Conf. 2: En gabinete, malla flotante & Con motor Dremel   & 4.13 & 69.3 & 2.160 \\ \hline
+        Conf. 3: Sin gabinete, sin malla  & Sin motor (Reposo) & 3.34 & 22.6 & 0.480 \\ \hline
+        Conf. 3: Sin gabinete, sin malla  & Con motor Dremel   & 4.14 & 194  & 3.120 \\ \hline
+    \end{tabular}}
+    \caption{Resultados cuantitativos de ruido e interferencia para las distintas configuraciones.}
+    \label{tab.ej4:resultados_comparativos}
+\end{table}
+
+
+En la condición previa en vacío (sin pesa colocada) con acondicionamiento en Configuración 1 (ver
+Figura~\ref{fig.ej4:capturas_directa}(b)), el voltímetro registró una tensión continua residual de $\qty{6}{\milli\volt}$,
+con un ruido de persistencia de $V_{pp} = \qty{0.236}{\volt}$ y $V_{\text{rms}} = \qty{4.00}{\milli\volt}$,
+confirmando el correcto punto de reposo del amplificador.
+
+
+En la Figura~\ref{fig.ej4:capturas_directa} se exhiben las pantallas del osciloscopio correspondientes a la señal
+directa sin acondicionar y a la condición en reposo. En la Figura~\ref{fig.ej4:capturas_sin_motor} se comparan las
+capturas en reposo para las tres configuraciones, y en la Figura~\ref{fig.ej4:capturas_con_motor} se contrastan las
+capturas obtenidas bajo la perturbación electromagnética del motor Dremel.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/NewFile9.png}
+        \caption{Salida directa de celda sin acondicionar.}
+        \label{fig.ej4:dso_directa}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/NewFile10.png}
+        \caption{Celda en vacío con acondicionamiento (Conf. 1).}
+        \label{fig.ej4:dso_vacio}
+    \end{subfigure}
+    \caption{Capturas de osciloscopio: señal directa sin acondicionamiento y celda en reposo.}
+    \label{fig.ej4:capturas_directa}
+\end{figure}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/NewFile11.png}
+        \caption{Conf. 1 (malla a GND).}
+        \label{fig.ej4:dso_c1_reposo}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/NewFile13.png}
+        \caption{Conf. 2 (malla flotante).}
+        \label{fig.ej4:dso_c2_reposo}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/NewFile15.png}
+        \caption{Conf. 3 (sin blindaje).}
+        \label{fig.ej4:dso_c3_reposo}
+    \end{subfigure}
+    \caption{Capturas de persistencia infinita en condición de reposo (sin motor).}
+    \label{fig.ej4:capturas_sin_motor}
+\end{figure}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/NewFile12.png}
+        \caption{Conf. 1 (malla a GND).}
+        \label{fig.ej4:dso_c1_motor}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/NewFile14.png}
+        \caption{Conf. 2 (malla flotante).}
+        \label{fig.ej4:dso_c2_motor}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/NewFile16.png}
+        \caption{Conf. 3 (sin blindaje).}
+        \label{fig.ej4:dso_c3_motor}
+    \end{subfigure}
+    \caption{Capturas de persistencia infinita bajo perturbación de motor Dremel.}
+    \label{fig.ej4:capturas_con_motor}
+\end{figure}
+
+
+Para apreciar claramente la degradación del sistema frente al ruido electromagnético, en la
+Figura~\ref{fig.ej4:grafico_ruido} se representa el gráfico de barras comparativo de la tensión de ruido pico a pico
+$V_{pp}$ medido mediante cursores.
+
+\begin{figure}[!ht]
+    \centering
+    \input{figures/plot_ej4_comparativa_ruido.tex}
+    \caption{Tensión de ruido pico a pico $V_{pp}$ para las tres configuraciones de blindaje.}
+    \label{fig.ej4:grafico_ruido}
+\end{figure}
+
+\subsection{Análisis Crítico de los Resultados y Mecanismos Físicos}
+El análisis comparativo de los registros experimentales pone de manifiesto varios aspectos de gran trascendencia:
+\begin{enumerate}
+    \item \emph{Influencia del Apantallamiento de la Malla}: En condición de reposo (sin motor), la conexión de la
+    malla a GND (Configuración 1) permite contener el ruido pico a pico en $\qty{0.204}{\volt}$. Al dejar la
+    malla flotando (Configuración 2), el ruido se incrementa a $\qty{0.320}{\volt}$ ($+57\%$), y al eliminar
+    totalmente la malla (Configuración 3) alcanza $\qty{0.480}{\volt}$ ($+135\%$). Bajo la presencia de la
+    perturbación del motor Dremel, la diferencia es abrumadora: la Configuración 1 atenúa el pico de ruido a
+    $\qty{1.740}{\volt}$, mientras que la Configuración 2 trepa a $\qty{2.160}{\volt}$ y la Configuración 3
+    escala a $\qty{3.120}{\volt}$. Este resultado confirma que una malla flotante pierde su acción de jaula de
+    Faraday y se transforma en una antena parásita que inyecta ruido capacitivamente sobre los conductores
+    centrales.
+    \item \emph{Función del Gabinete Metálico}: El chasis metálico actúa como blindaje electrostático para las pistas
+    del circuito impreso y para el propio circuito integrado. En la Configuración 3, al retirar la placa del gabinete,
+    los nodos de alta impedancia correspondientes a los pines de entrada no inversora e inversora y a los terminales de
+    ganancia $R_G$ quedan expuestos a la radiación directa de las chispas del colector, elevando el ruido pico a pico a
+    niveles cercanos a la tensión total de la señal ($\qty{3.12}{\volt}$ de ruido frente a $\qty{3.34}{\volt}$
+    de señal útil).
+    \item \emph{Fenómeno de Demodulación por Interferencia y Corrimiento de Continua (DC Offset Shift)}: Un hallazgo
+    experimental de máxima relevancia radica en la alteración de la lectura de tensión continua en el voltímetro. En
+    ausencia de motor, la lectura continua con la carga patrón colocada se mantuvo sumamente estable
+    ($\qty{3.45}{\volt}$ en Configuración 1, $\qty{3.39}{\volt}$ en Configuración 2 y $\qty{3.34}{\volt}$ en
+    Configuración 3). Sin embargo, al encender el motor Dremel, la tensión continua registrada aumentó
+    bruscamente a $\qty{3.93}{\volt}$ en la Configuración 1 ($\qty{+480}{\milli\volt}$), a $\qty{4.13}{\volt}$
+    en la Configuración 2 ($\qty{+740}{\milli\volt}$) y a $\qty{4.14}{\volt}$ en la Configuración 3
+    ($\qty{+800}{\milli\volt}$).
+    
+    Este corrimiento sistemático de continua no se debe a una variación real del peso de la batería, sino al efecto de
+    rectificación no lineal (demodulación EMI) en las etapas de entrada a transistores bipolares del amplificador de
+    instrumentación. Los trenes de impulsos de alta frecuencia inducidos sobrepasan el margen lineal de respuesta del
+    dispositivo, siendo rectificados por las junturas emisor-base. Esto genera corrientes de polarización asimétricas
+    adicionales que se integran en continua, provocando un error de medición inadmisible que superaría el $25\%$ del
+    fondo de escala.
+\end{enumerate}

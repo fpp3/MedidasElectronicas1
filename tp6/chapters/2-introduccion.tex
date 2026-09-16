@@ -1,0 +1,124 @@
+\chapter{Introducción y Fundamentación Teórica}
+
+La instrumentación electrónica y los sistemas de adquisición de datos constituyen el núcleo de los procesos de control,
+ensayo y automatización en la ingeniería contemporánea. En las aplicaciones de ensayo mecánico e industrial, las
+magnitudes físicas primarias (tales como fuerza, desplazamiento, presión hidráulica y par torsional) no son eléctricas
+en su origen. Por lo tanto, deben ser detectadas mediante sensores y transductores apropiados, acondicionadas
+analógicamente para optimizar su rango dinámico y relación señal a ruido, y finalmente digitalizadas mediante sistemas
+embebidos para su procesamiento y registro.
+
+Uno de los mayores desafíos en el diseño e implementación de sistemas de instrumentación sensibles radica en la
+convivencia con perturbaciones e interferencias electromagnéticas. Las señales provenientes de transductores
+piezorresistivos (como las celdas de carga y puentes de galgas extensométricas) entregan tensiones en el orden de los
+milivoltios o microvoltios. Si no se aplican criterios rigurosos de apantallamiento, blindaje y referencia a tierra,
+las señales útiles quedan completamente degradadas o enmascaradas por el ruido ambiente y las interferencias de línea o
+de maquinaria rotativa cercana.
+
+\section{Objetivos del Trabajo Práctico}
+\begin{itemize}
+    \item Relevar in situ y diseñar la cadena de instrumentación y acondicionamiento para una máquina de ensayo de
+    tracción y compresión, y para un banco dinamométrico de motores de combustión interna, a partir de sensores
+    industriales reales.
+    \item Diseñar las etapas analógicas de acondicionamiento de señal (adaptación de nivel, atenuación, filtrado
+    pasabajos y amplificación de instrumentación) para adecuar los rangos de tensión a los conversores ADC.
+    \item Seleccionar el sistema embebido para la digitalización y transmisión a PC, calculando la resolución mínima
+    requerida en bits del conversor analógico-digital (ADC), la frecuencia de muestreo y la tensión de referencia.
+    \item Cuantificar experimentalmente el acoplamiento de perturbaciones de baja frecuencia provenientes de la red
+    eléctrica comercial ($\qty{220}{\volt}$ a $\qty{50}{\hertz}$).
+    \item Evaluar el comportamiento estático de una celda de carga diferencial frente a diversas cargas y contrastar
+    las limitaciones de la medición directa sin acondicionamiento frente a la medición acondicionada.
+    \item Analizar experimentalmente el impacto de interferencias electromagnéticas severas generadas por un motor
+    universal con escobillas sobre la etapa de amplificación.
+    \item Evaluar cuantitativa y cualitativamente la efectividad de los métodos de mitigación: apantallamiento con
+    gabinete metálico (jaula de Faraday) y conexión de la malla de cables blindados a masa frente a condiciones de
+    malla flotante y circuito sin blindaje.
+\end{itemize}
+
+\section{Fundamentación Teórica}
+
+\subsection{Distinción entre Ruido e Interferencia}
+En los sistemas de medición electrónica es imprescindible diferenciar conceptualmente el ruido intrínseco de la
+interferencia electromagnética externa:
+\begin{enumerate}
+    \item \emph{Ruido}: Corresponde a fluctuaciones eléctricas aleatorias originadas en procesos físicos microscópicos
+    espontáneos dentro de los propios componentes del circuito. Entre sus manifestaciones primarias se encuentran el
+    ruido térmico de Johnson-Nyquist generado por la agitación térmica de los portadores de carga en conductores y
+    resistores, el ruido de disparo (\emph{shot noise}) debido a la naturaleza discreta de la carga al atravesar
+    barreras de potencial en junturas semiconductoras, y el ruido de parpadeo (\emph{flicker} o $1/f$). El ruido es de
+    naturaleza estocástica e impredecible; no puede eliminarse, únicamente minimizarse mediante la selección de
+    componentes de bajo ruido, limitación del ancho de banda y reducción de la temperatura.
+    \item \emph{Interferencia}: Comprende todas aquellas señales eléctricas espurias no deseadas que se acoplan al
+    sistema de medición desde fuentes externas artificiales o naturales. Al estar originadas en fenómenos causales
+    determinísticos (tales como la red de energía de $\qty{50}{\hertz}$, arcos eléctricos en colectores de delgas,
+    conmutación en fuentes switching o radiotransmisiones), las interferencias son predecibles y factibles de ser
+    suprimidas o atenuadas drásticamente mediante un diseño electromagnético adecuado.
+\end{enumerate}
+
+\subsection{Mecanismos de Acoplamiento de Perturbaciones}
+Las interferencias externas ingresan a los circuitos electrónicos a través de cuatro mecanismos principales:
+\begin{itemize}
+    \item \emph{Acoplamiento capacitivo (campo eléctrico)}: Producido por la existencia de capacidades parásitas
+    mutuas entre conductores a potenciales elevados y las líneas de señal. La corriente inyectada es proporcional a la
+    capacidad parásita y a la derivada temporal de la tensión perturbadora ($i = C \frac{dv}{dt}$).
+    \item \emph{Acoplamiento inductivo (campo magnético)}: Ocurre cuando un bucle formado por los conductores de señal
+    concatena un flujo magnético variable en el tiempo generado por corrientes elevadas cercanas. De acuerdo con la ley
+    de inducción de Faraday, se induce una fuerza electromotriz espuria en serie con el bucle:
+    \begin{equation}
+        e_{\text{ind}} = -\frac{d\Phi_B}{dt} = -M \frac{di}{dt}
+        \label{eq.ej3:induccion_faraday}
+    \end{equation}
+    donde $M$ es la inductancia mutua y $\Phi_B$ es el flujo magnético enlazado por el área del circuito.
+    \item \emph{Acoplamiento galvánico (por impedancia común)}: Ocurre cuando dos o más circuitos comparten un tramo
+    común de retorno de corriente (conductor o pista de masa). La caída de tensión producida por la corriente de un
+    circuito sobre la resistencia o inductancia parásita de masa se suma directamente a la señal del otro circuito.
+    \item \emph{Acoplamiento por radiación electromagnética}: Se presenta a frecuencias medias y altas, donde las
+    pistas del circuito o los cables de conexión poseen dimensiones comparables a una fracción de la longitud de onda
+    ($\lambda/4$), comportándose como antenas receptoras.
+\end{itemize}
+
+\subsection{Celdas de Carga y Puente de Wheatstone}
+Una celda de carga resistiva típica está compuesta por cuatro galgas extensométricas fijadas a un elemento elástico
+deformable (viga de aluminio o acero) conectadas en configuración de puente de Wheatstone completo. Al aplicarse una
+fuerza externa, dos galgas experimentan tracción ($+\Delta R$) y dos compresión ($-\Delta R$), manteniendo la simetría
+y compensando automáticamente las variaciones térmicas.
+
+Bajo una tensión de excitación continua $V_E$, la tensión diferencial en bornes del puente en condición balanceada
+ideal viene dada por:
+\begin{equation}
+    V_d = V^+ - V^- = V_E \cdot \left( \frac{\Delta R}{R} \right)
+    \label{eq.ej4:puente_balanceado}
+\end{equation}
+Dado que la deformación unitaria $\varepsilon = \frac{\Delta L}{L}$ en régimen elástico es diminuta, la variación
+fraccional de resistencia $\frac{\Delta R}{R} = G_F \cdot \varepsilon$ suele ser del orden de $10^{-3}$, lo que
+significa que para una excitación $V_E = \qty{5}{\volt}$, la señal máxima de salida oscila entre
+$\qty{5}{\milli\volt}$ y $\qty{10}{\milli\volt}$.
+
+\subsection{Amplificador de Instrumentación y Rechazo de Modo Común (CMRR)}
+Para procesar señales diferenciales de baja amplitud inmersas en tensiones continuas de modo común elevadas
+($V_{CM} \approx V_E / 2 = \qty{2.5}{\volt}$) y en presencia de ruido de línea acoplado en modo común, resulta
+mandatorio el uso de un amplificador de instrumentación. Este circuito provee una amplificación diferencial
+precisa $A_d$ y una atenuación severa de las señales presentes simultáneamente en ambas entradas ($A_{CM} \approx 0$).
+
+La figura de mérito primordial es la Relación de Rechazo en Modo Común (CMRR), definida como:
+\begin{equation}
+    \text{CMRR} = 20 \log_{10}\left( \frac{|A_d|}{|A_{CM}|} \right)
+    \label{eq.ej4:cmrr_def}
+\end{equation}
+Dispositivos integrados de alta precisión como el INA128 o INA122 ofrecen valores de CMRR superiores a
+$100\si{\deci\bel}$, junto con impedancias de entrada en modo común y diferencial superiores a $10^{10}\ohm$,
+previniendo cualquier alteración en las ramas resistivas del puente de Wheatstone. La ganancia se fija mediante un
+único resistor externo $R_G$.
+
+\subsection{Técnicas de Blindaje y Rectificación por Interferencia de Radiofrecuencia (RFI)}
+El apantallamiento electrostático mediante chasis o gabinetes metálicos conductores confina el circuito en un volumen
+equipotencial (caja de Faraday), bloqueando las líneas de campo eléctrico externo. Para que este blindaje cumpla su
+función de derivación, debe estar vinculado al potencial de referencia del sistema (GND). Si el blindaje se deja
+desconectado o flotante, no sólo pierde eficacia, sino que puede incrementar el ruido por acoplamiento capacitivo
+cruzado.
+
+Por otra parte, cuando trenes de impulsos de alta frecuencia producidos por descargas de conmutación (por ejemplo, el
+chisporroteo entre escobillas y delgas de un motor universal) inciden sobre un amplificador operacional, se suscita el
+fenómeno de \emph{demodulación o rectificación por EMI}. Las uniones colector-base o fuente-drenaje de los transistores
+de entrada actúan como detectores de envolvente no lineales ante perturbaciones de radiofrecuencia que exceden el ancho
+de banda lineal del circuito. Esta rectificación no lineal genera corrientes continuas espurias internas que alteran la
+tensión de polarización, desplazando de forma sustancial el nivel de continua (\emph{DC offset shift}) en la salida.

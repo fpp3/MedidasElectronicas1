@@ -1,0 +1,28 @@
+\chapter{Anexo: Hojas de Datos de Sensores Relevados}
+\label{ch:anexos}
+
+En este anexo se adjuntan las páginas más relevantes de las hojas de datos técnicos correspondientes a los sensores industriales relevados en la máquina universal de ensayos de tracción y compresión del Laboratorio de Ensayos del Departamento de Ingeniería Mecánica de la UTN-FRC:
+
+\begin{enumerate}
+    \item \textbf{Transductor de Posición Lineal GEFRAN serie PY2 (modelo PY-2-C-100)}:
+    Se adjuntan las páginas 1 y 2 de la hoja de datos oficial del fabricante (\emph{DTS\_PY2\_03-2023\_ENG}). Estas secciones comprenden las características mecánicas y eléctricas fundamentales, planos dimensionales de montaje, la tabla paramétrica por modelo donde se certifica para la carrera de $\qty{100}{\milli\meter}$ la resistencia nominal de $\qty{5}{\kilo\ohm}$, la linealidad independiente de $\pm 0.07\%$, la disipación máxima de $\qty{2.4}{\watt}$, la tensión máxima admisible de $\qty{60}{\volt}$, el esquema de conexionado eléctrico normalizado con conector DIN~43322 y la recomendación del fabricante de limitar la corriente de cursor a $I_c \le \qty{0.1}{\milli\ampere}$ para garantizar la linealidad especificada.
+    
+    \item \textbf{Transmisor de Presión Hidráulica Industrial ADZ NAGANO serie SML}:
+    Se adjuntan las páginas 2, 3 y 4 del catálogo técnico oficial (\emph{Rev. C/2017}). Dichas páginas contienen las especificaciones técnicas completas (rango de presión calibrado de $\qtyrange{0}{250}{\bar}$, sobrepresión admisible de $\qty{750}{\bar}$ y presión de rotura de $\qty{1000}{\bar}$; parámetros eléctricos para la configuración de 3 hilos con salida analógica de $\qtyrange{0}{10}{\volt}$, alimentación de $\qtyrange{12}{32}{\volt}$~DC, resistencia de carga mínima $R_L \ge \qty{4.7}{\kilo\ohm}$, tiempo de respuesta $t \le \qty{1}{\milli\second}$ y exactitud $\le 0.5\%$), los planos mecánicos y dimensiones de la envolvente de acero inoxidable con conector MVS/C (DIN EN 175301-803) y rosca G1/4 Form E, y los esquemas de asignación de pines.
+\end{enumerate}
+
+\clearpage
+
+\includepdf[
+    pages={1-2},
+    scale=0.82,
+    pagecommand={\thispagestyle{fancy}},
+    addtotoc={1, section, 1, Hoja de Datos: GEFRAN PY-2-C-100, sec:anexo_gefran}
+]{sources/datasheet-gefran_py2.pdf}
+
+\includepdf[
+    pages={2-4},
+    scale=0.82,
+    pagecommand={\thispagestyle{fancy}},
+    addtotoc={2, section, 1, Hoja de Datos: ADZ NAGANO SML, sec:anexo_nagano}
+]{sources/datasheet-nagano.pdf}

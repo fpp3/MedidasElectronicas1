@@ -1,0 +1,21 @@
+\begin{tikzpicture}[scale=0.85, transform shape,
+    block/.style={rectangle, draw, fill=blue!10, text width=3.2cm, text centered,
+                  rounded corners, minimum height=1.2cm},
+    line/.style={draw, -latex, thick}]
+
+    \node [block] (motor) at (0, 0) {Motor de\\Combustión};
+    \node [block] (freno) at (4.5, 0) {Freno\\Dinamométrico};
+    \node [block, fill=green!10] (rpm) at (9.0, 0) {Sensor Hall\\(Encoder / RPM)};
+
+    \node [block] (celda) at (4.5, -2.6) {Celda de Carga\\($F = \tau / L$)};
+    \node [block] (acond) at (9.0, -2.6) {Acondicionador\\(INA128 + ADS1115)};
+    \node [block, fill=orange!12] (mcu)   at (13.5, -1.3) {Microcontrolador\\STM32 (USB/PC)};
+
+    \path [line] (motor) -- node[above, font=\scriptsize] {Eje ($N, \omega$)} (freno);
+    \path [line] (freno) -- node[above, font=\scriptsize] {Acople} (rpm);
+    \path [line] (freno) -- node[left, font=\scriptsize] {Brazo ($L$)} (celda);
+    \path [line] (celda) -- (acond);
+    \path [line] (rpm) -| node[above, pos=0.25, font=\scriptsize] {Frecuencia} (mcu.north);
+    \path [line] (acond) -| node[below, pos=0.25, font=\scriptsize] {Bus $\text{I}^2\text{C}$} (mcu.south);
+\end{tikzpicture}
+

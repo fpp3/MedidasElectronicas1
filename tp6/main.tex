@@ -1,0 +1,39 @@
+\documentclass[chaptersright]{informeutn}
+
+\addbibresource{fuentes.bib}
+
+\providecommand{\kHz}{\,\unit{\kilo\hertz}}
+\providecommand{\MHz}{\,\unit{\mega\hertz}}
+\DeclareSIUnit\bar{bar}
+
+% --- Configuración de la Carátula ---
+\titulo{Trabajo Práctico de Laboratorio N° 6}
+\subtitulo{Diseño de Sistemas de Instrumentación. Medición de Interferencias}
+\materia{Medidas Electrónicas I}
+\comision{4R2} 
+\autores{
+    Grasso, Gaston - 401892\\
+    Palombo, Franco - 401910\\
+    Prieto, Angelo - 401012
+}
+\fecha{\today}
+
+\begin{document}
+  \maketitle
+  
+  \tableofcontents
+  \setcounter{page}{1}
+  \thispagestyle{plain}
+
+  \input{chapters/1-integrantes.tex}
+  \input{chapters/2-introduccion.tex}
+  \input{chapters/3-materiales.tex}
+  \input{chapters/4-desarrollo.tex}
+  \input{chapters/5-conclusiones.tex}
+
+  \nocite{*}
+  \printbibliography[heading=bibnumbered, title={Fuentes}]
+
+  \input{chapters/6-anexos.tex}
+
+\end{document}

@@ -1,0 +1,56 @@
+\begin{tikzpicture}[scale=0.85, transform shape]
+    % Puente de Wheatstone (Galgas extensométricas)
+    \coordinate (top) at (0, 2);
+    \coordinate (bottom) at (0, -2);
+    \coordinate (left) at (-2, 0);
+    \coordinate (right) at (2, 0);
+
+    \draw (top) to[R, l_={$R_1$}] (left)
+                to[R, l_={$R_3$}] (bottom)
+                to[R, l_={$R_4$}] (right)
+                to[R, l_={$R_2$}] (top);
+
+    % Excitación del puente
+    \draw (top) to[short, *-o] ++(0, 0.7) node[above] {$V_E$ ($+5\,\unit{\volt}$)};
+    \draw (bottom) to[short, *-] ++(0, -0.7) node[ground] {};
+
+    % Malla de cable apantallado (Blindaje / Jaula de Faraday)
+    \draw[dashed, red!80!black, thick] (-2.8, 3.6) rectangle (2.8, -3.3);
+    \node[red!80!black, font=\footnotesize\bfseries, anchor=south west] at (-2.8, 3.6) {Malla de cable apantallado};
+    
+    % Conexión a GND de la malla hacia abajo
+    \draw[dashed, red!80!black, -latex, thick] (1.5, -3.3) -- ++(0, -0.7);
+    \draw (1.5, -4.0) node[ground] {} 
+        node[right=4pt, font=\scriptsize, text=red!80!black] {Malla a GND (Conf. 1)};
+
+    % Bloque Amplificador de Instrumentación
+    \node[draw, rectangle, minimum width=3.6cm, minimum height=5.0cm, fill=gray!10] (ina) at (8.0, 0) {};
+    \node[font=\sffamily\bfseries] at (8.0, 1.7) {INA128 / INA122};
+
+    % Conexiones diferenciales hacia el INA
+    % Salida no inversora V+ (nodo derecho del puente) -> Pin 3
+    \draw (right) to[short, *-] ++(2.0, 0) |- ([yshift=0.7cm]ina.west);
+    \node[anchor=west, font=\scriptsize] at ([xshift=3pt, yshift=0.7cm]ina.west) {Pin 3 ($V_{\text{in}}^+$)};
+
+    % Salida inversora V- (nodo izquierdo del puente) -> Pin 2
+    \draw (left) to[short, *-] ++(0, -2.6) -- ++(5.2, 0) |- ([yshift=-0.1cm]ina.west);
+    \node[anchor=west, font=\scriptsize] at ([xshift=3pt, yshift=-0.1cm]ina.west) {Pin 2 ($V_{\text{in}}^-$)};
+
+    % Terminales y Resistor de Ganancia RG (Pines 1 y 8)
+    \node[anchor=west, font=\scriptsize] at ([xshift=3pt, yshift=-0.9cm]ina.west) {Pin 1 ($R_G$)};
+    \node[anchor=west, font=\scriptsize] at ([xshift=3pt, yshift=-1.7cm]ina.west) {Pin 8 ($R_G$)};
+
+    \draw ([yshift=-0.9cm]ina.west) -- ++(-1.0, 0) coordinate (rg_top)
+          to[R, l_={$R_G$}] (rg_top |- 0, -1.7)
+          -- ([yshift=-1.7cm]ina.west);
+
+    % Alimentación (+5V en Pin 7)
+    \draw (ina.north) -- ++(0, 0.6) node[above, font=\scriptsize] {$+5\,\unit{\volt}$ (Pin 7)};
+
+    % Referencia y alimentación negativa (Pines 4 y 5)
+    \draw (ina.south) -- ++(0, -0.6) node[ground] {}
+          node[right=3pt, font=\scriptsize] {Ref, $-V_S$ (Pines 4, 5)};
+
+    % Salida amplificada (Pin 6)
+    \draw (ina.east) to[short, -o] ++(1.2, 0) node[right] {$V_{\text{out}}$ (Pin 6)};
+\end{tikzpicture}

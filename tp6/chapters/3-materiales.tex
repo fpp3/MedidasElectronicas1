@@ -1,0 +1,49 @@
+\chapter{Materiales e Instrumental}
+
+Para la ejecución de las actividades de relevamiento de campo, mediciones de laboratorio y ensayos de susceptibilidad
+electromagnética, se emplearon los siguientes instrumentos, componentes y dispositivos de prueba:
+
+\section{Instrumental de Medición y Ensayo}
+\begin{description}
+    \item[Osciloscopio Digital Tektronix TDS 220:] De dos canales, ancho de banda analógico de $\qty{100}{\mega\hertz}$
+    y tasa de muestreo de $\qty{1}{\text{GSa/s}}$, utilizado en la cuantificación de las perturbaciones inducidas por
+    la red eléctrica de $\qty{50}{\hertz}$.
+    \item[Osciloscopio Digital RIGOL DS1052E:] De dos canales, ancho de banda de $\qty{50}{\mega\hertz}$, tasa de
+    muestreo de $\qty{1}{\text{GSa/s}}$, utilizado en los ensayos del banco de celda de carga.
+    \item[Puntas de Prueba:] Puntas pasivas compensadas con atenuación conmutable 1X/10X y terminal con cable de tierra
+    de bajas dimensiones inductivas.
+    \item[Multímetro Digital:] Multímetro digital calibrado en escala de tensión continua (DCV) para la determinación
+    del punto de reposo y la tensión de salida continua de los sensores.
+    \item[Fuente de Alimentación de CC:] Fuente de laboratorio regulada lineal, ajustada a $\qty{+9}{\volt}$ para
+    alimentar la placa de acondicionamiento.
+    \item[Generador de EMI:] Herramienta rotativa tipo torno de mano (Dremel) con motor universal de colector a delgas
+    y escobillas alimentado desde la red de $\qty{220}{\volt}$, generador de ruido electromagnético de alta frecuencia.
+\end{description}
+
+\section{Elementos del Banco de Ensayos de Interferencia}
+\begin{description}
+    \item[Celda de Carga:] Celda de carga de aluminio tipo viga a flexión de $\qty{3}{\kilogram}$ de fondo de escala,
+    puente de Wheatstone completo con galgas extensométricas de alta estabilidad y cable blindado con malla metálica.
+    \item[Placa de Acondicionamiento:] Placa de circuito impreso basada en amplificador de instrumentación
+    de precisión (INA122/INA128), regulador de tensión local MC78L05 ($\qty{+5}{\volt}$) para excitación
+    ratiométrica del puente, resistencia de ganancia $R_G$ y capacitores cerámicos de desacoplo de
+    $\qty{100}{\nano\farad}$ y $\qty{10}{\micro\farad}$.
+    \item[Gabinete Metálico:] Chasis metálico conductor que actúa como blindaje electrostático (jaula de Faraday), con
+    terminal accesible para derivación de corrientes parásitas hacia el potencial de referencia (GND).
+    \item[Conector Auxiliar DB15:] Conector macho cableado para interconectar directamente los bornes diferenciales de
+    la celda de carga al osciloscopio y multímetro sin pasar por la etapa de ganancia.
+    \item[Cargas Patrón de Ensayo:] Batería sellada y juego de destornilladores en caja plástica.
+\end{description}
+
+\section{Sistemas Relevados en Planta}
+\begin{description}
+    \item[Máquina de Tracción y Compresión:] Sistema hidráulico industrial del Laboratorio de Ensayos del
+    Departamento de Ingeniería Mecánica de la UTN-FRC, equipado con transductor de desplazamiento lineal
+    potenciométrico GEFRAN modelo PY-2-C-100 ($\qty{5}{\kilo\ohm}$, carrera de $\qty{100}{\milli\meter}$,
+    linealidad independiente $\pm 0.07\%$) y transmisor de presión ADZ NAGANO Sensortechnik
+    ($\qtyrange{0}{250}{\bar}$, salida $\qtyrange{0}{10}{\volt}$).
+    \item[Banco de Ensayo de Motores:] Banco dinamométrico del Laboratorio de Ensayos de Motores de la UTN-FRC,
+    compuesto por freno dinamométrico oscilante con brazo de palanca instrumentado mediante celda de carga de
+    precisión tipo S-beam (puente de Wheatstone completo de galgas de $\qty{350}{\ohm}$, sensibilidad
+    $\qty{3}{\milli\volt\per\volt}$) y sensor de efecto Hall enfrentado a rueda fónica dentada (encoder de RPM).
+\end{description}

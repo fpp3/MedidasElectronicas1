@@ -1,0 +1,86 @@
+\chapter{Conclusiones}
+
+El desarrollo del presente trabajo práctico permitió abordar de forma integral la cadena de diseño, acondicionamiento y
+mitigación de perturbaciones en sistemas de instrumentación electrónica industrial. La articulación entre el
+relevamiento de maquinaria real en los laboratorios de mecánica y la experimentación sistemática en el banco de ensayos
+eléctricos consolidó los criterios ingenieriles requeridos para la adquisición confiable de señales débiles.
+
+A partir de los experimentos y mediciones realizadas se desprenden las siguientes conclusiones fundamentales, dando
+respuesta a los interrogantes planteados:
+
+\section{Interferencias de Línea de 50 Hz}
+La presencia de perturbaciones acopladas desde la red eléctrica comercial ($\qty{220}{\volt}$ a $\qty{50}{\hertz}$)
+es omnipresente e inevitable en cualquier entorno residencial, universitario o fabril. Todo conductor eléctrico o
+traza de circuito impreso actúa involuntariamente como antena ante los intensos campos eléctricos y magnéticos
+generados por las canalizaciones de potencia. La alta impedancia de entrada característica del instrumental y de
+las etapas de amplificación ($\qty{1}{\mega\ohm}$ o superior) provoca que corrientes parásitas de orden nanoamperio
+originen caídas de tensión de cientos de milivoltios o voltios (como se verificó en el Experimento 3 con valores
+de hasta $\qty{3.2}{\volt}$ pico a pico). En consecuencia, el sistema de adquisición no puede asumir un entorno
+electromagnético ideal, resultando imperioso proyectar apantallamientos conductores, filtros pasabajos o de muesca
+(\emph{notch}) y etapas diferenciales con alta relación de rechazo de modo común (CMRR $> 90\si{\deci\bel}$).
+
+\section{Identificación de Otras Fuentes de Interferencia}
+En las mediciones sobre el banco de celda de carga se identificaron claramente dos tipologías de perturbación:
+\begin{enumerate}
+    \item \emph{Interferencia electromagnética transitoria de banda ancha (EMI radiada)}: Producida intencionalmente
+    por las chispas de conmutación en el colector de delgas del motor universal (Dremel). Este fenómeno genera ráfagas
+    de impulsos de elevadísima frecuencia (decenas de megahercios) que se propagan tanto por radiación directa a través
+    del espacio como por conducción a lo largo de los conductores de red.
+    \item \emph{Ruido de fondo térmico y fluctuaciones ambientales}: Observado en el piso de ruido aleatorio de
+    $\qty{8.57}{\milli\volt}_{\text{rms}}$ en la salida directa de la celda, generado por la agitación térmica de los
+    portadores en las resistencias del puente de galgas y ruido de baja frecuencia ($1/f$).
+\end{enumerate}
+
+\section{Propuestas de Mejora en el Sistema Completo}
+Para optimizar el desempeño y garantizar la compatibilidad electromagnética (EMC) del sistema frente a entornos
+industriales agresivos, se proponen las siguientes mejoras:
+\begin{itemize}
+    \item \emph{Selección de Componentes}: Reemplazar el amplificador por dispositivos integrados con inmunidad
+    reforzada contra interferencias de radiofrecuencia (\emph{EMI Hardened Op-Amps}, tales como el INA828 o AD8421),
+    los cuales incorporan filtros pasabajos internos en sus etapas de entrada que atenúan las componentes de alta
+    frecuencia antes de que alcancen los transistores activos. Incorporar además perlas de ferrita
+    (\emph{ferrite beads}) y supresores de tensión transitoria (diodos TVS bidireccionales) en cada línea de señal.
+    \item \emph{Diseño de Placa de Circuito Impreso (PCB)}: Implementar placas de al menos cuatro capas, destinando un
+    plano interno continuo e ininterrumpido exclusivamente a plano de masa (retorno de referencia). Trazar las líneas de
+    entrada diferencial ($V_{\text{in}}^+$, $V_{\text{in}}^-$) en estricta simetría geométrica (par diferencial con
+    longitudes y anchos idénticos) para maximizar la cancelación de ruido en modo común. Separar físicamente la masa
+    analógica de bajo nivel (AGND), la masa digital (DGND) y la masa de chasis/potencia (PGND), unificándolas en un
+    único punto común en estrella (\emph{star grounding}). Disponer capacitores cerámicos de desacoplo de muy baja
+    inductancia parásita ($\qty{100}{\nano\farad}$ MLCC) inmediatamente adyacentes a los pines de alimentación de
+    cada circuito integrado.
+    \item \emph{Armado de Cables y Blindajes}: Utilizar cables de par trenzado apantallado (STP - \emph{Shielded Twisted
+    Pair}). El trenzado regular minimiza el área neta del bucle conductor, anulando por cancelación geométrica las
+    fuerzas electromotrices inducidas por campos magnéticos alternos, mientras que la malla metálica continua confina
+    las líneas de campo electrostático. A bajas frecuencias, la malla debe conectarse a tierra en un único extremo para
+    prevenir la formación de bucles de masa (\emph{ground loops}); para inmunidad en radiofrecuencia, se emplean
+    conectores metálicos con continuidad de apantallamiento en $360^\circ$ hacia el gabinete conductor.
+\end{itemize}
+
+\section{Normativa y Guías Técnicas de Mitigación}
+El análisis experimental desarrollado se fundamenta y complementa con la literatura técnica especializada:
+\begin{itemize}
+    \item La nota de aplicación de Texas Instruments \emph{SLOA034: EMI Demodulation in Operational Amplifiers}
+    \cite{ti_sloa034} describe en profundidad el mecanismo físico causante del corrimiento de continua
+    ($\qty{+800}{\milli\volt}$) observado durante el ensayo con el motor Dremel. Establece que las junturas PN
+    de entrada actúan como rectificadores no lineales frente a picos de RF, prescribiendo la inclusión de filtros
+    $RC$ simétricos de modo común y diferencial para mantener la señal dentro de la región lineal.
+    \item La guía de Tacuna Systems \emph{Reducing Noise in Very Sensitive Load Cell Applications} \cite{tacuna_noise}
+    recomienda el empleo de conexiones de 6 hilos con líneas remotas de sensado (\emph{sense}) para compensar caídas de
+    tensión en cables largos, y el uso de fuentes de excitación ratiométricas donde la tensión del ADC acompaña las
+    derivas de la alimentación del puente.
+    \item Tratados de referencia como el de Henry Ott \cite{ott_emc} detallan la teoría de compatibilidad
+    electromagnética, señalando que la eficacia de un blindaje reside críticamente en una baja impedancia de conexión a
+    tierra, tal como se corroboró al comparar la malla derivada a masa frente a la condición de malla flotante.
+\end{itemize}
+
+\section{Criterio Decisivo en la Selección del Sistema Embebido}
+Al seleccionar un sistema embebido para instrumentar magnitudes mecánicas (fuerza, deformación, presión y torque),
+el factor de mayor peso técnico radica en la \emph{Resolución Efectiva (ENOB), la Estabilidad y el Ruido del Subsistema
+Analógico (ADC)}, antes que en la frecuencia de reloj del procesador o la cantidad de núcleos de cómputo.
+
+Dado que las magnitudes mecánicas varían a velocidades bajas o moderadas (requiriendo frecuencias de muestreo
+típicamente inferiores a $\qty{100}{\text{S/s}}$), una arquitectura con conversor sigma-delta de
+$\qtyrange{16}{24}{\text{bits}}$, referencia de tensión de bajísima deriva térmica ($< 10\text{ ppm/}^\circ\text{C}$) y
+rechazo intrínseco de $\qty{50}{\hertz} / \qty{60}{\hertz}$ resulta decisivamente superior a un microcontrolador de alta
+velocidad dotado de un ADC SAR de 12 bits ruidoso cuyos últimos 2 o 3 bits quedan inutilizados por fluctuaciones
+espurias.
