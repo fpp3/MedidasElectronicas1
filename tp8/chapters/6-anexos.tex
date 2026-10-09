@@ -1,0 +1,36 @@
+\chapter{Anexos Técnicos}
+
+\section{Código Fuente del Software de Control en Python}
+A continuación se transcribe el código fuente completo implementado en el script
+\path{controlador_generador_funciones.py}, utilizado para la comunicación serie y la ejecución de los barridos de
+frecuencia sobre el generador de funciones GW-Instek GFG-3015.
+
+\lstinputlisting[
+    style=python,
+    language=Python,
+    caption={Script de automatización y barrido en frecuencia mediante comandos SCPI.},
+    label={list.ej1:codigo_control}
+]{sources/controlador_generador_funciones.py}
+
+\section{Comandos SCPI del Generador GW-Instek GFG-3015}
+En la Tabla~\ref{tab.anexo:comandos_scpi} se resumen los principales comandos de la interfaz RS-232 implementados en
+el generador GW-Instek GFG-3015 conforme al manual de usuario del fabricante~\cite{gwinstek_gfg3015}.
+
+\begin{table}[!ht]
+    \centering
+    \small
+    \begin{tabular}{|l|p{4.2cm}|l|p{4.5cm}|}
+        \hline
+        \textbf{Comando} & \textbf{Descripción} & \textbf{Parámetros} & \textbf{Función / Respuesta} \\ \hline
+        \texttt{*IDN?} & Consulta de identificación & Ninguno & Devuelve fabricante, modelo y firmware. \\ \hline
+        \texttt{*RST} & Reinicio del instrumento & Ninguno & Restablece parámetros de fábrica. \\ \hline
+        \texttt{:FUNC:WAV} & Forma de onda & \texttt{1}, \texttt{2}, \texttt{3} & 1: Senoidal, 2: Triangular, 3: Cuadrada. \\ \hline
+        \texttt{:AMPL:UNIT} & Unidad de amplitud & \texttt{1}, \texttt{2}, \texttt{3} & 1: $\mathrm{V_{pp}}$, 2: $\mathrm{V_{rms}}$, 3: $\mathrm{dBm}$. \\ \hline
+        \texttt{:AMPL:VOLT} & Amplitud de salida & Numérico (NRf) & Ajusta la tensión sobre $\qty{50}{\ohm}$. \\ \hline
+        \texttt{:OFFSet} & Offset continuo & Numérico (NRf) & Fija el nivel de continua en voltios. \\ \hline
+        \texttt{:FREQ} & Frecuencia principal & Numérico (NRf) & Ajusta la frecuencia en Hertz. \\ \hline
+        \texttt{:FREQ?} & Consulta de frecuencia & Ninguno & Devuelve el valor numérico en Hertz. \\ \hline
+    \end{tabular}
+    \caption{Conjunto principal de comandos SCPI para la interfaz serie del generador GFG-3015.}
+    \label{tab.anexo:comandos_scpi}
+\end{table}

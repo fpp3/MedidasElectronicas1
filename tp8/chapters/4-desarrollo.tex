@@ -1,0 +1,296 @@
+\chapter{Desarrollo Experimental y Análisis de Resultados}
+
+\section{Configuración del Banco Circuital y Asignación de Canales}
+La topología circuital completa, incluyendo el generador de funciones, la resistencia
+limitadora de protección, los puntos de toma de señal y las conexiones hacia el osciloscopio digital, se ilustra en el
+esquemático de la Figura~\ref{crkt.ej1:rlc}. Asimismo, en la Figura~\ref{fig.ej1:crkt_board} se observa el montaje
+físico de los componentes sobre la mesa de laboratorio.
+
+\begin{figure}[!ht]
+    \centering
+    \input{figures/crkt_ej1_rlc.tex}
+    \caption{Esquema eléctrico del circuito de ensayo y conexionado de instrumentos.}
+    \label{crkt.ej1:rlc}
+\end{figure}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.65\textwidth]{pictures/crkt_rlc.jpeg}
+    \caption{Placa de circuito impreso del banco RLC bajo ensayo en laboratorio.}
+    \label{fig.ej1:crkt_board}
+\end{figure}
+
+El circuito cuenta con una resistencia serie de valor nominal $r = \qty{47}{\ohm}$, cuya función primordial consiste
+en preservar la integridad del amplificador de salida del generador de funciones. Dado que en la condición de resonancia
+la impedancia reactiva equivalente del par LC se anula teóricamente ($X_L - X_C = 0$), sin la presencia de este
+resistor la impedancia de carga vista por la fuente caería exclusivamente a las pérdidas parásitas del inductor,
+provocando una corriente excesiva y distorsión por sobrecarga.
+
+\section{Implementación del Software de Control SCPI en Python}
+A fin de comandar el generador de funciones de forma automatizada, se desarrolló un script en Python
+(\texttt{controlador\_generador\_funciones.py}) utilizando la biblioteca \texttt{pySerial}.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.75\textwidth]{pictures/setup_apk.jpeg}
+    \caption{Computadora ejecutando el programa de control.}
+    \label{fig.ej1:setup_apk}
+\end{figure}
+
+El flujo del software se estructura en tres etapas funcionales:
+\begin{enumerate}
+    \item \emph{Apertura de puerto y verificación de enlace:} El programa abre el puerto serie virtual asignado a
+    \texttt{/dev/ttyUSB0} con una tasa de transferencia de $\qty{9600}{\text{baud}}$, 8 bits de datos, sin paridad y
+    1 bit de parada. A continuación, envía la instrucción de identificación IEEE-488.2:
+    \[
+        \texttt{*IDN?\textbackslash n}
+    \]
+    El generador respondió satisfactoriamente devolviendo la trama ASCII:
+    \[
+        \texttt{"15MHz, Function Generator, V.1.21"}
+    \]
+    lo cual validó el correcto funcionamiento del enlace físico RS-232 y el intérprete de comandos.
+    \item \emph{Inicialización y configuración de parámetros de señal:} Antes de iniciar cualquier barrido, la rutina
+    \texttt{gen\_setup()} transmite la secuencia de comandos SCPI requerida:
+    \begin{itemize}
+        \item \texttt{:FUNC:WAV 1}: Selecciona forma de onda senoidal pura.
+        \item \texttt{:AMPL:UNIT 1}: Fija la unidad de amplitud en voltios pico a pico ($\mathrm{V_{pp}}$).
+        \item \texttt{:AMPL:VOLT 2.5}: Configura la amplitud de salida en $\qty{2.5}{\volt}$. Debido a que el
+        generador calibra internamente su escala considerando una carga terminada en $\qty{50}{\ohm}$, al trabajar
+        sobre la impedancia significativamente más elevada del circuito RLC, la fuerza electromotriz entregada a circuito
+        abierto resulta de $\qty{5.0}{\volt_{\text{pp}}}$.
+        \item \texttt{:OFFSet 0}: Anula cualquier componente de continua (\emph{offset} nulo).
+    \end{itemize}
+    \item \emph{Ejecución de barridos de frecuencia:} El operador puede seleccionar entre una modalidad de barrido
+    grueso (con puntos normalizados prefijados) o barrido fino (definiendo frecuencia inicial, final y paso de avance).
+    Asimismo, el script permite optar por avance automático (con un retardo en segundos por escalón) o manual mediante
+    la tecla \texttt{ENTER}, permitiendo estabilizar las lecturas y capturar registros fotográficos.
+\end{enumerate}
+
+\section{Barrido Grueso en Frecuencia (1 kHz a 100 kHz)}
+La primera actividad experimental consistió en ejecutar un barrido grueso en frecuencia con saltos amplios, con el
+propósito de relevar cualitativamente la curva de respuesta y acotar el entorno donde se ubica la resonancia del sistema.
+Las frecuencias especificadas por la consigna fueron: $\qty{1}{\kilo\hertz}$, $\qty{2}{\kilo\hertz}$, $\qty{5}{\kilo\hertz}$,
+$\qty{10}{\kilo\hertz}$, $\qty{20}{\kilo\hertz}$, $\qty{50}{\kilo\hertz}$ y $\qty{100}{\kilo\hertz}$.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/setup_grueso_f0.jpeg}
+        \caption{Consola de control en paso $\qty{10}{\kilo\hertz}$.}
+        \label{fig.ej1:setup_grueso}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/osc_grueso_f0.jpeg}
+        \caption{Captura del osciloscopio en $\qty{10}{\kilo\hertz}$.}
+        \label{fig.ej1:osc_grueso}
+    \end{subfigure}
+    \caption{Ensayo de barrido grueso en el punto de resonancia aproximada ($\qty{10}{\kilo\hertz}$).}
+    \label{fig.ej1:barrido_grueso}
+\end{figure}
+
+Durante la progresión del barrido, se observó que a frecuencias bajas ($\qtyrange{1}{5}{\kilo\hertz}$), la reactancia
+capacitiva predomina holgadamente sobre la inductiva ($X_C \gg X_L$), por lo que la corriente en la malla es reducida y
+la tensión en el capacitor reproduce aproximadamente la tensión de entrada. Al aproximarse a $\qty{10}{\kilo\hertz}$,
+se manifestó un incremento abrupto de la amplitud debido a la proximidad del polo de resonancia:
+\begin{itemize}
+    \item Tensión total aplicada: $V_{\text{pp}} = \qty{4.88}{\volt}$.
+    \item Tensión en el capacitor: $V_{\text{pp}} = \qty{19.8}{\volt}$.
+\end{itemize}
+A frecuencias superiores ($\qtyrange{20}{100}{\kilo\hertz}$), la reactancia inductiva se torna dominante ($X_L \gg X_C$),
+elevando la impedancia total y atenuando progresivamente la tensión transferida al capacitor hasta valores despreciables.
+Este ensayo confirmó de manera concluyente que la frecuencia de resonancia se ubica en las inmediaciones de los
+$\qty{10}{\kilo\hertz}$.
+
+\section{Barrido Fino y Localización de Frecuencias Singulares}
+Con la zona de interés delimitada, se procedió a configurar barridos finos con incrementos menores a fin de identificar
+con precisión:
+\begin{enumerate}
+    \item La frecuencia de resonancia exacta ($f_0$) y la tensión máxima sobre el capacitor ($V_{C,\text{max}}$).
+    \item La frecuencia de corte inferior ($f_{\text{inf}}$) y superior ($f_{\text{sup}}$) correspondientes al nivel
+    de $\qty{-3}{\decibel}$ respecto al pico de resonancia.
+\end{enumerate}
+
+\subsection{Identificación del Pico de Resonancia (\texorpdfstring{$f_0$}{f0})}
+Efectuando un barrido fino en torno a $\qty{10}{\kilo\hertz}$, ajustamos la frecuencia del generador hasta maximizar la
+amplitud pico a pico.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.65\textwidth]{pictures/osc_fino_f0.jpeg}
+    \caption{Resonancia exacta ($f_0 = \qty{10.70}{\kilo\hertz}$).}
+    \label{fig.ej1:osc_fino_f0}
+\end{figure}
+
+Tal como se evidencia en la captura de la Figura~\ref{fig.ej1:osc_fino_f0}, la resonancia del sistema se alcanzó a:
+\begin{equation}
+    f_0 = \qty{10.70}{\kilo\hertz} \quad (f_{\text{ext}} = \qty{10.7005}{\kilo\hertz})
+    \label{eq.ej1:f0_medida}
+\end{equation}
+En este punto singular se relevaron los siguientes valores de tensión:
+\begin{itemize}
+    \item Tensión total aplicada: $e_{\text{tot}} = \qty{4.64}{\volt_{\text{pp}}}$
+    \item Tensión en el capacitor: $V_{C,\text{max}} = \qty{21.6}{\volt_{\text{pp}}}$.
+\end{itemize}
+Nótese que la tensión total $e_{\text{tot}}$ experimenta una disminución desde sus $\qty{5.0}{\volt_{\text{pp}}}$
+nominales hasta $\qty{4.64}{\volt_{\text{pp}}}$. Este efecto responde a la ley de Ohm: en resonancia la
+impedancia del circuito LC se reduce a su valor mínimo ($Z = R_L$), maximizando la corriente de malla y provocando la
+mayor caída de tensión sobre la resistencia de salida del generador y la resistencia de protección ($R_g + r = \qty{97}{\ohm}$).
+
+Asimismo, en la pantalla del osciloscopio se aprecia con nitidez la relación de fase: la tensión en el capacitor se
+encuentra retrasada $90^\circ$ respecto a la corriente de malla.
+
+\subsection{Determinación de las Frecuencias de Corte a -3 dB}
+Para establecer el ancho de banda y el factor de calidad, calculamos el umbral de tensión correspondiente a la potencia
+mitad ($\qty{-3}{\decibel}$ por debajo del máximo):
+\begin{equation}
+    V_{-3\text{dB}} = \frac{V_{C,\text{max}}}{\sqrt{2}} = \frac{\qty{21.6}{\volt_{\text{pp}}}}{\sqrt{2}} \approx \qty{15.27}{\volt_{\text{pp}}}
+    \label{eq.ej1:calculo_umbral}
+\end{equation}
+
+\subsubsection{Frecuencia de Corte Inferior ($f_{\text{inf}}$)}
+Se realizó un barrido fino en el intervalo comprendido entre $\qty{9000}{\hertz}$ y $\qty{9500}{\hertz}$ con saltos de
+$\qty{100}{\hertz}$ en modo manual. En el paso 2 del barrido, correspondiente a $\qty{9100.0}{\hertz}$ , la tensión en
+CH2 alcanzó con exactitud el nivel de $\qty{15.2}{\volt_{\text{pp}}}$.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/setup_fino_finf.jpeg}
+        \caption{Paso de barrido en $\qty{9100}{\hertz}$.}
+        \label{fig.ej1:setup_fino_finf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/osc_fino_finf.jpeg}
+        \caption{Formas de onda en $f_{\text{inf}} = \qty{9.10}{\kilo\hertz}$.}
+        \label{fig.ej1:osc_fino_finf}
+    \end{subfigure}
+    \caption{Medición de la frecuencia de corte inferior ($f_{\text{inf}}$) a $\qty{-3}{\decibel}$.}
+    \label{fig.ej1:corte_inferior}
+\end{figure}
+
+En la Figura~\ref{fig.ej1:corte_inferior} se muestran la consola de control y la pantalla del osciloscopio:
+\begin{itemize}
+    \item Frecuencia de corte inferior: $f_{\text{inf}} = \qty{9.10}{\kilo\hertz}$.
+    \item Tensión en el capacitor (CH2): $V_C = \qty{15.2}{\volt_{\text{pp}}}$.
+\end{itemize}
+
+\subsubsection{Frecuencia de Corte Superior ($f_{\text{sup}}$)}
+Se realizó un barrido fino ascendente en el rango de $\qty{11900}{\hertz}$ a $\qty{12100}{\hertz}$ con paso de
+$\qty{50}{\hertz}$. Al alcanzar el paso 4, correspondiente a una frecuencia de $\qty{12050.0}{\hertz}$, la tensión en el
+capacitor se redujo nuevamente a $\qty{15.2}{\volt_{\text{pp}}}$.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/setup_fino_fsup.jpeg}
+        \caption{Paso de barrido en $\qty{12050}{\hertz}$.}
+        \label{fig.ej1:setup_fino_fsup}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/osc_fino_fsup.jpeg}
+        \caption{Formas de onda en $f_{\text{sup}} = \qty{12.05}{\kilo\hertz}$.}
+        \label{fig.ej1:osc_fino_fsup}
+    \end{subfigure}
+    \caption{Medición de la frecuencia de corte superior ($f_{\text{sup}}$) a $\qty{-3}{\decibel}$.}
+    \label{fig.ej1:corte_superior}
+\end{figure}
+
+En la Figura~\ref{fig.ej1:corte_superior} se documenta este punto operativo:
+\begin{itemize}
+    \item Frecuencia de corte superior: $f_{\text{sup}} = \qty{12.05}{\kilo\hertz}$.
+    \item Tensión en el capacitor (CH2): $V_C = \qty{15.2}{\volt_{\text{pp}}}$.
+\end{itemize}
+
+\section{Cálculo y Análisis del Factor de Calidad (Q)}
+
+Tomando como referencia la tensión total efectivamente aplicada en bornes de la rama resonante ($e_{\text{tot}}$):
+\begin{equation}
+    Q_v = \frac{V_C(f_0)}{e_{\text{tot}}(f_0)} = \frac{\qty{21.6}{\volt_{\text{pp}}}}{\qty{4.64}{\volt_{\text{pp}}}} = 4.655 \approx 4.66
+    \label{eq.ej1:qv_calc}
+\end{equation}
+
+\subsection{Contraste con los Valores Nominales}
+Los componentes discretos montados en la placa presentan los siguientes valores nominales grabados:
+\begin{itemize}
+    \item Inductancia nominal: $L = \qty{30}{\milli\henry}$.
+    \item Capacitancia nominal: $C = \qty{7}{\nano\farad}$.
+\end{itemize}
+Calculamos la frecuencia de resonancia teórica mediante la siguiente ecuación:
+\begin{equation}
+    f_0^{\text{teo}} = \frac{1}{2 \pi \sqrt{L \cdot C}} = \frac{1}{2 \pi \sqrt{(\qty{30e-3}{\henry}) \cdot (\qty{7e-9}{\farad})}} \approx \qty{10.98}{\kilo\hertz}
+    \label{eq.ej1:fteo_calc}
+\end{equation}
+El desvío relativo respecto al valor experimental ($f_0 = \qty{10.70}{\kilo\hertz}$) resulta de apenas:
+\begin{equation}
+    \varepsilon_r = \frac{|f_0^{\text{med}} - f_0^{\text{teo}}|}{f_0^{\text{teo}}} \times 100\% = \frac{|\qty{10.70}{\kilo\hertz} - \qty{10.98}{\kilo\hertz}|}{\qty{10.98}{\kilo\hertz}} \times 100\% = 2.55\%
+    \label{eq.ej1:error_fres}
+\end{equation}
+Esta concordancia del $2.55\%$ es excelente y se ubica holgadamente dentro del margen de tolerancia constructiva de
+capacitores comerciales ($\pm 5\%$ a $\pm 10\%$) e inductores bobinados sobre carrete ($\pm 10\%$).
+
+\section{Validación Espectral mediante Modo FFT y Persistencia Infinita}
+Empleamos la Transformada Rápida de Fourier (FFT) del osciloscopio para registrar y validar el comportamiento del filtro
+resonante en el dominio de la frecuencia.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/setup_fft_barrido_auto_largo.jpeg}
+        \caption{Barrido amplio finalizando en paso 50.}
+        \label{fig.ej1:setup_fft_largo}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/osc_fft_barrido_auto_largo.jpeg}
+        \caption{Curva envolvente acumulada con persistencia infinita.}
+        \label{fig.ej1:osc_fft_largo}
+    \end{subfigure}
+    \caption{Reconstrucción de la respuesta en frecuencia mediante barrido amplio.}
+    \label{fig.ej1:fft_largo}
+\end{figure}
+
+
+El script ejecutó una secuencia automática de 50 pasos cubriendo desde $\qty{1.0}{\kilo\hertz}$ hasta
+$\qty{50.0}{\kilo\hertz}$ en saltos de $\qty{1.0}{\kilo\hertz}$. Tal como se observa en la
+Figura~\ref{fig.ej1:fft_largo}, se observa la curva caracteristica de amplitud-frecuencia de un filtro pasa-banda con un
+circuito RLC. Se observa el rápido crecimiento inicial a frecuencias bajas, el pico resonante en $\sim
+\qty{10.7}{\kilo\hertz}$ y la pendiente asintótica de atenuación en alta frecuencia, verificando experimentalmente la
+correlación total entre las mediciones en el dominio temporal y el análisis espectral.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/setup_fft_barrido_auto_corto.jpeg}
+        \caption{Consola completando 101 pasos automáticos.}
+        \label{fig.ej1:setup_fft_corto}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pictures/osc_fft_barrido_auto_corto.jpeg}
+        \caption{Espectro FFT en CH2 centrado en $\qty{11.00}{\kilo\hertz}$.}
+        \label{fig.ej1:osc_fft_corto}
+    \end{subfigure}
+    \caption{Validación espectral mediante barrido automático fino ($\qtyrange{6}{16}{\kilo\hertz}$, paso $\qty{100}{\hertz}$).}
+    \label{fig.ej1:fft_corto}
+\end{figure}
+
+Se ejecutó tambien un barrido automático continuo de 101 pasos desde $\qty{6000}{\hertz}$ hasta $\qty{16000}{\hertz}$
+con paso de $\qty{100}{\hertz}$ y un retardo de $\qty{1.0}{\second}$ por paso en la Figura~\ref{fig.ej1:fft_corto}. En
+la pantalla del osciloscopio se aprecia con claridad la campana de resonancia del sistema, con el vértice de máxima
+densidad espectral concentrado en torno a los $\qtyrange{10.7}{11.0}{\kilo\hertz}$ y un decrecimiento simétrico hacia
+ambos extremos del intervalo.
+

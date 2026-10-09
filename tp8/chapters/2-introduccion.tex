@@ -1,0 +1,126 @@
+\chapter{Introducción}
+
+En ensayos repetitivos o de alta densidad de datos, la operación manual del instrumental introduce
+fatiga en los operadores, tiempos muertos prolongados y una dispersión estadística apreciable atribuible a demoras de
+lectura y transcripción. Frente a estas limitaciones, los sistemas de medición automatizados permiten gobernar los
+parámetros operativos de generadores de señal y sistemas de adquisición mediante software, garantizando secuencias de
+prueba reproducibles, sincronización determinística y captura masiva de datos en tiempo real.
+
+En este trabajo práctico se aborda el diseño e implementación de un sistema automatizado de control instrumental basado
+en una computadora, interfaz RS-232 y el protocolo estandarizado SCPI (\emph{Standard Commands for Programmable
+Instruments}), orientado a la caracterización experimental de la respuesta en frecuencia y el factor de calidad ($Q$) de
+un circuito resonante serie RLC.
+
+\section{Objetivos del Trabajo Práctico}
+\begin{itemize}
+    \item Diseñar e implementar una aplicación para el control remoto de un generador de funciones
+    comercial a través de su interfaz serie RS-232 mediante comandos SCPI.
+    \item Desarrollar algoritmos de barrido en frecuencia discretos, contemplando modalidades de avance automático
+    con temporización configurable y avance manual con validación por teclado.
+    \item Caracterizar experimentalmente la respuesta en frecuencia de un circuito resonante RLC serie provisto por la
+    cátedra, identificando la frecuencia de resonancia ($f_0$) y las frecuencias de corte a $\qty{-3}{\decibel}$.
+    \item Cuantificar el factor de calidad o sobretensión ($Q$) del sistema.
+    \item Validar la curva de respuesta en frecuencia en el dominio de frecuencia, evaluando el impacto del ventaneo y
+    el modo de persistencia infinita en pantalla.
+\end{itemize}
+
+\section{Fundamentación Teórica}
+
+\subsection{Arquitectura de Instrumentación Programable y Protocolo SCPI}
+Históricamente, la interconexión de instrumentos de prueba surgió con el bus HPIB (\emph{Hewlett-Packard Interface
+Bus}), estandarizado posteriormente como IEEE-488.1 (GPIB). Dicha norma definió las especificaciones mecánicas,
+eléctricas y de protocolo básico de enlace paralelo. A fin de unificar la sintaxis y los códigos de operación entre
+diferentes fabricantes, se promulgaron el estándar IEEE-488.2 y la especificación SCPI (\emph{Standard Commands for
+Programmable Instruments}).
+
+La norma SCPI define una estructura de comandos basada en cadenas ASCII organizadas de forma jerárquica como un árbol.
+El árbol posee un nodo raíz, del cual se desprenden trayectorias hacia nodos secundarios y nodos
+hoja. La separación entre niveles jerárquicos se efectúa mediante dos puntos (\texttt{:}), y los
+parámetros asociados a cada instrucción se separan del comando por un espacio en blanco. Los comandos aceptan una
+forma extendida y una forma corta abreviada (resaltada en mayúsculas en los manuales de referencia):
+\begin{itemize}
+    \item \emph{Comandos de configuración}: Modifican un estado interno o parámetro del instrumento, por ejemplo
+    \texttt{:FREQ 10000} o \texttt{:AMPL:VOLT 2.5}.
+\item \emph{Comandos de consulta}: Solicitan al equipo el estado o valor de un parámetro,
+    finalizando siempre con el carácter de interrogación \texttt{?}, como \texttt{:FREQ?} o \texttt{*IDN?}.
+    \item \emph{Comandos comunes IEEE-488.2}: Comienzan con un asterisco y realizan acciones globales
+    predefinidas: \texttt{*RST} (reinicio a condiciones de fábrica), \texttt{*IDN?} (consulta de fabricante, modelo,
+    número de serie y versión de firmware) y \texttt{*CLS} (borrado de registros de estado).
+\end{itemize}
+
+\subsection{Teoría del Circuito Resonante Serie RLC}
+Un circuito resonante serie está compuesto por una resistencia total equivalente $R_{\text{tot}}$, una inductancia
+concentrada $L$ y una capacitancia $C$, excitados por una fuente senoidal de tensión $v_s(t) = V_s \cos(\omega t)$.
+La impedancia compleja equivalente del conjunto vista desde los bornes de la fuente se expresa como:
+\begin{equation}
+    Z(j\omega) = R_{\text{tot}} + j \left( \omega L - \frac{1}{\omega C} \right)
+    \label{eq.ej1:impedancia}
+\end{equation}
+donde $R_{\text{tot}}$ engloba tanto las resistencias explícitas del circuito como la resistencia interna del
+generador ($R_g$) y las pérdidas óhmicas parásitas del devanado de la bobina ($R_L$).
+
+La condición de resonancia serie se produce en $\omega_0$ en la cual la reactancia inductiva
+$X_L = \omega L$ cancela con exactitud a la reactancia capacitiva $X_C = \frac{1}{\omega C}$, anulando la parte
+imaginaria de la impedancia:
+\begin{equation}
+    \omega_0 L - \frac{1}{\omega_0 C} = 0 \implies \omega_0 = \frac{1}{\sqrt{LC}}
+    \label{eq.ej1:w0}
+\end{equation}
+Por consiguiente, la frecuencia de resonancia teórica en Hertz queda determinada por la relación de Thomson:
+\begin{equation}
+    f_0 = \frac{1}{2 \pi \sqrt{L C}}
+    \label{eq.ej1:fres}
+\end{equation}
+
+A la frecuencia $f_0$, el circuito manifiesta las siguientes propiedades singulares:
+\begin{enumerate}
+    \item La impedancia total alcanza su valor mínimo absoluto y puramente resistivo: $Z(j\omega_0) = R_{\text{tot}}$.
+    \item La corriente que circula por la malla adquiere su módulo máximo: $I_0 = \frac{V_s}{R_{\text{tot}}}$,
+    encontrándose en fase con la tensión de excitación ($\Delta \varphi = 0^\circ$).
+    \item Las caídas de tensión en los componentes reactivos individuales ($v_L$ y $v_C$) presentan una magnitud que
+    puede superar ampliamente el valor de la tensión de entrada $V_s$. Este fenómeno se denomina sobretensión o
+    resonancia de tensión.
+\end{enumerate}
+
+\subsection{Factor de Calidad y Relación con el Ancho de Banda}
+El factor de calidad $Q$ (o factor de selectividad) cuantifica la relación entre la energía reactiva almacenada en el
+sistema y la energía activa disipada por ciclo en los elementos resistivos. Para una malla resonante serie, se define
+como:
+\begin{equation}
+    Q = \frac{\omega_0 L}{R_{\text{tot}}} = \frac{1}{\omega_0 C R_{\text{tot}}} = \frac{1}{R_{\text{tot}}} \sqrt{\frac{L}{C}}
+    \label{eq.ej1:q_definicion}
+\end{equation}
+
+Analizando la caída de tensión en bornes del capacitor a la frecuencia de resonancia:
+\begin{equation}
+    V_C(\omega_0) = I_0 \cdot X_C(\omega_0) = \left( \frac{V_s}{R_{\text{tot}}} \right) \left( \frac{1}{\omega_0 C} \right) = Q \cdot V_s
+    \label{eq.ej1:magnificacion}
+\end{equation}
+La ecuación~\eqref{eq.ej1:magnificacion} evidencia que la relación entre la tensión pico a pico en el capacitor y la
+tensión total aplicada a la rama serie en resonancia proporciona una estimación directa del factor de calidad del
+sistema, denominado factor de sobretensión:
+\begin{equation}
+    Q_v = \frac{V_C(f_0)}{V_{\text{in}}(f_0)}
+    \label{eq.ej1:qv}
+\end{equation}
+
+Por otra parte, si se analiza la curva de transferencia en función de la frecuencia, se definen las frecuencias de
+corte inferior ($f_1$ o $f_{\text{inf}}$) y superior ($f_2$ o $f_{\text{sup}}$) como aquellos puntos donde la potencia
+entregada cae a la mitad de su valor de resonancia ($\qty{-3}{\decibel}$ respecto al máximo). En dichos puntos, la
+tensión en el capacitor se reduce a un factor $1/\sqrt{2} \approx 0.7071$ del valor pico:
+\begin{equation}
+    V_C(f_1) = V_C(f_2) = \frac{V_C(f_0)}{\sqrt{2}}
+    \label{eq.ej1:umbral_3db}
+\end{equation}
+
+El ancho de banda a $\qty{-3}{\decibel}$ se define como la diferencia entre ambas frecuencias de corte:
+\begin{equation}
+    \Delta f = f_{\text{sup}} - f_{\text{inf}}
+    \label{eq.ej1:bw}
+\end{equation}
+El factor de calidad experimental derivado de la selectividad en frecuencia resulta entonces:
+\begin{equation}
+    Q_{\Delta f} = \frac{f_0}{\Delta f}
+    \label{eq.ej1:q_bw}
+\end{equation}
+

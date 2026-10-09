@@ -1,0 +1,94 @@
+\begin{tikzpicture}[scale=0.92, transform shape, >=stealth]
+
+    % ========================================================
+    % 1. GENERADOR DE FUNCIONES (GW-Instek GFG-3015)
+    % ========================================================
+    \draw[thick, fill=gray!8] (-0.6, 0.2) rectangle (3.2, 5.0);
+    \node[font=\bfseries\small, align=center] at (1.2, 2.7) {Generador de\\Funciones\\[5pt]\footnotesize GW-Instek\\GFG-3015};
+    
+    % Conectores BNC panel frontal (x = 3.2)
+    \coordinate (gen_out)  at (3.2, 4.2);
+    \coordinate (gen_sync) at (3.2, 1.2);
+    \coordinate (gen_gnd)  at (3.2, 0.2);
+    
+    \draw[fill=white, thick] (gen_out) circle (3.5pt);
+    \node[left=4pt, font=\scriptsize\bfseries] at (gen_out) {MAIN OUT};
+    
+    \draw[fill=white, thick] (gen_sync) circle (3.5pt);
+    \node[left=4pt, font=\scriptsize\bfseries] at (gen_sync) {SYNC OUT};
+
+    \draw (1.3, 0.2) node[ground]{};
+
+    % ========================================================
+    % 2. OSCILOSCOPIO DIGITAL (Tektronix TDS 1001)
+    % ========================================================
+    \draw[thick, fill=gray!8] (11.0, 0.2) rectangle (14.8, 5.0);
+    \node[font=\bfseries\small, align=center] at (13.0, 2.7) {Osciloscopio\\Digital\\[5pt]\footnotesize Tektronix\\TDS 1001};
+
+    % Conectores BNC panel frontal (x = 11.0)
+    \coordinate (osc_ch1)  at (11.0, 4.2);
+    \coordinate (osc_ch2)  at (11.0, 2.1);
+    \coordinate (osc_trig) at (11.0, 1.2);
+    \coordinate (osc_gnd)  at (11.0, 0.2);
+    
+    \draw[fill=white, thick] (osc_ch1) circle (3.5pt);
+    \node[right=4pt, font=\scriptsize\bfseries, color=blue!80!black] at (osc_ch1) {CH1};
+    
+    \draw[fill=white, thick] (osc_ch2) circle (3.5pt);
+    \node[right=4pt, font=\scriptsize\bfseries, color=red!80!black] at (osc_ch2) {CH2};
+    
+    \draw[fill=white, thick] (osc_trig) circle (3.5pt);
+    \node[right=4pt, font=\scriptsize\bfseries] at (osc_trig) {EXT TRIG};
+
+    \draw (12.9, 0.2) node[ground]{};
+
+    % ========================================================
+    % 3. BANCO DE PRUEBA RLC (Placa MEI)
+    % ========================================================
+    \def\xBranch{6.8}
+    
+    % Resistor serie de protección r = 47 ohm (con separación holgada hacia Nodo A)
+    \draw (gen_out) to[short] (4.0, 4.2)
+          to[R, l={$r = \qty{47}{\ohm}$}, *-*] (5.8, 4.2)
+          -- (\xBranch, 4.2) coordinate (nodeA);
+    \node[above=4pt, font=\scriptsize\bfseries, color=blue!85!black] at (nodeA) {Nodo A};
+
+    % Rama resonante vertical: Inductor L + Resistencia interna RL
+    \draw (nodeA) to[L, l_={$L = \qty{30}{\milli\henry}$}] (\xBranch, 3.2)
+          to[R, l_={$R_L$}] (\xBranch, 2.3)
+          -- (\xBranch, 2.1) coordinate (nodeB);
+    \node[left=5pt, font=\scriptsize\bfseries, color=red!85!black] at (nodeB) {Nodo B};
+
+    % Capacitor C a masa
+    \draw (nodeB) to[C, l_={$C = \qty{7}{\nano\farad}$}, *-*] (\xBranch, 0.9) coordinate (nodeGndRLC);
+    
+    % Conexión a la línea de masa común
+    \draw (nodeGndRLC) -- (\xBranch, 0.2);
+    \draw (\xBranch, 0.2) node[ground]{};
+
+    % ========================================================
+    % 4. CONEXIÓN DE PUNTAS Y REFERENCIAS (CH1, CH2, DISPARO)
+    % ========================================================
+    
+    % CANAL 1 (CH1): Mide e_tot en Nodo A
+    \draw[blue!85!black, very thick] (nodeA) -- (osc_ch1);
+    \node[above=3pt, font=\footnotesize\bfseries, color=blue!85!black] 
+        at ($(\xBranch, 4.2)!0.55!(osc_ch1)$) {$e_{\text{tot}}$ (Canal 1)};
+    \draw[blue!85!black, fill=blue!85!black] (nodeA) circle (2.5pt);
+
+    % CANAL 2 (CH2): Mide e_c en Nodo B
+    \draw[red!85!black, very thick] (nodeB) -- (osc_ch2);
+    \node[above=3pt, font=\footnotesize\bfseries, color=red!85!black] 
+        at ($(\xBranch, 2.1)!0.55!(osc_ch2)$) {$e_c$ (Canal 2)};
+    \draw[red!85!black, fill=red!85!black] (nodeB) circle (2.5pt);
+
+    % LÍNEA DE MASA COMÚN
+    \draw[black, thick] (gen_gnd) -- (osc_gnd);
+
+    % DISPARO EXTERNO (SYNC -> EXT TRIG): Por debajo de la masa
+    \draw[gray!50!black, thick, dashed] (gen_sync) -- ++(0.4, 0) -- ++(0, -1.8)
+          -- ($(osc_trig) + (-0.4, -1.8)$)
+          node[midway, below=2pt, font=\scriptsize\bfseries] {Sincronismo TTL (\emph{Sync Out} $\to$ \emph{Ext Trig})}
+          -- ++(0, 1.8) -- (osc_trig);
+
+\end{tikzpicture}

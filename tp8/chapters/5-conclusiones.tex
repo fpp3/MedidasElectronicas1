@@ -1,0 +1,26 @@
+\chapter{Conclusiones}
+
+Este trabajo práctico permitió implementar con éxito un sistema automatizado de medición y control
+remoto de instrumental, integrando una computadora portátil, comunicación serie RS-232 y secuencias de
+comandos SCPI para la caracterización completa de un circuito resonante serie RLC. A partir de los resultados obtenidos
+y el análisis físico desarrollado, se extraen las siguientes conclusiones principales:
+
+\begin{enumerate}
+    \item \emph{Efectividad del control instrumental mediante SCPI y Python:} La arquitectura de software desarrollada
+    en Python utilizando la biblioteca \texttt{pySerial} demostró robustez, estabilidad y flexibilidad operativa. La
+    secuencia de inicialización estandarizada (\texttt{*IDN?}, \texttt{:FUNC:WAV}, \texttt{:AMPL:VOLT}, \texttt{:OFFSet})
+    garantizó la repetibilidad de las condiciones iniciales del generador. La incorporación de modalidades de
+    barrido automático y manual permitió tanto la exploración
+    rápida de amplios rangos espectrales como la adquisición minuciosa y documentada de puntos singulares.
+    \item \emph{Concordancia en la frecuencia de resonancia:} El valor experimental obtenido para la frecuencia de
+    resonancia ($f_0 = \qty{10.70}{\kilo\hertz}$) presentó una concordancia notable con el valor teórico derivado de
+    los parámetros nominales de la placa ($f_0^{\text{teo}} = \qty{10.98}{\kilo\hertz}$ para $L = \qty{30}{\milli\henry}$
+    y $C = \qty{7}{\nano\farad}$), registrándose un error relativo de apenas $2.55\%$. Esta desviación reducida se
+    encuentra completamente contenida dentro de las tolerancias constructivas habituales de componentes reactivos discretos.
+    \item \emph{Validación espectral con FFT y persistencia infinita:} La utilización de la función matemática FFT con
+    ventana Hanning acoplada a la persistencia infinita de pantalla permitió sintetizar la curva de transferencia
+    global del filtro RLC entre $\qty{1}{\kilo\hertz}$ y $\qty{50}{\kilo\hertz}$. Cada pulso discreto inyectado por el
+    barrido automático generó una línea espectral que, al acumularse en pantalla, delineó el perfil de ganancia
+    pasa-banda y corroboró en el dominio frecuencial los parámetros temporales obtenidos.
+\end{enumerate}
+

@@ -1,0 +1,56 @@
+\documentclass[chaptersright]{informeutn}
+
+\addbibresource{fuentes.bib}
+
+\providecommand{\kHz}{\,\unit{\kilo\hertz}}
+\providecommand{\MHz}{\,\unit{\mega\hertz}}
+
+\lstdefinestyle{python}{
+    backgroundcolor=\color{gray!10},
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{teal},
+    commentstyle=\color{gray}\itshape,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=8pt,
+    frame=single,
+    breaklines=true,
+    breakatwhitespace=true,
+    showstringspaces=false,
+    captionpos=b,
+    tabsize=4
+}
+
+% --- Configuración de la Carátula ---
+\titulo{Trabajo Práctico de Laboratorio N° 8}
+\subtitulo{Sistemas para Automatización de Mediciones. Caracterización de Circuito Resonante RLC mediante Control SCPI}
+\materia{Medidas Electrónicas I}
+\comision{4R2}
+\autores{
+    Grasso, Gaston - 401892\\
+    Palombo, Franco - 401910\\
+    Prieto, Angelo - 401012
+}
+\fecha{\today}
+
+\begin{document}
+  \maketitle
+  
+  \tableofcontents
+  \setcounter{page}{1}
+  \thispagestyle{plain}
+
+  \input{chapters/1-integrantes.tex}
+  \input{chapters/2-introduccion.tex}
+  \input{chapters/3-materiales.tex}
+  \input{chapters/4-desarrollo.tex}
+  \input{chapters/5-conclusiones.tex}
+
+  \nocite{*}
+  \printbibliography[heading=bibnumbered, title={Fuentes}]
+
+  \input{chapters/6-anexos.tex}
+
+\end{document}

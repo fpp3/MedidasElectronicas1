@@ -4,25 +4,25 @@ import time
 PUERTO = '/dev/ttyUSB0'
 BAUDRATE = 9600
 
-def enviar(ser, comando):
+def gen_send(ser, comando):
     ser.write((comando.strip() + '\n').encode('utf-8'))
     ser.flush()
     time.sleep(0.15)
 
-def configurar_generador(ser):
+def gen_setup(ser):
     # Senoidal, unidad Vpp, 2.5 Vpp (da 5 Vpp en circuito abierto) y Offset 0V
-    enviar(ser, ":FUNC:WAV 1")
-    enviar(ser, ":AMPL:UNIT 1")
-    enviar(ser, ":AMPL:VOLT 2.5")
-    enviar(ser, ":OFFSet 0")
+    gen_send(ser, ":FUNC:WAV 1")
+    gen_send(ser, ":AMPL:UNIT 1")
+    gen_send(ser, ":AMPL:VOLT 2.5")
+    gen_send(ser, ":OFFSet 0")
 
-def esperar_conexion():
+def gen_connect():
     print(f"Buscando conexion en {PUERTO}...")
     while True:
         try:
             ser = serial.Serial(PUERTO, BAUDRATE, timeout=1)
             time.sleep(1.5)
-            enviar(ser, "*IDN?")
+            gen_send(ser, "*IDN?")
             resp = ser.readline().decode('utf-8', errors='ignore').strip()
             print(f"Conectado a {PUERTO}")
             if resp:
@@ -32,8 +32,8 @@ def esperar_conexion():
             print("No se detecta conexion. Reintentando en 2 segundos...")
             time.sleep(2)
 
-def hacer_barrido(ser, frecuencias):
-    configurar_generador(ser)
+def gen_freq_swipe(ser, frecuencias):
+    gen_setup(ser)
 
     modo = input("Modo (1: Automatico, 2: Manual [Enter]): ").strip()
     if modo == "1":
@@ -46,14 +46,14 @@ def hacer_barrido(ser, frecuencias):
 
     for i, f in enumerate(frecuencias, 1):
         print(f"[{i}/{len(frecuencias)}] Frecuencia: {f} Hz")
-        enviar(ser, f":FREQ {f}")
+        gen_send(ser, f":FREQ {f}")
         if modo == "1":
             time.sleep(dt)
         else:
             input("Presione ENTER para continuar...")
 
 def main():
-    ser = esperar_conexion()
+    ser = gen_connect()
 
     while True:
         print("\n1. Barrido grueso")
@@ -62,9 +62,8 @@ def main():
         opcion = input("Opcion: ").strip()
 
         if opcion == "1":
-            # Saltos definidos en la consigna del TP8
             frecuencias = [1000, 2000, 5000, 10000, 20000, 50000, 100000]
-            hacer_barrido(ser, frecuencias)
+            gen_freq_swipe(ser, frecuencias)
 
         elif opcion == "2":
             try:
@@ -85,7 +84,7 @@ def main():
                 frecuencias.append(round(f, 2))
                 f += paso
 
-            hacer_barrido(ser, frecuencias)
+            gen_freq_swipe(ser, frecuencias)
 
         elif opcion == "3":
             ser.close()
