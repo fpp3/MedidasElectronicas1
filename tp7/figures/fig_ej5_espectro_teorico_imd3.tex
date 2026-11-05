@@ -1,0 +1,37 @@
+% Diagrama del espectro de dos tonos y productos de IMD de tercer orden (Consigna pág. 14)
+\begin{tikzpicture}[scale=0.9, transform shape]
+    % Eje horizontal y vertical
+    \draw[->, thick] (-0.5,0) -- (9.2,0) node[right, font=\scriptsize] {$f$};
+    \draw[->, thick] (0,0) -- (0,3.6) node[above, font=\scriptsize] {Amplitud [$\unit{\dB}$]};
+
+    % Piso de ruido
+    \draw[gray!60, thin] plot [smooth] coordinates {
+        (0.2,0.3) (1.0,0.4) (1.8,0.3) (2.8,0.4) (3.6,0.3) (4.4,0.4) (5.4,0.3) (6.2,0.4) (7.2,0.3) (8.2,0.4) (8.8,0.3)
+    };
+
+    % Producto IMD3 inferior: 2f1 - f2
+    \draw[blue!70!black, thick] (2.0,0.3) -- (2.3,1.4) -- (2.6,0.3);
+    \node at (2.3,-0.4) [font=\footnotesize] {$2f_1 - f_2$};
+    \node at (2.3,-0.8) [font=\tiny, gray] {(\qty{47}{\kilo\hertz})};
+
+    % Tono fundamental 1: f1
+    \draw[red!80!black, very thick] (3.6,0.3) -- (4.0,3.0) -- (4.4,0.3);
+    \node at (4.0,-0.4) [font=\footnotesize] {$f_1$};
+    \node at (4.0,-0.8) [font=\tiny, gray] {(\qty{49}{\kilo\hertz})};
+
+    % Tono fundamental 2: f2
+    \draw[red!80!black, very thick] (5.2,0.3) -- (5.6,3.0) -- (6.0,0.3);
+    \node at (5.6,-0.4) [font=\footnotesize] {$f_2$};
+    \node at (5.6,-0.8) [font=\tiny, gray] {(\qty{51}{\kilo\hertz})};
+
+    % Producto IMD3 superior: 2f2 - f1
+    \draw[blue!70!black, thick] (6.8,0.3) -- (7.1,1.4) -- (7.4,0.3);
+    \node at (7.1,-0.4) [font=\footnotesize] {$2f_2 - f_1$};
+    \node at (7.1,-0.8) [font=\tiny, gray] {(\qty{53}{\kilo\hertz})};
+
+    % Flecha y cota de rechazo Delta(dB)
+    \draw[dashed, gray] (5.6,3.0) -- (8.5,3.0);
+    \draw[dashed, gray] (7.1,1.4) -- (8.5,1.4);
+    \draw[<->, thick, purple!80!black] (8.2,1.4) -- (8.2,3.0) 
+        node[midway, right, font=\footnotesize\bfseries, align=left] {$\Delta(\text{dB}) = \qty{35.2}{\decibel}$\\\scriptsize (Rechazo IMD3)};
+\end{tikzpicture}

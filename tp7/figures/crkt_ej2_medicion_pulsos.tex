@@ -1,0 +1,41 @@
+% Circuito de medición para el Experimento 2: Tren de pulsos con DSO y Multímetro True RMS
+\begin{circuitikz}[scale=0.9, transform shape]
+    % Generador de funciones
+    \draw (0,0.5) node[ground] {}
+        to[sV, l={$G_1$ (Pulsos)}] (0,2.5)
+        to[short, -*] (2.2,2.5);
+    \draw (0,0.5) to[short, -*] (2.2,0.5);
+
+    % Derivación superior hacia el Osciloscopio DSO
+    \draw (2.2,2.5) to[short] (2.2,2.2)
+        to[short, -o] (4.8,2.2) node[above, font=\scriptsize\bfseries] {CH1};
+    \draw (2.2,0.5) to[short] (2.2,1.0)
+        to[short, -o] (4.8,1.0) node[above, font=\scriptsize\bfseries] {Masa};
+
+    % Conexión al bloque DSO
+    \draw (4.8,2.2) to[short] (5.4,2.2);
+    \draw (4.8,1.0) to[short] (5.4,1.0);
+    \draw (4.8,1.0) node[ground] {};
+
+    % Bloque osciloscopio
+    \draw[thick, rounded corners=3pt, fill=blue!3] (5.4,0.4) rectangle (10.0,2.9);
+    \node at (7.7,2.5) [font=\bfseries\small] {Osciloscopio DSO};
+    \node at (7.7,1.85) [font=\scriptsize, align=center] {CH1: FFT / Temporal\\Promedio 64 cuentas};
+    \node at (7.7,1.1) [font=\scriptsize, align=center] {Ventanas: Flattop / Rect.\\Cursores de frecuencia y amplitud};
+
+    % Derivación inferior hacia el Multímetro True RMS
+    \draw (2.2,2.5) to[short] (2.2,-1.1)
+        to[short, -o] (4.8,-1.1) node[above, font=\scriptsize\bfseries] {$V/\Omega$};
+    \draw (2.2,0.5) to[short] (2.2,-1.9)
+        to[short, -o] (4.8,-1.9) node[above, font=\scriptsize\bfseries] {COM};
+
+    % Conexión al bloque Multímetro
+    \draw (4.8,-1.1) to[short] (5.4,-1.1);
+    \draw (4.8,-1.9) to[short] (5.4,-1.9);
+    \draw (4.8,-1.9) node[ground] {};
+
+    % Bloque Multímetro True RMS
+    \draw[thick, rounded corners=3pt, fill=purple!5] (5.4,-2.5) rectangle (10.0,-0.6);
+    \node at (7.7,-1.1) [font=\bfseries\small] {Multímetro Digital};
+    \node at (7.7,-1.8) [font=\scriptsize, align=center] {UNI-T UT89X (Escala $V_{\text{DC}}$)\\Medición directa del valor medio};
+\end{circuitikz}

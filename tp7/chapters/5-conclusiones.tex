@@ -1,0 +1,74 @@
+\chapter{Conclusiones}
+
+El trabajo experimental realizado en el laboratorio permitió verificar en forma directa el funcionamiento del módulo
+matemático FFT del osciloscopio digital, contrastar las ventajas del análisis espectral frente a la visualización
+temporal y responder a los aspectos centrales planteados en la práctica:
+
+\section{Ventajas y Desventajas del Análisis en Frecuencia frente al Tiempo}
+
+\noindent\textbf{Ventajas del Dominio de la Frecuencia:}
+\begin{itemize}[noitemsep, topsep=2pt]
+    \item \textbf{Gran rango dinámico y discriminación de armónicos:} Permite identificar componentes débiles y
+    productos espurios situados a $\qty{-40}{\decibel}$ o $\qty{-50}{\decibel}$ por debajo de la fundamental, que
+    en el tiempo quedan enmascarados dentro del trazo.
+    \item \textbf{Medición cuantitativa de distorsión y modulación:} Facilita el cálculo directo de la distorsión
+    armónica total (THD), del rechazo a intermodulación (IMD3) y de los índices de modulación en AM y FM.
+    \item \textbf{Deducción de parámetros temporales:} A partir del espaciamiento entre rayas armónicas se calcula el
+    período ($T = 1/\Delta f_n$) y a partir de los nulos de la envolvente sinc se obtiene el ancho de pulso
+    ($t_0 = 1/\Delta f_{\text{min}}$).
+\end{itemize}
+
+\noindent\textbf{Desventajas del Dominio de la Frecuencia:}
+\begin{itemize}[noitemsep, topsep=2pt]
+    \item \textbf{Pérdida de información de fase:} La FFT exhibe magnitudes espectrales, perdiendo la fase relativa
+    entre armónicos e impidiendo reconstruir la forma de onda instantánea.
+    \item \textbf{Compromiso de resolución y fuga espectral:} La resolución depende del tiempo de registro ($\Delta f = 1/T_{\text{rec}}$).
+    Si la señal no es periódica en la ventana de adquisición, se produce fuga espectral (\emph{leakage}).
+    \item \textbf{Vulnerabilidad a frecuencias alias:} Si la tasa de muestreo no respeta el criterio de Nyquist,
+    surgen componentes falsas replegadas que inducen a errores de diagnóstico.
+\end{itemize}
+
+\section{Ventajas y Desventajas de los Distintos Tipos de Ventanas}
+Cada ventana matemática de ponderación establece un compromiso entre resolución en frecuencia y exactitud en amplitud,
+resumido en el Cuadro~\ref{tab.concl:ventanas}:
+
+\begin{table}[!ht]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Ventana} & \textbf{Resolución de Frecuencia} & \textbf{Fuga Espectral (Lóbulos)} & \textbf{Aplicación Recomendada} \\
+        \midrule
+        Rectangular & Máxima (lóbulo muy estrecho) & Alta (lóbulos a $\qty{-13}{\decibel}$) & Señales transitorias y pulsos \\
+        Hanning & Media (buen compromiso) & Baja (lóbulos a $\qty{-32}{\decibel}$) & Señales periódicas y ruido \\
+        Flattop & Menor (lóbulo ancho) & Mínima (cima plana, $< \qty{0.1}{\decibel}$) & Medición exacta de amplitudes y THD \\
+        \bottomrule
+    \end{tabular}}
+    \caption{Comparación de ventajas y aplicaciones de las ventanas Rectangular, Hanning y Flattop.}
+    \label{tab.concl:ventanas}
+\end{table}
+
+\section{Análisis del Fenómeno de Alias (Experimento 3)}
+Al fijar $f_s = \qty{25.0}{\kilo\Sa\per\second}$ ($f_{\text{Nyq}} = \qty{12.5}{\kilo\hertz}$), se constató que:
+\begin{itemize}[noitemsep, topsep=2pt]
+    \item Para $f_{\text{in}} < \qty{12.5}{\kilo\hertz}$, la presentación espectral fue unívoca y correcta.
+    \item Al inyectar una senoidal de $\qty{15.20}{\kilo\hertz}$, la componente se replegó especularmente sobre la banda base en $f_{\text{alias}} = |f_s - f_{\text{in}}| = \qty{9.80}{\kilo\hertz}$, evidenciando la aparición de una raya falsa sin aviso del instrumento.
+    \item Con onda cuadrada, las múltiples componentes que excedieron Nyquist colapsaron el espectro con un peine de rayas espurias, ratificando la necesidad de filtros antialiasing o sobremuestreo adecuado.
+\end{itemize}
+
+\section{Diferencias entre los Modos de Adquisición}
+\begin{itemize}[noitemsep, topsep=2pt]
+    \item \textbf{Normal:} Muestreo convencional; refleja la variabilidad del piso de ruido en tiempo real.
+    \item \textbf{Pico (Peak Detect):} Retiene máximos y mínimos analógicos; captura transitorios rápidos a costa de elevar el piso de ruido.
+    \item \textbf{Promedio (Average):} Promedia sincrónicamente múltiples adquisiciones (64 cuentas), reduciendo la varianza estocástica del ruido y estabilizando trazas de baja amplitud.
+\end{itemize}
+
+\section{Funcionamiento del Modulador a Diodo (Experimentos 4 y 5)}
+A partir de la alinealidad del diodo ($i_D(v) \approx a_1 v + a_2 v^2 + a_3 v^3 + \dots$):
+\begin{itemize}[noitemsep, topsep=2pt]
+    \item El término cuadrático ($a_2 v^2$) produce la modulación AM ($f_c \pm f_m$), seleccionada por el tanque sintonizado en $\approx \qty{50}{\kilo\hertz}$.
+    \item El término cúbico ($a_3 v^3$) engendra productos de intermodulación ($2f_1 - f_2$ y $2f_2 - f_1$), verificados en el Experimento~5 con un rechazo de $\qty{35.2}{\decibel}$ respecto a los tonos fundamentales.
+\end{itemize}
+
+\section{Conclusión General}
+El desarrollo del trabajo práctico permitió corroborar experimentalmente el análisis espectral mediante FFT, contrastar el comportamiento de las ventanas matemáticas, evidenciar los efectos del submuestreo y cuantificar la acción linealizante de la realimentación negativa sobre la distorsión armónica en amplificadores clase A, con estricto seguimiento de las pautas metrológicas de la cátedra.

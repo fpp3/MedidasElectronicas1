@@ -1,0 +1,40 @@
+% Circuito de medición para el Experimento 5: Ensayo de IMD de tercer orden
+\begin{circuitikz}[scale=0.82, transform shape]
+    % Generador 1 (Tono 1: 49 kHz)
+    \draw (0,1.8) node[ground] {}
+        to[sV, l={$G_1\ (\qty{49}{\kilo\hertz})$}] (0,3.6)
+        to[R, l={$R_1 = 4{,}7\,\unit{k\Omega}$}] (3.5,3.6)
+        -- (3.5,1.8);
+
+    % Generador 2 (Tono 2: 51 kHz)
+    \draw (0,-1.8) node[ground] {}
+        to[sV, l={$G_2\ (\qty{51}{\kilo\hertz})$}] (0,0)
+        to[R, l={$R_2 = 4{,}7\,\unit{k\Omega}$}] (3.5,0)
+        -- (3.5,1.8);
+
+    % Diodo y tanque LC
+    \draw (3.5,1.8) to[short, *-] (4.0,1.8)
+        to[D, l={$D_1$ (RF)}, -*] (5.6,1.8);
+
+    \draw (5.6,1.8) -- (6.4,1.8)
+        to[C, l_={$C = 10\,\unit{nF}$}, *-*] (6.4,-0.6);
+    \draw (6.4,1.8) -- (8.4,1.8)
+        to[L, l={$L = 1\,\unit{mH}$}, *-*] (8.4,-0.6);
+    \draw (6.4,-0.6) -- (8.4,-0.6) node[midway, ground] {};
+
+    % Conexión hacia el osciloscopio digital (líneas paralelas con etiquetas arriba)
+    \draw (8.4,1.8) to[short, -o] (10.2,1.8) node[above, font=\scriptsize\bfseries] {CH1};
+    \draw (8.4,-0.6) to[short, -o] (10.2,-0.6) node[above, font=\scriptsize\bfseries] {Masa};
+
+    % Conexiones al panel del DSO
+    \draw (10.2,1.8) to[short] (10.8,1.8);
+    \draw (10.2,-0.6) to[short] (10.8,-0.6);
+    \draw (10.2,-0.6) node[ground] {};
+
+    % Bloque osciloscopio
+    \draw[thick, rounded corners=3pt, fill=blue!3] (10.8,-1.0) rectangle (15.4,2.8);
+    \node at (13.1,2.3) [font=\bfseries\small] {Osciloscopio DSO};
+    \node at (13.1,1.55) [font=\scriptsize, align=center] {FFT / Ventana Hanning\\Zoom X10 / Cursores};
+    \node at (13.1,0.7) [font=\scriptsize, align=center] {Medición de tonos $f_1, f_2$\\y productos IMD3};
+    \node at (13.1,-0.2) [font=\tiny, align=center] {Rechazo $\Delta(\text{dB}) = \qty{35.2}{\decibel}$};
+\end{circuitikz}

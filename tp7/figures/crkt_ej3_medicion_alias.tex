@@ -1,0 +1,24 @@
+% Circuito de medición para el Experimento 3: Observación de frecuencias Alias
+\begin{circuitikz}[scale=0.9, transform shape]
+    % Generador de funciones
+    \draw (0,0) node[ground] {}
+        to[sV, l={$G_1$ (\qty{10}{\kilo\hertz} a \qty{15.2}{\kilo\hertz})}] (0,2)
+        to[short] (1.8,2);
+    \draw (0,0) to[short] (1.8,0);
+
+    % Conexión directa / Sonda al DSO (líneas horizontales paralelas)
+    \draw (1.8,2) to[short, -o] (4.8,2) node[above, font=\scriptsize\bfseries] {CH1};
+    \draw (1.8,0) to[short, -o] (4.8,0) node[above, font=\scriptsize\bfseries] {Masa};
+
+    % Conexiones al panel del instrumento
+    \draw (4.8,2) to[short] (5.4,2);
+    \draw (4.8,0) to[short] (5.4,0);
+    \draw (4.8,0) node[ground] {};
+
+    % Bloque osciloscopio digital configurado para submuestreo
+    \draw[thick, rounded corners=3pt, fill=blue!3] (5.4,-0.8) rectangle (10.2,2.8);
+    \node at (7.8,2.2) [font=\bfseries\small] {Osciloscopio DSO};
+    \node at (7.8,1.5) [font=\scriptsize, align=center] {Base de tiempos: SEC/DIV ajustado\\Frec. Muestreo: $f_s = \qty{25.0}{\kilo\Sa\per\second}$};
+    \node at (7.8,0.7) [font=\scriptsize, align=center] {Límite Nyquist: $f_{\text{Nyq}} = \qty{12.5}{\kilo\hertz}$};
+    \node at (7.8,-0.1) [font=\tiny, align=center] {Modo FFT / Ventana Hanning};
+\end{circuitikz}

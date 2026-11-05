@@ -1,0 +1,57 @@
+% Circuito esquemático de medición de distorsión armónica en un amplificador (Figura 2 de la consigna)
+\begin{tikzpicture}[scale=0.85, transform shape,
+    block/.style={rectangle, draw, rounded corners=3pt, thick, 
+                  text centered, minimum height=1.6cm, inner sep=6pt},
+    line/.style={draw, thick}
+]
+    % 1. Bloque Generador BF
+    \node[block, fill=blue!5, text width=2.6cm] (gen) at (0, 0) {
+        \textbf{Generador BF}\\(\qty{1}{\kilo\hertz})
+    };
+    \draw (gen.south) to[short] ++(0,-0.4) node[ground] {};
+
+    % 2. Bloque Amplificador de 2 etapas
+    \node[block, fill=green!8, text width=3.8cm] (amp) at (5.2, 0) {
+        \textbf{Amplificador 2 etapas}\\[2pt]
+        {\scriptsize (Lazo Abierto / Lazo Cerrado)}\\[2pt]
+        {\tiny Módulo experimental}
+    };
+    \draw (amp.south) to[short] ++(0,-0.4) node[ground] {};
+
+    % 3. Bloque Osciloscopio con FFT
+    \node[block, fill=blue!3, text width=3.2cm] (osc) at (12.0, 0) {
+        \textbf{Osciloscopio DSO}\\[2pt]
+        {\scriptsize Modo FFT (Flattop)}\\[2pt]
+        {\tiny Medición armónicos $V_1, V_2, V_3$}
+    };
+    \draw (osc.south) to[short] ++(0,-0.4) node[ground] {};
+
+    % 4. Bloque Voltímetro True RMS (opcional)
+    \node[block, fill=purple!5, text width=2.8cm, minimum height=1.3cm] (volt) at (8.6, -2.4) {
+        \textbf{Voltímetro True RMS}\\[2pt]
+        {\tiny UNI-T UT89X ($V_{\text{ef}}$)}
+    };
+    \draw (volt.south) to[short] ++(0,-0.4) node[ground] {};
+
+    % Conexión Generador -> Amplificador
+    \draw[line] (gen.east) to[short, -o] ++(0.4,0);
+    \draw[line] (amp.west) to[short, -o] ++(-0.4,0);
+    \draw[line] ([xshift=0.4cm]gen.east) -- node[above, font=\scriptsize] {Entrada} ([xshift=-0.4cm]amp.west);
+
+    % Conexión Amplificador -> Nodo de distribución
+    \draw[line] (amp.east) to[short, -o] ++(0.4,0);
+    \node at ([xshift=0.4cm, yshift=0.3cm]amp.east) [font=\scriptsize] {Salida};
+    
+    % Nodo de distribución a x=8.6
+    \draw[line] ([xshift=0.4cm]amp.east) -- (8.6, 0) node[circle, fill, inner sep=1.5pt] {};
+
+    % Derivación vertical hacia el Voltímetro
+    \draw[line] (8.6, 0) -- (8.6, -1.3)
+        to[short, -o] (8.6, -1.5)
+        -- (volt.north);
+
+    % Conexión hacia el Osciloscopio
+    \draw[line] (8.6, 0) -- ([xshift=-0.6cm]osc.west)
+        to[short, -o] ([xshift=-0.2cm]osc.west) node[above left, font=\scriptsize\bfseries] {CH1}
+        -- (osc.west);
+\end{tikzpicture}

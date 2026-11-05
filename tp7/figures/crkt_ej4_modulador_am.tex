@@ -1,0 +1,34 @@
+% Circuito esquemático del modulador de amplitud (Figura 1 de la consigna)
+\begin{circuitikz}[scale=0.82, transform shape]
+    % Generador 1 (Portadora 50 kHz)
+    \draw (0,1.8) node[ground] {}
+        to[sV, l={$G_1\ (f_c \approx \qty{50}{\kilo\hertz})$}] (0,3.6)
+        to[R, l={$R_1 = 4{,}7\,\unit{k\Omega}$}] (3.5,3.6)
+        -- (3.5,1.8);
+
+    % Generador 2 (Modulante 1 kHz)
+    \draw (0,-1.8) node[ground] {}
+        to[sV, l={$G_2\ (f_m = \qty{1}{\kilo\hertz})$}] (0,0)
+        to[R, l={$R_2 = 4{,}7\,\unit{k\Omega}$}] (3.5,0)
+        -- (3.5,1.8);
+
+    % Nodo sumador y Diodo mezclador
+    \draw (3.5,1.8) to[short, *-] (4.0,1.8)
+        to[D, l={$D_1$ (RF)}, -*] (5.8,1.8);
+
+    % Circuito tanque LC sintonizado en paralelo a masa
+    % Rama capacitor (etiqueta a la izquierda con l_)
+    \draw (5.8,1.8) -- (6.6,1.8)
+        to[C, l_={$C = 10\,\unit{nF}$}, *-*] (6.6,-0.6);
+    
+    % Rama inductor con separación generosa de 2.2 cm (etiqueta a la derecha con l)
+    \draw (6.6,1.8) -- (8.8,1.8)
+        to[L, l={$L = 1\,\unit{mH}$}, *-*] (8.8,-0.6);
+    
+    % Unión inferior a masa
+    \draw (6.6,-0.6) -- (8.8,-0.6) node[midway, ground] {};
+
+    % Conexión de salida al Osciloscopio con FFT
+    \draw (8.8,1.8) to[short, -*] (9.6,1.8)
+        to[short, -o] (10.4,1.8) node[above, font=\scriptsize] {Salida (A.M) $\to$ DSO};
+\end{circuitikz}
