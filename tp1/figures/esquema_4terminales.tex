@@ -1,0 +1,29 @@
+\begin{circuitikz}[american, scale=1.05]
+    % Generador de corriente constante (Fuente SK150)
+    \draw (0, 0.5) rectangle (2.6, 3.5) node[midway, align=center] {\textbf{Fuente}\\\textbf{SK150}\\($I_{\text{cte}}$)};
+    
+    % Rama superior de corriente con miliamperímetro
+    \draw (2.6, 3.0) -- (3.2, 3.0) to[ammeter, l={\small UT33A+ ($I$)}] (5.2, 3.0) 
+          to[R, l={\small $r_{c1}$}, *-] (7.2, 3.0) -- (8.2, 3.0) -- (8.2, 2.6);
+    
+    % Rama inferior de retorno de corriente
+    \draw (2.6, 1.0) -- (5.2, 1.0) 
+          to[R, l_={\small $r_{c2}$}, *-] (7.2, 1.0) -- (8.2, 1.0) -- (8.2, 1.4);
+    
+    % Probeta bajo prueba Rx
+    \draw (8.2, 2.6) to[R, l_={\textbf{$R_x$}}, *-*] (8.2, 1.4);
+    \node[anchor=west, align=left, font=\scriptsize] at (8.35, 2.0) {\textbf{Probeta}\\(cable 12 m)};
+    
+    % Terminales Kelvin (1, 2, 3, 4)
+    \node[circle, fill=blue!20, draw=blue, inner sep=1.5pt, font=\scriptsize\bfseries] at (8.2, 3.0) {1};
+    \node[circle, fill=blue!20, draw=blue, inner sep=1.5pt, font=\scriptsize\bfseries] at (8.2, 1.0) {2};
+    \node[circle, fill=red!20, draw=red, inner sep=1.5pt, font=\scriptsize\bfseries] at (8.2, 2.6) {3};
+    \node[circle, fill=red!20, draw=red, inner sep=1.5pt, font=\scriptsize\bfseries] at (8.2, 1.4) {4};
+    
+    % Puntas de sensado de potencial (interiores)
+    \draw (8.2, 2.6) -- (9.2, 2.6) to[R, l={\small $r_{c3}$}] (11.0, 2.6) -- (11.8, 2.6) -- (11.8, 2.4);
+    \draw (8.2, 1.4) -- (9.2, 1.4) to[R, l_={\small $r_{c4}$}] (11.0, 1.4) -- (11.8, 1.4) -- (11.8, 1.6);
+    
+    % Voltímetro
+    \draw (11.8, 2.4) to[voltmeter, l={\small UT33A+ ($V$)}, *-*] (11.8, 1.6);
+\end{circuitikz}

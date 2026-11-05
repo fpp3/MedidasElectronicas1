@@ -1,0 +1,57 @@
+\documentclass{standalone}
+\usepackage{amsmath}
+\usepackage{circuitikz}
+\usetikzlibrary{arrows.meta, positioning, calc}
+\begin{document}
+\begin{circuitikz}[american, scale=1.15, >=Stealth]
+    % Barra horizontal que representa el tramo de cable (probeta de 20 m)
+    \draw[fill=blue!8, draw=blue!80!black, line width=1.5pt, rounded corners=3pt] (2.0, 0.7) rectangle (10.0, 1.3);
+    \node[align=center, font=\small\bfseries, text=blue!90!black] at (6.0, 1.0) {Probeta: Tramo de cable conductor ($L = 20\text{ m}$, $R_x \approx 1{,}06\,\Omega$)};
+
+    % Terminales sobre el cable
+    % 1: Corriente entrada
+    \draw[fill=blue!30, draw=blue!90!black, line width=1pt] (2.5, 1.3) circle (3pt) node[above=4pt, font=\bfseries\footnotesize, text=blue!90!black] {1};
+    % 2: Corriente salida
+    \draw[fill=blue!30, draw=blue!90!black, line width=1pt] (9.5, 1.3) circle (3pt) node[above=4pt, font=\bfseries\footnotesize, text=blue!90!black] {2};
+    % 3: Potencial (+)
+    \draw[fill=red!30, draw=red!90!black, line width=1pt] (4.0, 0.7) circle (3pt) node[below=4pt, font=\bfseries\footnotesize, text=red!90!black] {3};
+    % 4: Potencial (-)
+    \draw[fill=red!30, draw=red!90!black, line width=1pt] (8.0, 0.7) circle (3pt) node[below=4pt, font=\bfseries\footnotesize, text=red!90!black] {4};
+
+    % --- LAZO DE CORRIENTE (SUPERIOR) ---
+    % Cable desde terminal 1 hacia arriba pasando por rc1
+    \draw[line width=0.9pt] (2.5, 1.3) -- (2.5, 2.4) to[R, l={\footnotesize $r_{c1}$}] (2.5, 3.8) -- (3.2, 3.8);
+    
+    % Fuente de corriente SK150
+    \draw[fill=white, draw=black, line width=1pt] (3.2, 3.2) rectangle (5.0, 4.4) 
+          node[midway, align=center, font=\footnotesize\bfseries] {Fuente\\SK150};
+    
+    % Conexión entre fuente y amperímetro
+    \draw[line width=0.9pt] (5.0, 3.8) -- (5.6, 3.8) 
+          to[ammeter, l={\footnotesize UT33A+ ($I$)}] (7.4, 3.8) -- (9.5, 3.8)
+          to[R, l={\footnotesize $r_{c2}$}] (9.5, 2.4) -- (9.5, 1.3);
+
+    % Flechas indicadoras de corriente
+    \draw[->, line width=1.2pt, blue!80!black] (6.0, 4.2) -- (7.0, 4.2) node[midway, above=1pt, font=\scriptsize\bfseries] {$I = 100{,}1\text{ mA}$};
+    \draw[->, line width=1.2pt, blue!80!black] (2.2, 2.8) -- (2.2, 2.0);
+    \draw[->, line width=1.2pt, blue!80!black] (9.8, 2.0) -- (9.8, 2.8);
+
+    % --- LAZO DE POTENCIAL (INFERIOR) ---
+    % Conexión desde terminales 3 y 4 hacia el voltímetro
+    \draw[line width=0.9pt] (4.0, 0.7) -- (4.0, -0.6) to[R, l_={\footnotesize $r_{c3}$}] (4.0, -2.0) -- (5.0, -2.0);
+    \draw[line width=0.9pt] (5.0, -2.0) to[voltmeter, l={\footnotesize UT33A+ ($V$)}] (7.0, -2.0) -- (8.0, -2.0) 
+          to[R, l_={\footnotesize $r_{c4}$}] (8.0, -0.6) -- (8.0, 0.7);
+
+    % Cota de tensión medida entre terminales 3 y 4
+    \draw[<->, line width=1pt, red!80!black] (4.0, 0.1) -- (8.0, 0.1) 
+          node[midway, fill=white, inner sep=2pt, font=\footnotesize\bfseries, text=red!80!black] {$V = 106{,}0\text{ mV}$};
+
+    % --- ETIQUETAS EXPLICATIVAS Y DE TERMINALES ---
+    \node[anchor=east, align=right, font=\scriptsize] at (1.9, 3.2) {\textbf{Lazo de Inyección de Corriente}\\Contactos externos (1 y 2)\\con resistencias $r_{c1}, r_{c2}$};
+    \node[anchor=west, align=left, font=\scriptsize] at (10.1, 3.2) {La caída en $r_{c1}, r_{c2}$\\\textbf{no ingresa} a la\\medición de tensión};
+
+    \node[anchor=east, align=right, font=\scriptsize] at (3.5, -1.3) {\textbf{Lazo de Sensado de Potencial}\\Contactos internos (3 y 4)\\con resistencias $r_{c3}, r_{c4}$};
+    \node[anchor=west, align=left, font=\scriptsize] at (8.5, -1.3) {$I_{\text{volt}} \approx 0 \implies \Delta V_{r_{c3,4}} \approx 0$\\Alta impedancia ($10\,\text{M}\Omega$):\\mide directamente $V_{Rx}$};
+
+\end{circuitikz}
+\end{document}

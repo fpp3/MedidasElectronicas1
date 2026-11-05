@@ -6,13 +6,14 @@ Se montó un esquema en paralelo entre la fuente, el multímetro analógico UNIV
 \begin{figure}[!ht]
     \centering
     \input{figures/esquema_contrastacion.tex}
-    \caption{Figura 2 - Esquema para contrastación.}
+    \caption{Esquema para contrastación del voltímetro analógico.}
     \label{fig:esquema_contrastacion}
 \end{figure}
 
 Se procedió a variar la tensión de la fuente, alineando la aguja del UNIVO exactamente sobre las divisiones de la escala
 ($V_L$), y tomando la lectura del patrón digital ($V_P$). Se efectuó una pasada ascendente y una descendente para
-contemplar histéresis y rozamiento mecánico del galvanómetro.
+contemplar histéresis y rozamiento mecánico del galvanómetro. En el cuadro \ref{tab:contrastacion} se presentan los
+valores registrados durante el ensayo.
 
 \begin{figure}[!ht]
     \centering
@@ -41,6 +42,7 @@ contemplar histéresis y rozamiento mecánico del galvanómetro.
         $\Delta V$ (mayor valor) & 0,01 & 0,14 & 0,20 & 0,25 & 0,32 & 0,39 & 0,46 & 0,52 & 0,59 & 0,60 \\ \hline
     \end{tabular}}
     \caption{Valores obtenidos de la contrastación. $V_L$: indicado, $V_P$: patrón, $\Delta V$: Error absoluto.}
+    \label{tab:contrastacion}
 \end{table}
 
 \subsection{Curva de Contrastación}
@@ -59,6 +61,8 @@ contemplar histéresis y rozamiento mecánico del galvanómetro.
     \label{fig:temp_ambiente}
 \end{figure}
 
+En el cuadro \ref{tab:trazabilidad} se detallan las condiciones de trazabilidad, instrumental utilizado y parámetros ambientales registrados durante la experiencia.
+
 \begin{table}[!ht]
     \centering
     \begin{tabular}{|p{4cm}|p{4cm}|p{3cm}|p{3cm}|}
@@ -72,7 +76,7 @@ contemplar histéresis y rozamiento mecánico del galvanómetro.
 \end{table}
 
 \subsection{Cálculo del Índice de Clase}
-Del cuadro de datos, se identifica el Error Absoluto Máximo ($\Delta V = 0,60 \V$ en $V_L = 10 \V$) y se
+A partir de los datos consignados en el cuadro \ref{tab:contrastacion}, se identifica el Error Absoluto Máximo ($\Delta V = 0,60 \V$ en $V_L = 10 \V$) y se
 calcula el índice de clase:
 \begin{equation}
     Clase = \frac{0,60}{10} \cdot 100 = 6 \percent
@@ -85,17 +89,34 @@ fuera de especificación y requeriría una recalibración o reparación, ya que 
 $2,5 \percent$ del fondo de escala establecido para su correcto funcionamiento.}
 
 \section{Experimento 2: Medición de Resistencia por 4 Terminales}
-Se ajustó el generador de corriente (fuente SK150) para entregar una corriente de prueba constante. La probeta consiste
-en un arrollamiento no inductivo de cable (longitud $12 \text{ m} \pm 12 \text{ cm}$).
+Para medir resistencias de valores muy bajos (inferiores a unos pocos Ohms), el método convencional de dos puntas introduce
+un error inadmisible debido a que la resistencia de los cables y de contacto se suma directamente al valor de la probeta.
+Para eliminar este efecto, se implementó el \textbf{método de 4 terminales (Kelvin)}, cuyo principio circuital se presenta
+en la figura \ref{fig:esquema_4terminales}.
+
+\begin{figure}[!ht]
+    \centering
+    \input{figures/esquema_4terminales.tex}
+    \caption{Esquema del circuito de medición de resistencia por 4 terminales (método de Kelvin).}
+    \label{fig:esquema_4terminales}
+\end{figure}
+
+El circuito separa físicamente el lazo de inyección de corriente del lazo de sensado de potencial:
+\begin{itemize}
+    \item \textbf{Lazo de Corriente (Terminales 1 y 2):} Una fuente de corriente constante (módulo SK150) inyecta una corriente continua de prueba $I \approx 100\text{ mA}$ medida con un multímetro digital UNI-T UT33A+ en serie. Las caídas de tensión sobre las resistencias de contacto $r_{c1}$ y $r_{c2}$ quedan fuera del circuito de medición de potencial.
+    \item \textbf{Lazo de Potencial (Terminales 3 y 4):} Se conectan dos terminales independientes directamente sobre los extremos de la probeta bajo prueba $R_x$ hacia un segundo multímetro digital UNI-T UT33A+ en función voltímetro. Debido a la elevada impedancia de entrada del instrumento ($R_{in} \approx 10\text{ M}\Omega$), la corriente por las puntas de potencial es prácticamente nula ($I_v \approx 0$). Por ende, la caída de tensión sobre las resistencias parásitas $r_{c3}$ y $r_{c4}$ es despreciable ($\Delta V_{r_{c}} \approx 0$), midiendo directamente la tensión $V_{Rx} = I \cdot R_x$.
+\end{itemize}
+
+La probeta ensayada consiste en un arrollamiento no inductivo de cable de cobre con una longitud de $12\text{ m} \pm 12\text{ cm}$. En el cuadro \ref{tab:medicion_4term} se muestran los valores medidos en forma simultánea de corriente y caída de tensión, así como el valor resultante de la resistencia.
 
 \begin{table}[!ht]
     \centering
     \begin{tabular}{|c|c|c|}
         \hline
         $V$ [$\mV$] & $I$ [$\mA$] & $R = V/I$ [$\ohm$] \\ \hline
-        56,8 & 100,0 & 0,568 \\ \hline
+        106,0 & 100,1 & 1,059 \\ \hline
     \end{tabular}
-    \caption{Medición directa de tensión y corriente en la probeta.}
+    \caption{Medición directa de tensión y corriente en la probeta por el método de 4 terminales.}
     \label{tab:medicion_4term}
 \end{table}
 
@@ -109,81 +130,78 @@ en un arrollamiento no inductivo de cable (longitud $12 \text{ m} \pm 12 \text{ 
     \hfill
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{pictures/Medicion_Resistencia_4term.jpeg}
-        \caption{Conexión de las 4 puntas sobre la probeta.}
+        \includegraphics[width=\textwidth]{pictures/IMG_20261022_193557.jpg}
+        \caption{Conexión de las 4 puntas y lectura simultánea en ambos multímetros UT33A+.}
     \end{subfigure}
-    \caption{Montaje del experimento de 4 terminales, inyectando $100 \mA$ y midiendo la caída de tensión en
-    milivoltios.}
+    \caption{Montaje experimental de 4 terminales inyectando $100{,}1\mA$ y midiendo la caída de $106{,}0\mV$ en la probeta.}
     \label{fig:montaje_4term}
 \end{figure}
 
 \subsection{Cálculo de la Incertidumbre}
-Los errores relativos parciales se suman para obtener el error relativo máximo total de la medición indirecta de $R$:
+Para la determinación de la incertidumbre en la medición indirecta de $R = V/I$, los errores relativos máximos parciales se suman linealmente para obtener la cota superior del error relativo:
 \begin{equation}
     \frac{\Delta R}{R} = \frac{\Delta V}{V} + \frac{\Delta I}{I}
     \label{eq:incertidumbre_prop}
 \end{equation}
 
-Las incertidumbres $\Delta V$ y $\Delta I$ se obtienen de los manuales de los instrumentos. Para el multímetro UNI-T
-UT33A+ (usado como milivoltímetro en rango $200.0 \mV$, con una resolución de
-0,1mV), se tiene una exactitud de $\pm(0,7 \percent + 3 \text{
-dig.})$ según el manual del fabricante. Para el Pro'sKit MT-1210 (usado como
-miliamperímetro en rango $10 \A$, con una resolución de 0,1A), se tiene una 
-exactitud de $\pm(3,0 \percent + 5 \text{ dig.})$. Se usó el rango de 10A para
-medir corriente debido a una imposibilidad de usar otros rangos inferiores 
-(fusibles correspondientes quemados).
+Tanto la caída de tensión como la corriente se registraron mediante multímetros digitales UNI-T UT33A+:
+\begin{itemize}
+    \item \textbf{Multímetro de Tensión (UT33A+):} Conectado en posición $V\text{=--}$ (autorango en escala de $2{,}000\V$), registrando $V = 0{,}106\V = 106{,}0\mV$ con una resolución de $0{,}001\V$ ($1\mV$). Según la hoja de especificaciones del fabricante, la exactitud para este rango es $\pm(0{,}5\percent + 2\text{ dígitos})$.
+    \item \textbf{Multímetro de Corriente (UT33A+):} Conectado en posición $\mA\text{=--}$ (escala de $200{,}0\mA$), registrando $I = 100{,}1\mA$ con una resolución de $0{,}1\mA$. Según el manual del fabricante, la exactitud para este rango es $\pm(1{,}0\percent + 2\text{ dígitos})$.
+\end{itemize}
 
-Considerando a la especificación de exactitud como:
-
+Considerando a la especificación de exactitud del fabricante expresada en la forma:
 \begin{equation}
     \pm\left(a\percent\,\text{rdg} + b\,\text{dig}\right)
     \label{eq:exactitud}
 \end{equation}
-
-el cálculo para la incertidumbre es:
-
+la incertidumbre absoluta instrumental resulta:
 \begin{equation}
-    \Delta x = \pm\left(\frac{a\percent \cdot \text{lectura}}{100} + b \cdot \text{último dígito}\right)
+    \Delta x = \pm\left(\frac{a\percent \cdot \text{lectura}}{100} + b \cdot \text{resolución}\right)
     \label{eq:calculo_incertidumbre}
 \end{equation}
 
-Entonces:
-
+Aplicando los valores experimentales:
 \begin{equation}
-    \Delta V = \pm\left(\frac{0,7\percent \cdot 56,8[\mV]}{100} + 3 \cdot 0,1[\mV]\right) = 0,6976\mV
+    \Delta V = \pm\left(\frac{0{,}5\percent \cdot 0{,}106\V}{100} + 2 \cdot 0{,}001\V\right) = \pm 0{,}00253\V = \pm 2{,}53\mV
     \label{eq:incertidumbre_tension}
 \end{equation}
 
 \begin{equation}
-    \Delta I= \pm\left(\frac{3\percent \cdot 0,1[\A]}{100} + 5 \cdot 0,1[\A]\right) = 0,503A
+    \Delta I = \pm\left(\frac{1{,}0\percent \cdot 100{,}1\mA}{100} + 2 \cdot 0{,}1\mA\right) = \pm 1{,}201\mA
     \label{eq:incertidumbre_corriente}
 \end{equation}
 
-Para la incertidumbre relativa se tiene que:
-
+A partir de las incertidumbres absolutas, se obtienen las incertidumbres relativas:
 \begin{equation}
-    \frac{\Delta V}{V} = \frac{0,6976\mV}{56,8\mV} = 0,0123
+    \frac{\Delta V}{V} = \frac{0{,}00253\V}{0{,}106\V} = 0{,}02387 \approx 2{,}39\percent
     \label{eq:incertidumbre_rel_tension}
 \end{equation}
 
 \begin{equation}
-    \frac{\Delta I}{I} = \frac{0,503A}{0,1A} = 5,03
+    \frac{\Delta I}{I} = \frac{1{,}201\mA}{100{,}1\mA} = 0{,}01200 \approx 1{,}20\percent
     \label{eq:incertidumbre_rel_corriente}
 \end{equation}
 
-Con estos valores se puede determinar la incertidumbre de la resistencia medida:
-
+Por lo tanto, la incertidumbre relativa total combinada (peor caso) de la resistencia calculada es:
 \begin{equation}
-    \frac{\Delta R}{R} = \frac{\Delta V}{V} + \frac{\Delta I}{I} = 0,0123 + 5,03 = 5,0423
+    \frac{\Delta R}{R} = \frac{\Delta V}{V} + \frac{\Delta I}{I} = 0{,}02387 + 0{,}01200 = 0{,}03587 \approx 3{,}59\percent
     \label{eq:incertidumbre_resistencia}
 \end{equation}
 
+La incertidumbre absoluta de la resistencia resulta:
 \begin{equation}
-    \Delta R = \frac{\Delta R}{R} \cdot R = 5,0423 \cdot 0,568 = 2,86 \Omega
+    \Delta R = \frac{\Delta R}{R} \cdot R = 0{,}03587 \cdot 1{,}05894\,\Omega \approx 0{,}038\,\Omega \approx 0{,}04\,\Omega
     \label{eq:incertidumbre_abs_r}
 \end{equation}
 
-Estos valores se resumen en el cuadro \ref{tab:incertidumbres}.
+\textit{Nota:} Si se evalúa la incertidumbre combinada mediante la raíz de la suma de cuadrados (RSS), se obtiene:
+\begin{equation}
+    \left(\frac{\Delta R}{R}\right)_{\text{RSS}} = \sqrt{\left(\frac{\Delta V}{V}\right)^2 + \left(\frac{\Delta I}{I}\right)^2} = \sqrt{(0{,}02387)^2 + (0{,}01200)^2} = 0{,}0267 \approx 2{,}67\percent
+\end{equation}
+lo que conduce a $\Delta R_{\text{RSS}} \approx 0{,}028\,\Omega$.
+
+Todos los valores de incertidumbre calculados se resumen de forma comparativa en el cuadro \ref{tab:incertidumbres}.
 
 \begin{table}[!ht]
     \centering
@@ -192,15 +210,15 @@ Estos valores se resumen en el cuadro \ref{tab:incertidumbres}.
         \hline
         Magnitud & Valor Medido & Incertidumbre Abs. ($\Delta x$) & Inc. Relativa $\left(\frac{\Delta x}{X}\right)$ &
         Inc. Rel. Porcentual $\left(\frac{\Delta x}{X} \cdot 100\right)$ \\ \hline
-        $V$ & $56,8 \mV$ & $0,6976 \mV$ & 0,0123 & $1,23 \percent$ \\ \hline
-        $I$ & $100,0 \mA$ & $503 \mA$ & 5,03 & $503 \percent$ \\ \hline
-        $R = V/I$ & $0,568 \ohm$ & $2,86 \ohm$ & 5,0423 & $504,23 \percent$ \\ \hline
+        $V$ & $106{,}0 \mV$ ($0{,}106 \V$) & $2{,}53 \mV$ ($0{,}00253 \V$) & 0,0239 & $2{,}39 \percent$ \\ \hline
+        $I$ & $100{,}1 \mA$ & $1{,}201 \mA$ & 0,0120 & $1{,}20 \percent$ \\ \hline
+        $R = V/I$ & $1{,}059 \ohm$ & $0{,}038 \ohm$ & 0,0359 & $3{,}59 \percent$ \\ \hline
     \end{tabular}}
-    \caption{Desglose de valores de incertidumbre.}
+    \caption{Desglose de valores de medición e incertidumbre por el método de 4 terminales.}
     \label{tab:incertidumbres}
 \end{table}
 
-\textbf{Resultado Final:} $R = (0,568 \pm 2,86) \ohm$
+\textbf{Resultado Final:} $R = (1{,}06 \pm 0{,}04)\,\ohm$ \quad (o con tres cifras decimales: $R = (1{,}059 \pm 0{,}038)\,\ohm$)
 
 \section{Experimento 3: Resistencia de un Sistema de Puesta a Tierra}
 \textbf{Fecha de la experiencia:} Jueves 27 de Marzo en el horario de clases.
@@ -262,4 +280,3 @@ Considerando la lectura obtenida en el rango de $40 \ohm$, la incertidumbre pres
 \begin{itemize}
     \item \textbf{$R_j$ (con incertidumbre):} $(0,79 \pm 0,22) \ohm$
 \end{itemize}
-
